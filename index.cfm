@@ -1,6 +1,6 @@
 <cfparam  name="message" default="v">
 <cfinclude  template = "include/header.cfm"  runOnce = "true">  
-   <body class="bg-gradient-danger b1">
+   <body class="bg-gradient-dark b1">
     <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -9,20 +9,43 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-gradient-primary b2"></div>
-                            <div class="col-lg-6 bg-gradient-dark">
+                            <div class="col-lg-6 d-none d-lg-block bg-gradient-primary b2">
+                            </div>
+                            <div class="col-lg-6 bg-gradient-danger">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                    </div>
-                                    <form class="user">
+                                    </div>   
+                                    <div class="row pt-5">
+                                            <cfif message EQ hash('1','sha')>
+                                                <div class="alert alert-success alert-dismissible">
+                                                    <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    
+                                                </div>  
+                                            <cfelseif message EQ hash('2','sha')>
+                                                <div class="alert alert-danger alert-dismissible">
+                                                    <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        Please fill username!!
+                                                </div>  
+                                            <cfelseif message EQ hash('3','sha')>
+                                                <div class="alert alert-danger alert-dismissible">
+                                                    <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        Please fill Password!!
+                                                </div>   
+                                            <cfelseif message EQ hash('4','sha')>
+                                                <div class="alert alert-danger alert-dismissible">
+                                                    <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        Please fill Correct Username and password !!
+                                                </div>                                                                    
+                                            </cfif> 
+                                    </div>                                 
+                                    <form class="user" method="post" name="loginForm" action="cfc/login.cfc?method=loginAction" onsubmit="return validateLoginForm()">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <input type="text" name="username" class="form-control form-control-user"                                               
+                                                placeholder="Enter Username.">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input type="password" name="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
@@ -32,11 +55,8 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-danger btn-user btn-block">
-                                            Login
-                                        </a>
-                                        <hr>
-                                     
+                                        <button type="submit"  name="loginButton" class="btn btn-danger btn-user btn-block">Login</button>                                      
+                                        <hr>                                     
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -50,10 +70,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 <cfinclude  template = "include/footer.cfm">          

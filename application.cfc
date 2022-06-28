@@ -5,11 +5,13 @@ component {
     this.sessionManagement  = true;
     this.sessionTimeout = CreateTimeSpan(0, 0, 30, 0);
     this.scriptProtect="all";
-    function onError(Exception,EventName){
-        writeOutput('<center><h1>An error occurred</h1>
-        <p>Please Contact the developer</p>
-        <p>Error details: #Exception.message#</p></center>');
-    } 
+
+    function OnApplicationStart(requestname)
+    {
+        application.obj=createObject('component','cfc.theatre');
+        this.return=true;
+    }
+
 
     function onMissingTemplate(targetPage){
         writeOutput('<center><h1>This Page is not avilable.</h1>
