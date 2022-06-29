@@ -1,4 +1,5 @@
 <cfinclude  template = "header.cfm"  runOnce = "true"> 
+
 <cfparam  name="message" default="v"> 
 <cfparam  name="status" default="v"> 
                 <!-- Begin Page Content -->
@@ -77,7 +78,7 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>                                
-                                <cfset theatreData= application.obj.getTheatre()>                                	                    
+                                <cfset theatreData= application.obj.getTheatre()>    	                    
                             
                                           <cfoutput query="theatreData">
                                             <tr>
@@ -89,17 +90,78 @@
                                                 <td>  <button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target=".viewModal-#id#">View</button></td>
                                                 <td>  <button type="button" class="btn btn-sm btn-outline-danger" onClick="editData(#id#)">Edit</button></td>
                                                 <td> <a href="delete.cfm?id=#id#"><button type="button" class="btn btn-sm btn-outline-danger">Delete</button></a></td>
-                                                                                                              
                                             </tr>
-                                        
+                                        <div class="modal fade bd-example-modal-lg viewModal-#id#" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-md" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <h3>Theatre Details</h3>
+                                                                    <hr>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                  Theatre  Name 
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    : #theatre_name#  
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    Theatre Email
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                : #theatre_email#
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    Phone Number
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                : #theatre_phone#
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    Theatre Address 
+                                                                </div>
+                                                            <div class="col-md-8">
+                                                                    : #theatre_address#, #theatre_street#,#theatre_pincode#
+                                                            </div>
+                                                           </div>                                                    
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                               Theatre Image 
+                                                                </div>
+                                                            <div class="col-md-8">
+                                                                : <img src="../#theatre_image#" width="100px" height="100px" >
+                                                            </div>
+                                                        </div>   
+                                                    </div>                                                       
+                                                    <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                
+                                     <!-- Modal -->                                        
                                     </cfoutput>    
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- End of Main Content -->
+                <!-- /.container-fluid -->
+         </div>
+            <!-- End of Main Content -->   
+           
 <cfinclude  template = "footer.cfm"  runOnce = "true">  
+  

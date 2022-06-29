@@ -1,5 +1,5 @@
-        
-            <!-- Footer -->
+             <script src="../assets/js/custom.js"></script>  
+                    <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="LastName">Pincode*</label>
-                                    <input name="pincode" type="text" id="pincode" class="form-control" required>
+                                    <input name="pincode" id="pn1" type="text" id="pincode" class="form-control" required>
                                 </div>
                          
                                 <input type="hidden" name="id"  id="id" value="0" /> 
@@ -125,12 +125,7 @@
                 </div>
             </div>
         </div>    
-       <!-- Modal -->    
-
-
-
-       
-    
+       <!-- Modal --> 
     
     
     <!-- Bootstrap core JavaScript-->
@@ -149,7 +144,10 @@
 
     <!-- Page level custom scripts -->
     <script src="../resources/js/demo/datatables-demo.js"></script>
+      <!-- user level custom scripts -->
+   
 
     </body>
 
 </html>
+

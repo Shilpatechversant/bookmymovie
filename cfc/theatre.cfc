@@ -1,61 +1,58 @@
 <cfcomponent name="theatre">
     <cffunction  name="addTheatre" access="remote">                
-                    <cfargument  name="theatre_name" type="string">
-                    <cfargument  name="theatre_email" type="string">
-                    <cfargument  name="phone" type="string">                    
-                    <cfargument  name="address" type="string">
-                    <cfargument  name="street" type="string">
-                    <cfargument  name="pincode" type="string">  
+        <cfargument  name="theatre_name" type="string">
+        <cfargument  name="theatre_email" type="string">
+        <cfargument  name="phone" type="string">                    
+        <cfargument  name="address" type="string">
+        <cfargument  name="street" type="string">
+        <cfargument  name="pincode" type="string">  
 
-                    <cfif arguments.theatre_name eq "">
-                        <cfset local.msg=hash('2','sha')>
-                        <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
-                    </cfif>      
-                    <cfif arguments.theatre_email eq "">
-                        <cfset local.msg=hash('2','sha')>
-                        <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
-                    </cfif>
-                    <cfif arguments.phone eq "">
-                        <cfset local.msg=hash('2','sha')>
-                        <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
-                    </cfif>                  
-                    <cfif arguments.address eq "">
-                        <cfset local.msg=hash('2','sha')>
-                        <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
-                    </cfif>
-                    <cfif arguments.street eq "">
-                    <cfset local.msg=hash('2','sha')>
-                        <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
-                    </cfif>                       
-                    <cfif arguments.pincode eq "">
-                        <cfset local.msg=hash('2','sha')>
-                        <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
-                    </cfif> 
+        <cfif arguments.theatre_name eq "">
+            <cfset local.msg=hash('2','sha')>
+            <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
+        </cfif>      
+        <cfif arguments.theatre_email eq "">
+            <cfset local.msg=hash('2','sha')>
+            <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
+        </cfif>
+        <cfif arguments.phone eq "">
+            <cfset local.msg=hash('2','sha')>
+            <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
+        </cfif>                  
+        <cfif arguments.address eq "">
+            <cfset local.msg=hash('2','sha')>
+            <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
+        </cfif>
+        <cfif arguments.street eq "">
+        <cfset local.msg=hash('2','sha')>
+            <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
+        </cfif>                       
+        <cfif arguments.pincode eq "">
+            <cfset local.msg=hash('2','sha')>
+            <cflocation url="../cfm/list_theatre.cfm?message=#local.msg#">
+        </cfif> 
             <cfif structKeyExists(form,'id')>
                 <cfif form.id GT 0>                     
-                        <cfif form.file != "">
-                            <cffile action="upload"
-                            fileField="file"
-                            destination="C:\ColdFusion2021\cfusion\wwwroot\movieticket\assets\userImage"
-                            nameconflict="makeunique"
-                            result="img">
-                            <cfset img = "assets/userImage/#img.clientFile#">
-                                <cfelse>
-                                <cfset img = "#arguments.old_image#">
-                        </cfif>
+                    <cfif form.file != "">
+                        <cffile action="upload"
+                        fileField="file"
+                        destination="C:\ColdFusion2021\cfusion\wwwroot\movieticket\assets\userImage"
+                        nameconflict="makeunique"
+                        result="img">
+                        <cfset img = "assets/userImage/#img.clientFile#">
+                            <cfelse>
+                            <cfset img = "#arguments.old_image#">
+                    </cfif>
                         <cfquery datasource="newtech">
                             UPDATE bookmymovie.theatre
                             SET 
                             theatre_name=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.theatre_name#">,
-                            fname=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.fname#">,
-                            lname=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.lname#">,
-                            gender=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.gender#">,
-                            dob=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.dob#">,
-                            image = <cfqueryparam CFSQLType="cf_sql_varchar" value="#img#">,
-                            address=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.address#">,
-                            street=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.street#">,
-                            email=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.email#">,
-                            phone=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.phone#">
+                            theatre_email=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.theatre_email#">,
+                            theatre_phone=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.phone#">,                         
+                            theatre_image = <cfqueryparam CFSQLType="cf_sql_varchar" value="#img#">,
+                            theatre_address=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.address#">,
+                            theatre_street=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.street#">,
+                            theatre_pincode=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.pincode#">                         
                             WHERE id = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#arguments.id#"> 
                         </cfquery>
                         <cfset local.msg=hash('8','sha')>
@@ -110,5 +107,42 @@
             </cfquery>
         <cfreturn theatreData>
     </cffunction>
+
+    <cffunction  name="getContact" access="remote" returnformat="json" output="false">
+        <cfargument name="id" type="numeric" required="true" />
+        <cfquery name="getItem" datasource="newtech" returntype="array">
+        SELECT * FROM bookmymovie.theatre 
+        WHERE id = <cfqueryparam value="#id#" cfsqltype="cf_sql_integer">
+        </cfquery>
+        <cfreturn getItem />
+   </cffunction>
+
+   <cffunction  name="deleteTheatre" access="public" output="true">
+    <cfargument name="theatreId" type="any" required="true" />
+    <cfquery datasource="newtech" name="delete_page">
+        DELETE 
+        FROM bookmymovie.theatre
+        WHERE id = <cfqueryparam CFSQLType="CF_SQL_INTEGER" value="#theatreId#">
+    </cfquery>
+    <cfreturn>
+</cffunction>
+
+<cffunction name="getEmailData" access="remote" returnFormat = "json" >
+    <cfargument name="email" type="string" required="false" >
+    <cfquery name="contacts"  datasource="newtech" result="email_res">
+        SELECT * FROM bookmymovie.theatre
+        WHERE theatre_email=<cfqueryparam value="#arguments.email#" cfsqltype="CF_SQL_VARCHAR">
+    </cfquery>  
+    <cfreturn email_res> 
+</cffunction>
+
+<cffunction name="getPhoneData" access="remote" returnFormat = "json" >
+    <cfargument name="phone" type="string" required="false" >
+    <cfquery name="contacts"  datasource="newtech" result="phone_res">
+        SELECT * FROM bookmymovie.theatre
+        WHERE theatre_phone=<cfqueryparam value="#arguments.phone#" cfsqltype="CF_SQL_VARCHAR">
+    </cfquery>  
+    <cfreturn phone_res> 
+</cffunction>
 
  </cfcomponent>       

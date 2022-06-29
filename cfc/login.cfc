@@ -19,6 +19,7 @@
         <cfif outputdata.RECORDCOUNT GT 0>
             <cfset Session.userId=loginResult.id>
             <cfset Session.username=loginResult.username>
+             <cfset Session.role=loginResult.role>
             <cfset Session.loggedin=true />
             <cfif Session.loggedin eq true>
                 <cflocation url="../cfm/dashboard.cfm" addtoken ="no">
