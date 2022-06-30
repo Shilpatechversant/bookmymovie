@@ -1,4 +1,4 @@
-<cfinclude  template = "header.cfm"  runOnce = "true"> 
+<cfinclude  template = "../header.cfm"  runOnce = "true"> 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
@@ -97,4 +97,4 @@
             </div>
             <!-- End of Main Content -->
 
-<cfinclude  template = "footer.cfm"  runOnce = "true">  
+<cfinclude  template = "../footer.cfm"  runOnce = "true">  

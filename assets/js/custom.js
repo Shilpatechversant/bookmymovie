@@ -1,6 +1,6 @@
  const editData = (id) => {  
         $.ajax({
-            url: "../cfc/theatre.cfc",
+            url: "../../cfc/theatre.cfc",
             type: "post", 
             dataType: "json",
             data: {
@@ -28,7 +28,7 @@
      
       var email_id= document.getElementById("email1").value;    
       $.ajax({   
-            url: "../cfc/theatre.cfc",
+            url: "../../cfc/theatre.cfc",
             type: 'get',
             dataType:"json",
             data:{
@@ -55,7 +55,7 @@
      
       var phone_id= document.getElementById("phone1").value;    
       $.ajax({   
-            url: "../cfc/theatre.cfc",
+            url: "../../cfc/theatre.cfc",
             type: 'get',
             dataType:"json",
             data:{
@@ -77,4 +77,67 @@
             }         
       });       
       }
+
+
+
+      function printTable() {
+    
+        var printContents = document.getElementById('tableData').innerHTML;    
+        var originalContents = document.body.innerHTML;   
+        document.body.innerHTML = printContents;   
+        window.print(); 
+        //document.body.innerHTML = originalContents;
+    }
+    function selectElementContents(el) {
+        var body = document.body, range, sel;
+        if (document.createRange && window.getSelection) {
+            range = document.createRange();
+            sel = window.getSelection();
+            sel.removeAllRanges();
+            try {
+                range.selectNodeContents(el);
+                sel.addRange(range);
+            } catch (e) {
+                range.selectNode(el);
+                sel.addRange(range);
+            }
+            document.execCommand("copy");
+    
+        } else if (body.createTextRange) {
+            range = body.createTextRange();
+            range.moveToElementText(el);
+            range.select();
+            range.execCommand("Copy");
+        }
+    }
+    
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy',  
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [ 1, 2, 3, 4 ]
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [ 1, 2, 3, 4 ]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [ 1, 2, 3, 4 ]
+                        }
+                    },
+                    'print', 'colvis'
+                ]
+            } );
+        } );
+    
+
      

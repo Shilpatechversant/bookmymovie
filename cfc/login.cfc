@@ -22,7 +22,7 @@
              <cfset Session.role=loginResult.role>
             <cfset Session.loggedin=true />
             <cfif Session.loggedin eq true>
-                <cflocation url="../cfm/dashboard.cfm" addtoken ="no">
+                <cflocation url="../cfm/admin/dashboard.cfm" addtoken ="no">
             </cfif>
         <cfelse>
             <cfset local.msg=hash('4','sha')>

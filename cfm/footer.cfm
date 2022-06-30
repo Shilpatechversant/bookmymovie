@@ -1,4 +1,4 @@
-             <script src="../assets/js/custom.js"></script>  
+             <script src="../../assets/js/custom.js"></script>  
                     <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -34,7 +34,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../cfc/logout.cfc?id=logout">Logout</a>
+                    <a class="btn btn-primary" href="../../cfc/logout.cfc?id=logout">Logout</a>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
                 <div class="modal-body"></div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../cfc/logout.cfc?id=logout">Save</a>
+                    <a class="btn btn-primary" href="../../cfc/logout.cfc?id=logout">Save</a>
                 </div>
             </div>
         </div>
@@ -73,8 +73,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                      <image src="../assets/images/theatre1.jpg" class="theatre-div float-right"> 
-                        <form method="post" action="../cfc/theatre.cfc?method=addTheatre" name="contactform" enctype="multipart/form-data" onsubmit="return validateContactForm()">
+                      <image src="../../assets/images/theatre1.jpg" class="theatre-div float-right"> 
+                        <form method="post" action="../../cfc/theatre.cfc?method=addTheatre" name="contactform" enctype="multipart/form-data" onsubmit="return validateContactForm()">
                             <div class="row">                               
                                 <div class="col-md-4">
                                     <label  for="TheatreName">Theatre Name*</label>
@@ -125,26 +125,35 @@
                 </div>
             </div>
         </div>    
-       <!-- Modal --> 
-    
+       <!-- Modal -->    
     
     <!-- Bootstrap core JavaScript-->
-    <script src="../resources/vendor/jquery/jquery.min.js"></script>
-    <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../resources/vendor/jquery/jquery.min.js"></script>
+    <script src="../../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="../resources/js/sb-admin-2.min.js"></script>
+    <script src="../../resources/js/sb-admin-2.min.js"></script>
+
+
 
     <!-- Page level plugins -->
-    <script src="../resources/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="../../resources/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="../resources/js/demo/datatables-demo.js"></script>
+    <script src="../../resources/js/demo/datatables-demo.js"></script>
       <!-- user level custom scripts -->
+
+          <!-- Custom scripts datatable for all pages-->
+
+    <script src="../../resources/vendor/tabledata/buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../../resources/vendor/tabledata/JSZip-2.5.0/jszip.min.js"></script>
+    <script src="../../resources/vendor/tabledata/pdfmake/pdfmake.min.js"></script>
+    <script src="../../resources/vendor/tabledata/pdfmake/vfs_fonts.js"></script>
+    <script src="../../resources/vendor/tabledata/buttons/js/buttons.html5.min.js"></script>
    
 
     </body>

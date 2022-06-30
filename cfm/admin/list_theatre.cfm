@@ -1,4 +1,4 @@
-<cfinclude  template = "header.cfm"  runOnce = "true"> 
+<cfinclude  template = "../header.cfm"  runOnce = "true"> 
 
 <cfparam  name="message" default="v"> 
 <cfparam  name="status" default="v"> 
@@ -42,14 +42,50 @@
                                     <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         Theatre Updated Successfully!!
                                 </div> 
+                            <cfelseif message EQ hash('9','sha')>
+                                <div class="alert alert-success alert-dismissible">
+                                    <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        File size should be less than 1 mb !!
+                                </div>
                             </cfif>            
                         
                          <!-- Content Row -->
                              <!-- DataTales Example -->
+                      
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                        <button class="btn btn-danger btn-icon-split btn-sm float-right" data-toggle="modal" data-target="#AddTheatreModal">Add New Theatre</button>                         
+                      <div class="card-header py-3">                    
+                             <button class="btn btn-danger btn-icon-split btn-sm float-right" data-toggle="modal" data-target="#AddTheatreModal">Add New Theatre</button>                         
                         </div>
+                            <nav class="navbar navbar-expand-sm navbar-dark bg-dark table_links">  
+                                <div class="collapse navbar-collapse" id="navbarText">
+                                    <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item" >
+                                        <a class="nav-link table_nav"
+                                         onclick="selectElementContents( document.getElementById('dataTable') );">Copy 
+                                         <span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="nav-item" >
+                                        <a class="nav-link table_nav" href="#">Copy <span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link table_nav" href="#">CSV</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link table_nav" href="#">Excel</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link table_nav" href="theatre_pdf.cfm">PDF</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link table_nav" href="#">Print</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="#">Column Visibilty</a>
+                                    </li>
+                                    </ul>                    
+                                </div>
+                            </nav>
+                  
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -82,7 +118,7 @@
                             
                                           <cfoutput query="theatreData">
                                             <tr>
-                                                <td><img src="../#theatre_image#" width="100px" height="100px" class="li-section" /></td>
+                                                <td><img src="../../#theatre_image#" width="100px" height="100px" class="li-section" /></td>
                                                 <td>#theatre_name#</td>
                                                 <td>#theatre_email#</td>
                                                 <td>#theatre_phone#</td>
@@ -163,5 +199,5 @@
          </div>
             <!-- End of Main Content -->   
            
-<cfinclude  template = "footer.cfm"  runOnce = "true">  
+<cfinclude  template = "../footer.cfm"  runOnce = "true">  
   
