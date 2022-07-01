@@ -1,4 +1,4 @@
-             <script src="../../assets/js/custom.js"></script>  
+        
                     <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -11,7 +11,6 @@
 
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
         
@@ -125,38 +124,36 @@
                 </div>
             </div>
         </div>    
-       <!-- Modal -->    
-    
-    <!-- Bootstrap core JavaScript-->
-    <script src="../../resources/vendor/jquery/jquery.min.js"></script>
-    <script src="../../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Modal -->  
+        <!-- Custom scripts datatable for all pages-->    
+        <!-- Bootstrap core JavaScript-->
+        <script src="../../resources/vendor/jquery/jquery.min.js"></script>
+        <script src="../../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="../../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="../../resources/js/sb-admin-2.min.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="../../resources/js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="../../resources/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="../../resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="../../resources/js/demo/datatables-demo.js"></script>
+        <!-- user level custom scripts -->
+        <script src="../../resources/vendor/tabledata/buttons/js/dataTables.buttons.min.js"></script>
 
 
 
-    <!-- Page level plugins -->
-    <script src="../../resources/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../../resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../../resources/js/demo/datatables-demo.js"></script>
-      <!-- user level custom scripts -->
-
-          <!-- Custom scripts datatable for all pages-->
-
-    <script src="../../resources/vendor/tabledata/buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../../resources/vendor/tabledata/JSZip-2.5.0/jszip.min.js"></script>
-    <script src="../../resources/vendor/tabledata/pdfmake/pdfmake.min.js"></script>
-    <script src="../../resources/vendor/tabledata/pdfmake/vfs_fonts.js"></script>
-    <script src="../../resources/vendor/tabledata/buttons/js/buttons.html5.min.js"></script>
-   
-
+        <script src="../../resources/vendor/tabledata/JSZip-2.5.0/jszip.min.js"></script>
+        <script src="../../resources/vendor/tabledata/pdfmake/pdfmake.min.js"></script>
+        <script src="../../resources/vendor/tabledata/pdfmake/vfs_fonts.js"></script>
+        <script src="../../resources/vendor/tabledata/buttons/js/buttons.html5.min.js"></script> 
+        <script src="../../resources/vendor/tabledata/DataTables-1.12/js/dataTables.bootstrap.min.js"></script>
+        <script src="../../resources/vendor/tabledata/DataTables-1.12/js/jquery.dataTables.min.js"></script>
+        <script src="../../assets/js/custom.js"></script> 
     </body>
-
 </html>
 

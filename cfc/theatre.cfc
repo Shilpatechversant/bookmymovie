@@ -120,17 +120,7 @@
         WHERE id = <cfqueryparam value="#id#" cfsqltype="cf_sql_integer">
         </cfquery>
         <cfreturn getItem />
-   </cffunction>
-
-   <cffunction  name="deleteTheatre" access="public" output="true">
-    <cfargument name="theatreId" type="any" required="true" />
-    <cfquery datasource="newtech" name="delete_page">
-        DELETE 
-        FROM bookmymovie.theatre
-        WHERE id = <cfqueryparam CFSQLType="CF_SQL_INTEGER" value="#theatreId#">
-    </cfquery>
-    <cfreturn>
-</cffunction>
+   </cffunction>  
 
 <cffunction name="getEmailData" access="remote" returnFormat = "json" >
     <cfargument name="email" type="string" required="false" >
@@ -156,5 +146,38 @@
     </cfquery>
     <cfreturn theatre_details>
 </cffunction>
+
+<cffunction name="deleteTheatre" access="remote" output="true">
+    <cfargument  name="id" type="string">  
+    <cftry>      
+        <cfquery name="delete_theatre"  result="theatre_del">
+            DELETE FROM bookmymovie.theatre 
+            WHERE id=<cfqueryparam value="#arguments.id#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>   
+        <cfcatch type = "Database"> 
+                <!--- The message to display. ---> 
+                <h3>You've Thrown a Database <b>Error</b></h3> 
+                <cfoutput> 
+                <!--- The diagnostic message from ColdFusion. ---> 
+                <p>#cfcatch.message#</p> 
+                <p>Caught an exception, type = #CFCATCH.TYPE#</p> 
+                <p>The contents of the tag stack are:</p> 
+                <cfdump var="#cfcatch.tagcontext#"> 
+                </cfoutput> 
+                <cfabort>
+        </cfcatch> 
+    </cftry>         
+    <cfset local.msg=hash('1','sha')>    
+    <cflocation url="../cfm/admin/list_theatre.cfm?status=#local.msg#"> 
+</cffunction>
+
+   <cffunction name="getTheatreDetail" access="public" output="true">
+        <cfargument name="id" type="integer" required="false" >
+        <cfquery name="theatres" result="theatre_data" >
+            SELECT * FROM bookmymovie.theatre
+            WHERE id=<cfqueryparam value="#arguments.id#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>  
+        <cfreturn theatres> 
+    </cffunction>
 
  </cfcomponent>       
