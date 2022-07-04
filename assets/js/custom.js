@@ -1,3 +1,29 @@
+function validateScreenForm() { 
+     
+    let sname = document.forms["screenForm"]["screen_name"].value; 
+    let grate = document.forms["screenForm"]["gold_rate"].value;   
+    let srate = document.forms["screenForm"]["silver_rate"].value;        
+
+    if (sname == "") { 
+      alert("Screen name must be filled out");
+      event.preventDefault();
+      return false;
+    }
+    if (grate == "") {  
+        alert("Gold rate name must be filled out");
+        event.preventDefault();
+        return false;
+      }
+      if (srate == "") {  
+        alert("Silver rate name must be filled out");
+        event.preventDefault();
+        return false;
+      }    
+
+    return true;          
+  }
+ 
+ 
  const editData = (id) => {  
         $.ajax({
             url: "../../cfc/theatre.cfc",
@@ -138,6 +164,82 @@
                 ]
             } );
         } );
+
+        const editScreenData = (id) => {  
+            $.ajax({
+                url: "../../cfc/screen.cfc",
+                type: "post", 
+                dataType: "json",
+                data: {
+                    method: "getScreen",
+                    id
+                },
+                success: function (data){             
+                    if(data && data.length){                
+                        $('#s1').val(data[0].screen_name);
+                        $('#gold_rate').val(data[0].gold_rate); 
+                        $('#silver_rate').val(data[0].silver_rate);                                     
+                        $('#id').val(data[0].id);  
+                        $('#theate_id').val(data[0].theatre_id);                                                                            
+                        $('#AddScreenModal').modal('show');
+                    }
+                }
+            });
+          }
+          
+          function validateScreenTimeForm() { 
+
+                let screen = document.forms["screenTimeForm"]["screens"].value; 
+                let sname = document.forms["screenTimeForm"]["show_name"].value;   
+                let stime = document.forms["screenTimeForm"]["start_time"].value;        
+            
+                if (sname == "")
+                 { 
+                    alert("Show name must be filled out");
+                    event.preventDefault();
+                    return false;
+                }
+                if (screen == "") 
+                {  
+                    alert("Screen must be filled out");
+                    event.preventDefault();
+                    return false;
+                }
+                if (stime == "") 
+                {  
+                    alert("Start time must be filled out");
+                    event.preventDefault();
+                    return false;
+                }       
+                return true;          
+          }
+          const editScreenTimeData = (id) => {  
+            $.ajax({
+                url: "../../cfc/screentime.cfc",
+                type: "post", 
+                dataType: "json",
+                data: {
+                    method: "getScreenTime",
+                    id
+                },
+                success: function (data){             
+                    if(data && data.length){             
+                        $('#theate_id').val(data[0].theatre_id); 
+                        $('#show_name[value="'+data[0].show_name+'"]').attr("selected", "selected"); 
+                        $('#screens[value="'+data[0].screen_id+'"]').attr("selected", "selected");                    
+                        $('#start_time').val(data[0].show_time);                                     
+                        $('#stid').val(data[0].id);                                                                                                  
+                        $('#AddScreenTimeModal').modal('show');
+                    }
+                }
+            });
+          }
+
+   
+        
+
+
+
     
 
      

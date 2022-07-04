@@ -85,19 +85,19 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>                                
-                                <cfset theatreData= application.obj.getTheatre()>                  
-                            
-                                          <cfoutput query="theatreData">
+                                        <cfset theatreData= application.obj.getTheatre()>                         
+                                        <cfoutput query="theatreData">
+                                        <cfset local.theatre_id=toBase64(id)>                                         
                                             <tr>
                                                 <td><img src="../../#theatre_image#" width="100px" height="100px" class="li-section" /></td>
                                                 <td>#theatre_name#</td>
                                                 <td>#theatre_email#</td>
                                                 <td>#theatre_phone#</td>
                                                 <td>#theatre_address#,#theatre_street#,#theatre_pincode#</td>
-                                                <td> <a href="manage_screen.cfm?id=#id#" class="btn btn-outline-danger">Manage Screen & Time</a></td>
+                                                <td> <a href="manage_screen.cfm?theatre_id=#local.theatre_id#" class="btn btn-outline-danger">Manage Screen & Time</a></td>
                                                 <td>  <button type="button" class="btn btn-sm btn-outline-danger" onClick="editData(#id#)">Edit</button></td>
                                                 <td> <a href="../../cfc/theatre.cfc?method=deleteTheatre&id=#id#"><button type="button" class="btn btn-sm btn-outline-danger">Delete</button></a></td>
-                                            </tr>                                                                     
+                                            </tr>                                                                      
                                     </cfoutput>    
                                 </tbody>
                             </table>
