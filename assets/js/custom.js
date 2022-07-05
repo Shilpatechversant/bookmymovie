@@ -235,6 +235,14 @@ function validateScreenForm() {
             });
           }
 
+          function validateMovieForm() { 
+
+            
+            return true;          
+      }
+
+          
+
    
         
 

@@ -37,28 +37,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    
-    <!-- Theatre Modal-->
-    <div class="modal fade" id="TheatreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Theatre</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body"></div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../../cfc/logout.cfc?id=logout">Save</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </div>   
 
     <!--Add theatre Modal-->
       <!-- Modal -->
@@ -153,6 +132,11 @@
         <script src="../../resources/vendor/tabledata/buttons/js/buttons.html5.min.js"></script> 
         <script src="../../resources/vendor/tabledata/DataTables-1.12/js/dataTables.bootstrap.min.js"></script>
         <script src="../../resources/vendor/tabledata/DataTables-1.12/js/jquery.dataTables.min.js"></script>
+       
+        <script src="../../resources/vendor/tabledata/buttons/js/buttons.html5.min.js"></script>
+        <script src="../../resources/vendor/tabledata/buttons/js/buttons.print.min.js"></script>
+        <script src="../../resources/vendor/tabledata/buttons/js/buttons.colVis.min.js"></script>
+
         <script src="../../assets/js/custom.js"></script> 
     </body>
 </html>

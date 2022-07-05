@@ -12,3 +12,7 @@
 .b3{
     background-image: url("../images/theatre1.jpg");
 }
+#movie_title
+{
+    text-align: center;
+}
