@@ -235,11 +235,193 @@ function validateScreenForm() {
             });
           }
 
-          function validateMovieForm() { 
+    function validateMovieForm() { 
+        
+        let movie_name = document.forms["movieForm"]["movie_name"].value; 
+        let rdate = document.forms["movieForm"]["release_date"].value;   
+        let mformat = document.forms["movieForm"]["movie_format"].value; 
+        let genre = document.forms["movieForm"]["genre"].value;
+        let lang = document.forms["movieForm"]["language"].value;  
+        let duration = document.forms["movieForm"]["duration"].value;   
+        let trailer_url = document.forms["movieForm"]["trailer_url"].value;  
+        let poster = document.forms["movieForm"]["poster"].value;  
+        let wallpaper = document.forms["movieForm"]["wallpaper"].value; 
+        let description = document.forms["movieForm"]["description"].value;      
+    
+        if (movie_name == "")
+         { 
+            alert("Movie name must be filled out");
+            event.preventDefault();
+            return false;
+        }
+        if (rdate == "") 
+        {  
+            alert("Release Date must be filled out");
+            event.preventDefault();
+            return false;
+        }
+        if (mformat == "") 
+        {  
+            alert("Movie Format must be filled out");
+            event.preventDefault();
+            return false;
+        }  
+        if (genre == "") 
+        {  
+            alert("Movie genre must be filled out");
+            event.preventDefault();
+            return false;
+        }  
+        if (lang == "") 
+        {  
+            alert("Movie Language must be filled out");
+            event.preventDefault();
+            return false;
+        }  
+        if (duration == "") 
+        {  
+            alert("Movie Duration must be filled out");
+            event.preventDefault();
+            return false;
+        }  
+        if (trailer_url == "") 
+        {  
+            alert("Movie Trailer must be filled out");
+            event.preventDefault();
+            return false;
+        }  
+ 
+        if (description == "") 
+        {  
+            alert("description must be filled out");
+            event.preventDefault();
+            return false;
+        }  
+        return true; 
 
-            
-            return true;          
+               
       }
+
+
+      var loadFile = function(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+          var output = document.getElementById('output');
+          output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      };
+    
+    
+      var loadPoster = function(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+          var output = document.getElementById('output');
+          output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      };
+      var loadWallPaper = function(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+          var output = document.getElementById('output2');
+          output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      };
+
+      function checkMovie()
+   {
+       var movie=$('#movie_name').val();            
+       $.ajax({   
+        url: "../../cfc/movie.cfc",
+        type: 'get',
+        dataType:"json",
+        data:{
+        method:"getMovieName",
+          movie_name:movie             
+        },
+        success: function(data)
+        {
+            console.log(data);            
+            if(data.RECORDCOUNT==1)
+            {                
+                $('.movie_alert').text("Movie Name Already Exists!!");
+                $('#mov_btn').prop('disabled', true);                
+            }
+            else{
+
+                $('.movie_alert').text(" ");
+                $('#mov_btn').prop('disabled', false);
+            }                         
+        }         
+    });
+       
+   }
+
+   function checkTrailerUrl()
+   {
+       var trailer=$('#trailer_url').val();            
+       $.ajax({   
+        url: "../../cfc/movie.cfc",
+        type: 'get',
+        dataType:"json",
+        data:{
+        method:"getTrailerUrl",
+          trailer_name:trailer         
+        },
+        success: function(data)
+        {
+            console.log(data);            
+            if(data.RECORDCOUNT==1)
+            {                
+                $('.trailer_alert').text("Trailer Url Already Exists!!");
+                $('#mov_btn').prop('disabled', true);                
+            }
+            else{
+
+                $('.trailer_alert').text(" ");
+                $('#mov_btn').prop('disabled', false);
+            }                         
+        }         
+    });
+       
+   }
+
+   const editMovieData = (id) => {  
+    $.ajax({
+        url: "../../cfc/movie.cfc",
+        type: "post", 
+        dataType: "json",
+        data: {
+            method: "getMovie",
+            id
+        },
+        success: function (data){             
+            if(data && data.length){  
+                
+                                    
+                $('#movie_name').val(data[0].movie_name);
+                $('#release_date').val(data[0].release_date);
+                $('#movie_format').val(data[0].movie_format);                         
+                $('#genre').val(data[0].genre);
+                $('#language').val(data[0].movie_language); 
+                $('#duration').val(data[0].movie_duration);  
+                $('#trailer_url').val(data[0].movie_trailer); 
+                $('#description').val(data[0].movie_des);    
+                $("#output").attr("src", "../../assets/poster/"+data[0].movie_poster);
+                $("#output2").attr("src", "../../assets/wallpaper/"+data[0].movie_wallpaper);
+
+           
+                           
+                $('#id').val(data[0].id);  
+                $('#old_image').val(data[0].movie_poster);  
+                $('#old_image1').val(data[0].movie_wallpaper);                                                                           
+                $('#AddMovieModal').modal('show');
+            }
+        }
+    });
+  }
 
           
 

@@ -8,12 +8,27 @@
                 <cfif status EQ hash('1','sha')>
                     <div class="alert alert-success alert-dismissible">
                         <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        Contact Deleted Successfully!!
+                       Movie Deleted Successfully!!
                     </div> 
                     <cfelseif status EQ hash('3','sha')>
                     <div class="alert alert-success alert-dismissible">
                         <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             Deletion Failed!!
+                    </div>
+                    <cfelseif status EQ hash('6','sha')>
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                         Image should be less than 1 mb size.
+                    </div>
+                    <cfelseif status EQ hash('10','sha')>
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                       Movie Name Already Exist
+                    </div>
+                    <cfelseif status EQ hash('11','sha')>
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        Movie Trailer Already Exist
                     </div>
                 </cfif>
                 <cfif message EQ hash('2','sha')>
@@ -21,15 +36,11 @@
                         <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         Please Fill all the Required Fields!!
                     </div> 
-                <cfelseif message EQ hash('3','sha')>
-                    <div class="alert alert-success alert-dismissible">
-                        <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            Email Already Exist!!
-                    </div>
+            
                 <cfelseif message EQ hash('4','sha')>
                     <div class="alert alert-success alert-dismissible">
                         <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            Theatre Added Successfully!!
+                          Movie Added Successfully!!
                     </div>  
                 <cfelseif message EQ hash('5','sha')>
                     <div class="alert alert-success alert-dismissible">
@@ -39,7 +50,7 @@
                 <cfelseif message EQ hash('8','sha')>
                     <div class="alert alert-success alert-dismissible">
                         <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            Theatre Updated Successfully!!
+                          Movie Updated Successfully!!
                     </div> 
                 <cfelseif message EQ hash('9','sha')>
                     <div class="alert alert-success alert-dismissible">
@@ -92,23 +103,23 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>                                
-                                            <cfset theatreData= application.obj.getTheatre()>                         
-                                            <cfoutput query="theatreData">
-                                            <cfset local.theatre_id=toBase64(id)>                                         
+                                              <cfset res=application.obj1.movieDetails()>                                                                 
+                                            <cfoutput query="res">
+                                                <cfset local.movie_id=toBase64(#id#)>                               
                                                 <tr>
-                                                    <td><img src="../../#theatre_image#" width="100px" height="100px" class="li-section" /></td>
-                                                    <td><img src="../../#theatre_image#" width="100px" height="100px" class="li-section" /></td>
-                                                    <td>Name</td>
-                                                    <td>12553</td>
-                                                    <td>3d</td>
-                                                    <td>Thriller</td>
-                                                    <td>English</td>
-                                                    <td>2 h 50 min</td>
-                                                    <td>Test description</td>
-                                                    <td>https://www.youtube.com/watch?v=qF1DTK4U1AM</td>                                             
-                                                    <td> <a href="manage_screen.cfm?theatre_id=#local.theatre_id#" class="btn btn-outline-danger">Add Cast And Crew</a></td>
-                                                    <td>  <button type="button" class="btn btn-sm btn-outline-danger" onClick="editData(#id#)">Edit</button></td>
-                                                    <td> <a href="../../cfc/theatre.cfc?method=deleteTheatre&id=#id#"><button type="button" class="btn btn-sm btn-outline-danger">Delete</button></a></td>
+                                                    <td><img src="../../assets/poster/#movie_poster#" width="100px" height="100px" class="li-section" /></td>
+                                                    <td><img src="../../assets/wallpaper/#movie_wallpaper#" width="100px" height="100px" class="li-section" /></td>
+                                                    <td>#movie_name#</td>
+                                                    <td>#release_date#</td>
+                                                    <td>#movie_format#</td>
+                                                    <td>#genre#</td>
+                                                    <td>#movie_language#</td>
+                                                    <td>#movie_duration#</td>
+                                                    <td>#movie_des#</td>
+                                                    <td>#movie_trailer#</td>                                             
+                                                    <td> <a href="manage_crew.cfm?theatre_id=#id#" class="btn btn-outline-danger">Add Cast And Crew</a></td>
+                                                    <td>  <button type="button" class="btn btn-sm btn-outline-danger" onClick="editMovieData(#id#)">Edit</button></td>
+                                                    <td> <a href="../../cfc/movie.cfc?method=deleteMovie&id=#local.movie_id#"><button type="button" class="btn btn-sm btn-outline-danger">Delete</button></a></td>
                                                 </tr>                                                                      
                                             </cfoutput>    
                                         </tbody>
@@ -148,7 +159,8 @@
                                     <label class="form-label required control-label pt-3" >Movie Format:</label>
                                 </div>                             
                                 <div class="col-lg-4 ">
-                                    <input type="text" name="movie_name" class="form-control" id="movie_name" placeholder="Movie Name" value="" required>
+                                    <input type="text" name="movie_name" class="form-control" id="movie_name" placeholder="Movie Name" value="" required  onchange="checkMovie()">
+                                     <span class="movie_alert text-danger pt-3 "></span>
                                 </div>
                                 <div class="col-lg-4 ">
                                     <input type="date" name="release_date" class="form-control" id="release_date"  value="" required >
@@ -206,10 +218,11 @@
                                     <label class="form-label required control-label pt-3" >Trailer URL: </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="time" name="duration" class="form-control" id="duration" step="2"  value="" required>
+                                    <input type="time" name="duration" id="duration" class="form-control"   value="" required>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="trailer_url" class="form-control" id="trailer_url" placeholder="Trailer Url" value="" required>
+                                    <input type="text" name="trailer_url" class="form-control" id="trailer_url" placeholder="Trailer Url" value="" required onchange="checkTrailerUrl()">
+                                    <span class="trailer_alert text-danger pt-3 "></span>
                                 </div>                                    
                             </div>
                             <div class="form-group row">
@@ -220,10 +233,10 @@
                                     <label class="form-label required control-label pt-3">Upload Wallpaper</label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="poster" type="file" accept=".png,.jpg,.jpeg" name="poster" required >
+                                    <input class="form-control" id="poster" type="file" accept=".png,.jpg,.jpeg" name="poster"  >
                                 </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" id="wallpaper" type="file" accept=".png,.jpg,.jpeg" name="wallpaper" required >
+                                    <input class="form-control" id="wallpaper" type="file" accept=".png,.jpg,.jpeg" name="wallpaper" >
                                 </div>                                                     
                             </div>
                             <div class="form-group row">
@@ -231,15 +244,20 @@
                                     <label class="form-label required control-label pt-3" >Description:</label>
                                 </div>
                                 <div class="col-lg-12">
-                                    <textarea name="description" class="form-control"></textarea>
+                                    <textarea name="description" id="description" class="form-control"></textarea>
                                 </div>
+                                <input type="hidden" name="id"  id="id" value="0" /> 
+                                <input type="hidden" name="old_image"  id="old_image" value="0" /> 
+                                 <input type="hidden" name="old_image1"  id="old_image1" value="0" /> 
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <div class="img-show">
+                            <div class="img-show" id="rs1">
+                            <h4> Poster </h4>
                                 <img id="output" class="img-fluid"  />
                             </div>
-                            <div class="wall-show">
+                            <div class="wall-show" id="rs2">
+                              <h4> WallPaper </h4>
                                 <img id="output2" class="img-fluid"  />
                             </div>
                         </div>
@@ -248,7 +266,7 @@
                 <!-- Modal footer -->
                  <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="s_btn">Save changes</button>
+                    <button type="submit" class="btn btn-primary" id="mov_btn">Save changes</button>
                 </div>          
             </div>
         </form>
