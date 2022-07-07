@@ -96,6 +96,7 @@
                                                 <th>language</th>
                                                 <th>Duration</th>
                                                 <th>Description</th>
+                                          
                                                 <th>Trailer</th>
                                                 <th>Add Cast And Crew</th>
                                                 <th>Update</th>
@@ -117,7 +118,7 @@
                                                     <td>#movie_duration#</td>
                                                     <td>#movie_des#</td>
                                                     <td>#movie_trailer#</td>                                             
-                                                    <td> <a href="manage_crew.cfm?theatre_id=#id#" class="btn btn-outline-danger">Add Cast And Crew</a></td>
+                                                    <td> <a href="manage_crew.cfm?movie_id=#local.movie_id#" class="btn btn-xs btn-outline-danger">Manage&nbsp;Cast&nbsp;And&nbsp;Crew</a></td>
                                                     <td>  <button type="button" class="btn btn-sm btn-outline-danger" onClick="editMovieData(#id#)">Edit</button></td>
                                                     <td> <a href="../../cfc/movie.cfc?method=deleteMovie&id=#local.movie_id#"><button type="button" class="btn btn-sm btn-outline-danger">Delete</button></a></td>
                                                 </tr>                                                                      

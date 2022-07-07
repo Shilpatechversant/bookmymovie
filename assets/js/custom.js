@@ -423,6 +423,65 @@ function validateScreenForm() {
     });
   }
 
+  function   validateCastForm() { 
+        
+    let character_name = document.forms["castForm"]["character_name"].value; 
+    let actor_name = document.forms["castForm"]["actor_name"].value;   
+    let actor_photo = document.forms["castForm"]["actor_photo"].value;    
+
+    if (character_name == "")
+     { 
+        alert("Character name must be filled out");
+        event.preventDefault();
+        return false;
+    }
+    if (actor_name == "") 
+    {  
+        alert("Actor Name must be filled out");
+        event.preventDefault();
+        return false;
+    }
+    if (actor_photo== "") 
+    {  
+        alert("Actor Photo must be filled out");
+        event.preventDefault();
+        return false;
+    }  
+   
+    return true;
+           
+  }
+  function  validateCrewForm() { 
+        
+    let role_name = document.forms["crewForm"]["role_name"].value; 
+    let person_name = document.forms["crewForm"]["person_name"].value;   
+    let crew_photo = document.forms["crewForm"]["crew_photo"].value;    
+
+    if (role_name == "")
+     { 
+        alert("Role name must be filled out");
+        event.preventDefault();
+        return false;
+    }
+    if (person_name == "") 
+    {  
+        alert("Person Name must be filled out");
+        event.preventDefault();
+        return false;
+    }
+    if (crew_photo== "") 
+    {  
+        alert("Crew Photo must be filled out");
+        event.preventDefault();
+        return false;
+    }  
+   
+    return true;
+           
+  }
+
+
+
           
 
    
