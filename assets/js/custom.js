@@ -480,6 +480,56 @@ function validateScreenForm() {
            
   }
 
+  $('#Stheatre').change(function(){ 
+    var theatreID = $(this).val(); 
+    if(theatreID != ''){
+        $.ajax({
+            type:'POST',
+            url:"../../cfc/screen.cfc",
+                dataType: "json",
+                data: {
+                    method: "getThScreen",
+                    'id':theatreID
+                },              
+                success:function(data) {  
+                    $('select[name="th_screen"]').empty();
+                    $('select#th_screen').append($('<option>').text("--Select--"));
+                    $.each(data, function(key, value) {  
+                        $('#th_screen').append($('<option>').text(value.screen_name).attr('value', value.id));
+                    });
+                }
+        }); 
+    }else{
+        $('#th_screen').html('<option value="">Select Theatre first</option>'); 
+    }
+});
+
+$('#th_screen').change(function(){ 
+    alert("fxgvc");
+    var screenID = $(this).val(); 
+    if(screeenID != ''){
+        $.ajax({
+            type:'POST',
+            url:"../../cfc/screen.cfc",
+                dataType: "json",
+                data: {
+                    method: "getScreenTimes",
+                    'id':screenID
+                },              
+                success:function(data) {  
+                    $('select[name="th_shows"]').empty();
+                    $('select#th_shows').append($('<option>').text("--Select--"));
+                    $.each(data, function(key, value) {  
+                        $('#th_shows').append($('<option>').text(value.show_name).attr('value', value.id));
+                    });
+                }
+        }); 
+    }else{
+        alert("no no");
+        $('#th_shows').html('<option value="">Select Screen first</option>'); 
+    }
+});
+
 
 
           

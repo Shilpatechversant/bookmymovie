@@ -9,7 +9,7 @@
         <cfargument  name="trailer_url" type="string"> 
         <cfargument  name="description" type="string"> 
         <cfargument  name="poster" type="string">
-        <cfargument  name="wallpaper" type="string">         
+        <cfargument  name="wallpaper" type="string">
 
 
 

@@ -80,6 +80,15 @@
         <cfreturn getItem />
    </cffunction> 
 
+    <cffunction  name="getThScreen" access="remote" returnformat="json" output="false">
+        <cfargument name="id" type="numeric" required="true" />
+        <cfquery name="getItem" datasource="newtech" returntype="array">
+        SELECT * FROM bookmymovie.screen_table 
+        WHERE theatre_id = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer">
+        </cfquery>
+        <cfreturn getItem />
+   </cffunction> 
+
    <cffunction name="deleteScreen" access="remote" output="true">
         <cfargument  name="id" type="string">
         <cfargument  name="tid" type="string">
@@ -106,5 +115,14 @@
         <cfset local.msg=hash('10','sha')> 
         <cflocation url="../cfm/admin/manage_screen.cfm?theatre_id=#arguments.tid#&message=#local.msg#" addtoken="no">  
   </cffunction> 
+
+    <cffunction  name="getScreenTimes" access="remote" returnformat="json" output="false">
+        <cfargument name="id" type="numeric" required="true" />
+        <cfquery name="getItem" datasource="newtech" returntype="array">
+        SELECT * FROM bookmymovie.screen_time_table
+        WHERE screen_id = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer">
+        </cfquery>
+        <cfreturn getItem />
+   </cffunction>
 
 </cfcomponent>        
