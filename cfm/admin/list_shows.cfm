@@ -83,7 +83,7 @@
 <!--Create Modal -->                        
 <div class="modal movieshowtimeModal" id="AddShowTimeModal">
     <div class="modal-dialog modal-lg">
-           <form method="post" action="../../cfc/shows.cfc?method=addMovie" name="movieshowtimeForm" enctype="multipart/form-data" onsubmit="return validateMovieForm()">
+           <form method="post" action="../../cfc/shows.cfc?method=addShow" name="movieshowtimeForm" enctype="multipart/form-data" onsubmit="return validateMovieForm()">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header center">
@@ -156,11 +156,8 @@
                                 <div class="col-lg-6">
                                   <label class="form-label required control-label pt-3" >Total Seats:</label>
                                       <input type="text"  name="total_seats" id="total_seats" class="form-control">
-                                </div>    
-                               
-                                                                                                          
-                            </div>    
-                                  
+                                </div>                                                                                                           
+                            </div>                        
                    
                 </div>                 
                 <!-- Modal footer -->

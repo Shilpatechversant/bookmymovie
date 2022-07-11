@@ -495,7 +495,7 @@ function validateScreenForm() {
                     $('select[name="th_screen"]').empty();
                     $('select#th_screen').append($('<option>').text("--Select--"));
                     $.each(data, function(key, value) {  
-                        $('#th_screen').append($('<option>').text(value.screen_name).attr('value', value.id));
+                        $('#th_screen').append($('<option>').text(value.screen_name).attr('value', value.screen_id));
                     });
                 }
         }); 
@@ -507,7 +507,8 @@ function validateScreenForm() {
 $('#th_screen').change(function(){ 
     alert("fxgvc");
     var screenID = $(this).val(); 
-    if(screeenID != ''){
+    console.log(screenID);
+    if(screenID != ''){
         $.ajax({
             type:'POST',
             url:"../../cfc/screen.cfc",

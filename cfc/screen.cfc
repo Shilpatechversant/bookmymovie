@@ -83,7 +83,8 @@
     <cffunction  name="getThScreen" access="remote" returnformat="json" output="false">
         <cfargument name="id" type="numeric" required="true" />
         <cfquery name="getItem" datasource="newtech" returntype="array">
-        SELECT * FROM bookmymovie.screen_table 
+        SELECT st.id as screen_id,st.screen_name
+        FROM bookmymovie.screen_table st
         WHERE theatre_id = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer">
         </cfquery>
         <cfreturn getItem />
