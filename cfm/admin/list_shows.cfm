@@ -1,12 +1,32 @@
 <cfinclude  template = "../header.cfm"  runOnce = "true"> 
 <cfparam  name="message" default="v"> 
 <cfparam  name="status" default="v"> 
+<cfset show_res=application.show.showDetails()>
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Manage Shows</h1> 
          <cfset theatreData=application.obj.getTheatre()>
         <cfset movieData=application.obj1.movieDetails()>
+
+                <cfif message EQ hash('2','sha')>
+                    <div class="alert alert-danger alert-dismissible">
+                        <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      Please fill all fields!!
+                    </div>                       
+                </cfif> 
+                <cfif message EQ hash('8','sha')>
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      Show Updated Successfully!!
+                    </div>                       
+                </cfif> 
+                <cfif message EQ hash('10','sha')>
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                       Inserted Successfully!!
+                    </div>                       
+                </cfif>
         
                 <cfif status EQ hash('1','sha')>
                     <div class="alert alert-success alert-dismissible">
@@ -17,6 +37,11 @@
                     <div class="alert alert-success alert-dismissible">
                         <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             Deletion Failed!!
+                    </div>  
+                   <cfelseif status EQ hash('11','sha')>
+                    <div class="alert alert-danger alert-dismissible">
+                        <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            insertion Failed!!
                     </div>          
                 </cfif>                        
  <!-- Content Row -->
@@ -35,12 +60,10 @@
                                                 <th>Movie Name</th>
                                                 <th>Theatre</th>
                                                 <th>Screen</th>
-                                                <th>Show Time</th>
-                                                <th>Start Date</th>
+                                                <th>Show</th>
+                                                <th>Release Date</th>                                               
                                                 <th>Start Time</th>
-                                                <th>Duration</th>
-                                                <th>Ending Time</th>
-                                                <th>Show End Date</th>
+                                                <th>Duration</th>                                 
                                                 <th>Show Status</th>
                                                 <th>Show Priority</th>
                                                 <th>Total Seats</th>
@@ -55,12 +78,10 @@
                                                 <th>Movie Name</th>
                                                 <th>Theatre</th>
                                                 <th>Screen</th>
-                                                <th>Show Time</th>
+                                                <th>Show</th>                                              
                                                 <th>Start Date</th>
                                                 <th>Start Time</th>
-                                                <th>Duration</th>
-                                                <th>Ending Time</th>
-                                                <th>Show End Date</th>
+                                                <th>Duration</th>                                 
                                                 <th>Show Status</th>
                                                 <th>Show Priority</th>
                                                 <th>Total Seats</th>
@@ -68,8 +89,25 @@
                                                 <th>Delete</th>
                                             </tr>
                                         </tfoot>
-                                        <tbody>                                
-                                ?   
+                                        <tbody> 
+                                             <cfoutput query='show_res'>                                            
+                                                <tr>
+                                                    <td><img src="../../assets/poster/#movie_poster#" class="img-fluid img-poster"></td>                           
+                                                    <td>#movie_name#</td>
+                                                    <td>#theatre_name#</td>
+                                                    <td>#screen_name#</td>
+                                                    <td>#show_name#</td>
+                                                    <td>#release_date#</td>
+                                                    <td>#show_time#</td>
+                                                    <td>#movie_duration#</td>                                            
+                                                    <td>Pending</td>
+                                                    <td>#priority#</td>
+                                                    <td>#total_seats#</td>
+                                                    <td> <button type="button" class="btn btn-sm btn-outline-danger" onClick="editShowData(#id#)">Edit</button></td>
+                                                    <td><a href="../components/show.cfc?method=deleteShow&id=#id#" class="btn btn-outline-primary">Delete</a></td>
+                                                </tr>
+                                            </cfoutput>                           
+                                   
                                         </tbody>
                                     </table>
                             </div>
@@ -81,7 +119,7 @@
          </div>
             <!-- End of Main Content -->   
 <!--Create Modal -->                        
-<div class="modal movieshowtimeModal" id="AddShowTimeModal">
+<div class="modal AddShowTimeModal" id="AddShowTimeModal">
     <div class="modal-dialog modal-lg">
            <form method="post" action="../../cfc/shows.cfc?method=addShow" name="movieshowtimeForm" enctype="multipart/form-data" onsubmit="return validateMovieForm()">
             <div class="modal-content">
@@ -157,7 +195,8 @@
                                   <label class="form-label required control-label pt-3" >Total Seats:</label>
                                       <input type="text"  name="total_seats" id="total_seats" class="form-control">
                                 </div>                                                                                                           
-                            </div>                        
+                            </div>
+                        <input type="hidden" name="upid" value="" id="upid" value="0">                          
                    
                 </div>                 
                 <!-- Modal footer -->

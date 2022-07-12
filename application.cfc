@@ -11,6 +11,7 @@ component {
     {
         application.obj=createObject('component','cfc.theatre');
         application.obj1=createObject('component','cfc.movie');
+        application.show=createObject('component','cfc.shows');
         this.return=true;
     }
       

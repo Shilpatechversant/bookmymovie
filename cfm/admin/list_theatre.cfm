@@ -94,7 +94,7 @@
                                                 <td>#theatre_email#</td>
                                                 <td>#theatre_phone#</td>
                                                 <td>#theatre_address#,#theatre_street#,#theatre_pincode#</td>
-                                                <td> <a href="manage_screen.cfm?theatre_id=#local.theatre_id#" class="btn btn-outline-danger">Manage Screen & Time</a></td>
+                                                <td> <a href="manage_screen.cfm?theatre_id=#local.theatre_id#" class="btn btn-outline-danger">Manage&nbsp;Screen&Time</a></td>
                                                 <td>  <button type="button" class="btn btn-sm btn-outline-danger" onClick="editData(#id#)">Edit</button></td>
                                                 <td> <a href="../../cfc/theatre.cfc?method=deleteTheatre&id=#id#"><button type="button" class="btn btn-sm btn-outline-danger">Delete</button></a></td>
                                             </tr>                                                                      

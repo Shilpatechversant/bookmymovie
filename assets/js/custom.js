@@ -532,6 +532,94 @@ $('#th_screen').change(function(){
 });
 
 
+const editShowData = (id) => {  
+    $.ajax({
+        url: "../../cfc/shows.cfc",
+        type: "post", 
+        dataType: "json",
+        data: {
+            method: "getShowDetails",
+            showId:id
+        },
+        success: function (data){             
+            if(data && data.length){                 
+                                                    
+                //console.log(data);                       
+                $("#movie option[value='"+data[0].m_id+"']").attr("selected", "selected");
+                $("#Stheatre option[value='"+data[0].t_id+"']").attr("selected", "selected");                
+                editScreenList(data[0].s_id);                
+                editTimeList(data[0].st_id,data[0].s_id);                                                              
+                $('#end_date').val(data[0].end_date);   
+                $('#total_seats').val(data[0].total_seats);    
+                $('#priority').val(data[0].priority); 
+                $('#upid').val(id);                                                                              
+                $('#AddShowTimeModal').modal('show');
+            }
+        }
+    });
+  }
+
+  function editScreenList(screen_id)
+{
+    alert("ssdf");
+    var id=$('#Stheatre').val();
+    
+    if(id!="")
+    {        
+        $.ajax({   
+            url: "../../cfc/screen.cfc",
+            type: 'get',
+            dataType:"json",
+            data:{
+            method:"getThScreen",
+              id:id           
+            },
+            success:function(data) {  
+                $('select[name="th_screen"]').empty();              
+               
+                $.each(data, function(key, value) {                     
+                    $('#th_screen').append($('<option>').text(value.screen_name).attr('value', value.id));
+                });
+                $("#th_screen option[value='"+screen_id+"']").attr("selected", "selected");
+            }  
+        });       
+    }
+    else{
+        $('#th_screen').html('<option value="">Select Screen</option>'); 
+    }
+}
+
+function editTimeList(screen_time_id,sc_id){    
+    var th_sc_id=$('#Stheatre').val();     
+    if(sc_id!="")
+    {        
+        $.ajax({   
+            url: "../../cfc/screen.cfc",
+            type: 'get',
+            dataType:"json",
+            data:{
+            method:"screenTimeDetails",
+              theatre_id:th_sc_id,
+              screen_id:sc_id           
+            },
+            success:function(data) {  
+                $('select[name="th_shows"]').empty();
+        
+                $.each(data, function(key, value) {  
+                    $('#th_shows').append($('<option>').text(value.show_name).attr('value', value.id));
+                });
+                $("#th_shows option[value='"+screen_time_id+"']").attr("selected", "selected");
+            }  
+        });       
+    }
+    $('#th_shows').html('<option value="">Select Show</option>'); 
+}
+
+
+
+  
+
+
 
           
 
