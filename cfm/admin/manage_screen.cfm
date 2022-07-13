@@ -252,16 +252,16 @@
                         <div class="col-md-4">
                             <label  for="ShowName">Show Name*</label>
                             <select name="show_name" id="show_name" class="form-control">                    
-                                <option value="first_show"> 
+                                <option value=" First Show"> 
                                 First Show
                                 </option>   
-                                <option value="noon_show"> 
+                                <option value="Second Show"> 
                                 Second Show
                                 </option>      
-                                <option value="noon_show"> 
+                                <option value="Third Show"> 
                                 Third Show
                                 </option>   
-                                <option value="noon_show"> 
+                                <option value="Noon Show"> 
                                 Noon Show
                                 </option>                      
                             </select>  

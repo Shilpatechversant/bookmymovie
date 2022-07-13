@@ -549,9 +549,9 @@ const editShowData = (id) => {
                 $("#Stheatre option[value='"+data[0].t_id+"']").attr("selected", "selected");                
                 editScreenList(data[0].s_id);                
                 editTimeList(data[0].st_id,data[0].s_id);                                                              
-                $('#end_date').val(data[0].end_date);   
-                $('#total_seats').val(data[0].total_seats);    
-                $('#priority').val(data[0].priority); 
+                $('#plan_end_date').val(data[0].end_date);   
+                $('#total_seats').val(data[0].total_seats);  
+                $("#show_priority option[value='"+data[0].priority+"']").attr("selected", "selected");           
                 $('#upid').val(id);                                                                              
                 $('#AddShowTimeModal').modal('show');
             }
@@ -578,7 +578,7 @@ const editShowData = (id) => {
                 $('select[name="th_screen"]').empty();              
                
                 $.each(data, function(key, value) {                     
-                    $('#th_screen').append($('<option>').text(value.screen_name).attr('value', value.id));
+                    $('#th_screen').append($('<option>').text(value.screen_name).attr('value', value.screen_id));
                 });
                 $("#th_screen option[value='"+screen_id+"']").attr("selected", "selected");
             }  

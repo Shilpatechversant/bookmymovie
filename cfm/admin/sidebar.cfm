@@ -31,7 +31,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="list_theatre.cfm" 
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-building"></i>
                     <span>Manage Theaters</span>
                 </a>
          
@@ -41,7 +41,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="list_movies.cfm" 
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-film"></i>
                     <span>Manage Movies</span>
                 </a>
            
@@ -50,41 +50,38 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="list_shows.cfm" 
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-camera-retro"></i>
                     <span>Manage Shows</span>
                 </a>
            
             </li>
                     <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                <a class="nav-link collapsed" href="list_users.cfm" 
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-user"></i>
                     <span>Manage Users</span>
-                </a>
-           
+                </a>           
             </li>
                          <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                <a class="nav-link collapsed" href="manage_booking.cfm"
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-users"></i>
                     <span>Manage Bookings</span>
-                </a>
-           
+                </a>           
             </li>
                     <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                <a class="nav-link collapsed" href="contact_info.cfm"  aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-users"></i>
                     <span>View Contact Info</span>
                 </a>
            
             </li>
                      <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                <a class="nav-link collapsed" href="update_password.cfm" 
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Update Password</span>

@@ -103,4 +103,29 @@
         </cfquery>  
         <cfreturn show_details> 
     </cffunction> 
+
+       <cffunction name="deleteShow" access="remote" output="true">
+        <cfargument  name="id" type="string">      
+        <cfset local.sid=toString(toBinary(arguments.id))>  
+        <cftry>      
+            <cfquery name="delete_screen"  result="screen_del">
+                DELETE FROM bookmymovie.manage_shows
+                WHERE id=<cfqueryparam value="#local.sid#" cfsqltype="CF_SQL_INTEGER">
+            </cfquery>   
+            <cfcatch type = "Database"> 
+                    <!--- The message to display. ---> 
+                    <h3>You've Thrown a Database <b>Error</b></h3> 
+                    <cfoutput> 
+                    <!--- The diagnostic message from ColdFusion. ---> 
+                    <p>#cfcatch.message#</p> 
+                    <p>Caught an exception, type = #CFCATCH.TYPE#</p> 
+                    <p>The contents of the tag stack are:</p> 
+                    <cfdump var="#cfcatch.tagcontext#"> 
+                    </cfoutput> 
+                    <cfabort>
+            </cfcatch> 
+        </cftry>         
+      <cfset local.status=hash('12','sha')>
+      <cflocation  url="../cfm/admin/list_shows.cfm?status=#local.status#" AddToken="no"> 
+  </cffunction> 
 </cfcomponent>        

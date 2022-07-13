@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Manage Shows</h1> 
-         <cfset theatreData=application.obj.getTheatre()>
+        <cfset theatreData=application.obj.getTheatre()>
         <cfset movieData=application.obj1.movieDetails()>
 
                 <cfif message EQ hash('2','sha')>
@@ -42,7 +42,12 @@
                     <div class="alert alert-danger alert-dismissible">
                         <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             insertion Failed!!
-                    </div>          
+                    </div> 
+                    <cfelseif status EQ hash('12','sha')>
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                           Show deleted successfully!!
+                    </div>         
                 </cfif>                        
  <!-- Content Row -->
  <!-- DataTales Example -->                      
@@ -55,15 +60,16 @@
                                 <div class="table-responsive" id="tableList" width="100%">
                                     <table class="table table-bordered" id="example"  cellspacing="0">
                                         <thead>
-                                            <tr>
+                                                    <tr>
                                                 <th>Poster</th>
                                                 <th>Movie Name</th>
                                                 <th>Theatre</th>
                                                 <th>Screen</th>
-                                                <th>Show</th>
-                                                <th>Release Date</th>                                               
+                                                <th>Show</th>                                              
+                                                <th>Start Date</th>
                                                 <th>Start Time</th>
-                                                <th>Duration</th>                                 
+                                                <th>Duration</th>     
+                                                <th>End Time </th>                            
                                                 <th>Show Status</th>
                                                 <th>Show Priority</th>
                                                 <th>Total Seats</th>
@@ -81,7 +87,8 @@
                                                 <th>Show</th>                                              
                                                 <th>Start Date</th>
                                                 <th>Start Time</th>
-                                                <th>Duration</th>                                 
+                                                <th>Duration</th>     
+                                                <th>End Time </th>                            
                                                 <th>Show Status</th>
                                                 <th>Show Priority</th>
                                                 <th>Total Seats</th>
@@ -90,7 +97,8 @@
                                             </tr>
                                         </tfoot>
                                         <tbody> 
-                                             <cfoutput query='show_res'>                                            
+                                             <cfoutput query='show_res'>   
+                                                 <cfset show_id=toBase64(#id#)>                                         
                                                 <tr>
                                                     <td><img src="../../assets/poster/#movie_poster#" class="img-fluid img-poster"></td>                           
                                                     <td>#movie_name#</td>
@@ -99,12 +107,19 @@
                                                     <td>#show_name#</td>
                                                     <td>#release_date#</td>
                                                     <td>#show_time#</td>
-                                                    <td>#movie_duration#</td>                                            
+                                                    <td>#movie_duration#</td>   
+                                                    <cfset s_d=listToArray(movie_duration,":")>
+                                                    <cfset hours=s_d[1]*60*60>
+                                                    <cfset min=s_d[2]*60>
+                                                    <cfset sec=s_d[3]>
+                                                    <cfset dtn=hours+min+sec>                            
+                                                    <cfset new_time = timeFormat(DateAdd("s",dtn,show_time),'hh:mm:ss tt')>
+                                                     <td>#new_time#</td>
                                                     <td>Pending</td>
                                                     <td>#priority#</td>
                                                     <td>#total_seats#</td>
                                                     <td> <button type="button" class="btn btn-sm btn-outline-danger" onClick="editShowData(#id#)">Edit</button></td>
-                                                    <td><a href="../components/show.cfc?method=deleteShow&id=#id#" class="btn btn-outline-primary">Delete</a></td>
+                                                    <td><a href="../../cfc/shows.cfc?method=deleteShow&id=#show_id#" class="btn btn-outline-primary">Delete</a></td>
                                                 </tr>
                                             </cfoutput>                           
                                    
