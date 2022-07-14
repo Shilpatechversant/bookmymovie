@@ -52,7 +52,7 @@
                     </div>
                     <div class="modal-body">
                       <image src="../../assets/images/theatre1.jpg" class="theatre-div float-right"> 
-                        <form method="post" action="../../cfc/theatre.cfc?method=addTheatre" name="contactform" enctype="multipart/form-data" onsubmit="return validateContactForm()">
+                        <form method="post" action="../../cfc/theatre.cfc?method=addTheatre" name="contactform" id="tform" enctype="multipart/form-data" onsubmit="return validateContactForm();">
                             <div class="row">                               
                                 <div class="col-md-4">
                                     <label  for="TheatreName">Theatre Name*</label>

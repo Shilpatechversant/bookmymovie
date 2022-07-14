@@ -9,7 +9,7 @@
                             <cfif status EQ hash('1','sha')>
                                 <div class="alert alert-success alert-dismissible">
                                     <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                    Contact Deleted Successfully!!
+                                     Deleted Successfully!!
                                 </div> 
                                 <cfelseif status EQ hash('3','sha')>
                                 <div class="alert alert-success alert-dismissible">

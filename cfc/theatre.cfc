@@ -9,27 +9,27 @@
 
         <cfif arguments.theatre_name eq "">
             <cfset local.msg=hash('2','sha')>
-            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#">
+            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#" addtoken="no">
         </cfif>      
         <cfif arguments.theatre_email eq "">
             <cfset local.msg=hash('2','sha')>
-            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#">
+            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#" addtoken="no">
         </cfif>
         <cfif arguments.phone eq "">
             <cfset local.msg=hash('2','sha')>
-            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#">
+            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#" addtoken="no">
         </cfif>                  
         <cfif arguments.address eq "">
             <cfset local.msg=hash('2','sha')>
-            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#">
+            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#" addtoken="no">
         </cfif>
         <cfif arguments.street eq "">
         <cfset local.msg=hash('2','sha')>
-            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#">
+            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#" addtoken="no">
         </cfif>                       
         <cfif arguments.pincode eq "">
             <cfset local.msg=hash('2','sha')>
-            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#">
+            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#" addtoken="no">
         </cfif> 
             <cfif structKeyExists(form,'id')>
                 <cfif form.id GT 0>                     
@@ -56,7 +56,7 @@
                             WHERE id = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#arguments.id#"> 
                         </cfquery>
                         <cfset local.msg=hash('8','sha')>
-                        <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#">       
+                        <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#" addtoken="no">       
                <cfelse>             
                  
                     <cfquery name="address_email" datasource="newtech" result="email_res">
@@ -65,7 +65,21 @@
                     </cfquery>
                     <cfif email_res.RecordCount GT 0>
                         <cfset local.msg=hash('3','sha')>
-                        <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#">
+                        <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#" addtoken="no">
+                    </cfif>
+
+                      <cfif len(trim(arguments.file)) > 
+                        <cffile action="upload"
+                            fileField="file"
+                            destination="C:\ColdFusion2021\cfusion\wwwroot\movieticket\assets\userImage"
+                            nameconflict="makeunique"
+                            result="img">     
+                        <cfif img.filesize lt 1000000>            
+                             <cfset local.img = "assets/userImage/#img.clientFile#">
+                        <cfelse>
+                            <cfset local.msg=hash('9','sha')>
+                             <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#" addtoken="no"> 
+                        </cfif>                 
                     </cfif>
                     <cfif form.file != "">
                         <cffile action="upload"
@@ -73,11 +87,10 @@
                         destination="C:\ColdFusion2021\cfusion\wwwroot\movieticket\assets\userImage"
                         nameconflict="makeunique"
                         result="img">
-                        <cfset img = "assets/userImage/#img.clientFile#">
+                        <cfset local.img = "assets/userImage/#img.clientFile#">
                         <cfelse>
-                        <cfset img = "">
-                    </cfif>
-                    <cfif  img.filesize LT 1000000>                    
+                        <cfset local.img = "">
+                    </cfif>                                       
                         <cfquery datasource="newtech" result="result">
                                 INSERT INTO bookmymovie.theatre (theatre_name,theatre_email,theatre_phone,
                                 theatre_image,theatre_address,theatre_street,theatre_pincode,user_id) 
@@ -85,7 +98,7 @@
                                     <cfqueryparam value="#arguments.theatre_name#" cfsqltype="cf_sql_varchar">,
                                     <cfqueryparam value="#arguments.theatre_email#" cfsqltype="cf_sql_varchar">,
                                     <cfqueryparam value="#arguments.phone#" cfsqltype="cf_sql_varchar">,                              
-                                    <cfqueryparam value="#img#" cfsqltype="cf_sql_varchar">,
+                                    <cfqueryparam value="#local.img#" cfsqltype="cf_sql_varchar">,
                                     <cfqueryparam value="#arguments.address#" cfsqltype="cf_sql_varchar">,
                                     <cfqueryparam value="#arguments.street#" cfsqltype="cf_sql_varchar">,
                                     <cfqueryparam value="#arguments.pincode#" cfsqltype="cf_sql_varchar">,                          
@@ -96,12 +109,8 @@
                             <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#" addtoken="no">
                         <cfelse>
                             <cfset local.msg=hash('5','sha')>
-                            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#">         
-                        </cfif>                   
-                    <cfelse>
-                            <cfset local.msg=hash('9','sha')>
-                            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#">         
-                    </cfif>         
+                            <cflocation url="../cfm/admin/list_theatre.cfm?message=#local.msg#" addtoken="no">         
+                        </cfif>          
                 </cfif>
             </cfif>
         </cffunction>

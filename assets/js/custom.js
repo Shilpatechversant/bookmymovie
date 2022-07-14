@@ -22,6 +22,44 @@ function validateScreenForm() {
 
     return true;          
   }
+
+  function validateContactForm()
+  {
+      alert("zfszdg");
+    let image = document.forms['contactform']['file']; //fetched the input element and have stored in image variable.
+    let allowedMimes = ['png', 'jpg', 'jpeg']; //allowed image mime types
+    let maxMb = 1; //maximum allowed size (MB) of image
+
+    if (!image.value) { // if the image input does not have value
+         alert('No image selected :(');
+        event.preventDefault();
+        return false;
+    }
+    else {
+        let mime = image.value.split('.').pop(); // get the extension/mime of image file
+        if (!allowedMimes.includes(mime)) {  // if allowedMimes array does not have the extension
+            alert("Only png,jpg,jpeg alowed");
+            event.preventDefault();
+            return false;
+        }
+        else {
+            let kb = image.files[0].size / 1024; // convert the file size into byte to kb
+            let mb = kb / 1024; // convert kb to mb
+            if (mb > maxMb) { // if the file size is gratter than maxMb
+                alert(`Image should be less than ${maxMb} MB`);
+                event.preventDefault();
+                return false;
+            }
+            else { // if all the validations are good
+              return true;
+            }
+        }
+    }
+  }
+
+  function showError(errorMessage) {
+        alert(errorMessage);
+    }
  
  
  const editData = (id) => {  
