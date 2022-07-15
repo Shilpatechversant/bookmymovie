@@ -11,8 +11,6 @@
         <cfargument  name="poster" type="string">
         <cfargument  name="wallpaper" type="string">
 
-
-
           <cfif arguments.movie_name eq "" || 
                 arguments.release_date eq "" ||
                 arguments.movie_format eq "" ||
@@ -81,103 +79,102 @@
                         </cfquery>
                         <cfset local.msg=hash('8','sha')>
                         <cflocation url="../cfm/admin/list_movies.cfm?message=#local.msg#" addtoken="no">       
-               <cfelse> 
+            <cfelse> 
 
-                    <cfquery name="movie_exists" result="movie_res">
-                        SELECT movie_name 
+                <cfquery name="movie_exists" result="movie_res">
+                    SELECT movie_name 
+                    FROM bookmymovie.movie_table 
+                    WHERE movie_name=<cfqueryparam value="#arguments.movie_name#" cfsqltype="CF_SQL_VARCHAR">
+                </cfquery>
+                <cfquery name="trailer_exists" result="trailer_res">
+                        SELECT movie_trailer 
                         FROM bookmymovie.movie_table 
-                        WHERE movie_name=<cfqueryparam value="#arguments.movie_name#" cfsqltype="CF_SQL_VARCHAR">
-                    </cfquery>
-                    <cfquery name="trailer_exists" result="trailer_res">
-                            SELECT movie_trailer 
-                            FROM bookmymovie.movie_table 
-                            WHERE movie_trailer=<cfqueryparam value="#arguments.trailer_url#" cfsqltype="CF_SQL_VARCHAR">
-                    </cfquery>
+                        WHERE movie_trailer=<cfqueryparam value="#arguments.trailer_url#" cfsqltype="CF_SQL_VARCHAR">
+                </cfquery>
 
-                    <cfif movie_res.RecordCount NEQ 0>
-                        <cfset local.status=hash('10','sha')>
-                        <cflocation url="../cfm/admin/list_movies.cfm?status=#local.status#" addtoken="no">
-                    </cfif> 
+                <cfif movie_res.RecordCount NEQ 0>
+                    <cfset local.status=hash('10','sha')>
+                    <cflocation url="../cfm/admin/list_movies.cfm?status=#local.status#" addtoken="no">
+                </cfif> 
 
-                    <cfif trailer_res.RecordCount NEQ 0>
-                        <cfset local.status=hash('11','sha')>
-                        <cflocation url="../cfm/admin/list_movies.cfm?status=#local.status#" addtoken="no">
-                    </cfif>
+                <cfif trailer_res.RecordCount NEQ 0>
+                    <cfset local.status=hash('11','sha')>
+                    <cflocation url="../cfm/admin/list_movies.cfm?status=#local.status#" addtoken="no">
+                </cfif>
            
-                    <cfif len(trim(arguments.poster) ) >      
-                        <cffile action="upload" 
-                                fileField="form.poster"  
-                                destination="C:\ColdFusion2021\cfusion\wwwroot\movieticket\assets\poster" 
-                                result="fileUpload" 
-                                nameconflict="overwrite">
-                        <cfif fileupload.filesize lt 1000000>            
-                            <cfset local.poster=fileupload.serverfile >
-                        <cfelse>
-                            <cfset local.status=hash('6','sha')>  
-                           <cflocation url="../cfm/admin/list_movies.cfm?status=#local.status#" addtoken="no">  
-
-                        </cfif>
+                <cfif len(trim(arguments.poster) ) >      
+                    <cffile action="upload" 
+                            fileField="form.poster"  
+                            destination="C:\ColdFusion2021\cfusion\wwwroot\movieticket\assets\poster" 
+                            result="fileUpload" 
+                            nameconflict="overwrite">
+                    <cfif fileupload.filesize lt 1000000>            
+                        <cfset local.poster=fileupload.serverfile >
+                    <cfelse>
+                        <cfset local.status=hash('6','sha')>  
+                        <cflocation url="../cfm/admin/list_movies.cfm?status=#local.status#" addtoken="no">  
                     </cfif>
+                </cfif>
 
-                    <cfif len(trim(arguments.wallpaper))>
-                        <cffile action="upload" 
-                                fileField="form.wallpaper"  
-                                destination="C:\ColdFusion2021\cfusion\wwwroot\movieticket\assets\wallpaper" 
-                                result="wallUpload" 
-                                nameconflict="overwrite">
+                <cfif len(trim(arguments.wallpaper))>
+                    <cffile action="upload" 
+                            fileField="form.wallpaper"  
+                            destination="C:\ColdFusion2021\cfusion\wwwroot\movieticket\assets\wallpaper" 
+                            result="wallUpload" 
+                            nameconflict="overwrite">
 
-                        <cfif wallUpload.filesize lt 1000000>            
-                            <cfset local.wallpaper=wallUpload.serverfile >
-                        <cfelse>
-                            <cfset local.status=hash('6','sha')>  
-                        </cfif>                  
-                    </cfif>
+                    <cfif wallUpload.filesize lt 1000000>            
+                        <cfset local.wallpaper=wallUpload.serverfile >
+                    <cfelse>
+                        <cfset local.status=hash('6','sha')>  
+                    </cfif>                  
+                </cfif>
                                      
-                        <cfquery datasource="newtech" result="result">
-                            INSERT INTO bookmymovie.movie_table
-                            (
-                                movie_name,
-                                release_date,
-                                movie_format,
-                                movie_language,
-                                movie_duration,
-                                movie_trailer,
-                                movie_poster,
-                                movie_wallpaper,
-                                movie_des,
-                                status,
-                                genre
-                            ) 
-                                VALUES 
-                                (                                
-                                    <cfqueryparam value="#arguments.movie_name#" cfsqltype="cf_sql_varchar">,
-                                    <cfqueryparam value="#arguments.release_date#" cfsqltype="cf_sql_varchar">,
-                                    <cfqueryparam value="#arguments.movie_format#" cfsqltype="cf_sql_varchar">,
-                                    <cfqueryparam value="#arguments.language#" cfsqltype="cf_sql_varchar">,
-                                    <cfqueryparam value="#arguments.duration#" cfsqltype="cf_sql_varchar">,
-                                    <cfqueryparam value="#arguments.trailer_url#" cfsqltype="cf_sql_varchar">,
-                                    <cfqueryparam value="#local.poster#" cfsqltype="cf_sql_varchar">,
-                                    <cfqueryparam value="#local.wallpaper#" cfsqltype="cf_sql_varchar">,
-                                    <cfqueryparam value="#arguments.description#" cfsqltype="cf_sql_varchar">, 
-                                    <cfqueryparam value="1" cfsqltype="cf_sql_varchar">,
-                                    <cfqueryparam value="#arguments.genre#" cfsqltype="cf_sql_varchar">
-                                 )
-                        </cfquery>
-                        <cfif result.generatedkey>
-                            <cfset local.msg=hash('4','sha')>
-                           <cflocation url="../cfm/admin/list_movies.cfm?message=#local.msg#" addtoken="no">
-                        <cfelse>
-                            <cfset local.msg=hash('5','sha')>
-                            <cflocation url="../cfm/admin/list_movies.cfm?message=#local.msg#" addtoken="no">  
-                        </cfif>                   
+                    <cfquery datasource="newtech" result="result">
+                        INSERT INTO bookmymovie.movie_table
+                        (
+                            movie_name,
+                            release_date,
+                            movie_format,
+                            movie_language,
+                            movie_duration,
+                            movie_trailer,
+                            movie_poster,
+                            movie_wallpaper,
+                            movie_des,
+                            status,
+                            genre
+                        ) 
+                            VALUES 
+                            (                                
+                                <cfqueryparam value="#arguments.movie_name#" cfsqltype="cf_sql_varchar">,
+                                <cfqueryparam value="#arguments.release_date#" cfsqltype="cf_sql_varchar">,
+                                <cfqueryparam value="#arguments.movie_format#" cfsqltype="cf_sql_varchar">,
+                                <cfqueryparam value="#arguments.language#" cfsqltype="cf_sql_varchar">,
+                                <cfqueryparam value="#arguments.duration#" cfsqltype="cf_sql_varchar">,
+                                <cfqueryparam value="#arguments.trailer_url#" cfsqltype="cf_sql_varchar">,
+                                <cfqueryparam value="#local.poster#" cfsqltype="cf_sql_varchar">,
+                                <cfqueryparam value="#local.wallpaper#" cfsqltype="cf_sql_varchar">,
+                                <cfqueryparam value="#arguments.description#" cfsqltype="cf_sql_varchar">, 
+                                <cfqueryparam value="1" cfsqltype="cf_sql_varchar">,
+                                <cfqueryparam value="#arguments.genre#" cfsqltype="cf_sql_varchar">
+                                )
+                    </cfquery>
+                    <cfif result.generatedkey>
+                        <cfset local.msg=hash('4','sha')>
+                        <cflocation url="../cfm/admin/list_movies.cfm?message=#local.msg#" addtoken="no">
+                    <cfelse>
+                        <cfset local.msg=hash('5','sha')>
+                        <cflocation url="../cfm/admin/list_movies.cfm?message=#local.msg#" addtoken="no">  
+                    </cfif>                   
                 </cfif>         
-        </cfif>                          
+        </cfif>    
       
     </cffunction>
 
 
 
- <cffunction name="getMovieName" access="remote" returnFormat = "json">
+    <cffunction name="getMovieName" access="remote" returnFormat = "json">
         <cfargument name="movie_name" type="string"  >
         <cfquery name="movie" result="movie_data" returntype="array">
             SELECT * FROM bookmymovie.movie_table
@@ -205,12 +202,13 @@
     <cffunction  name="getMovie" access="remote" returnformat="json" output="false">
         <cfargument name="id" type="numeric" required="true" />
         <cfquery name="getItem" datasource="newtech" returntype="array">
-        SELECT * FROM bookmymovie.movie_table 
-        WHERE id = <cfqueryparam value="#id#" cfsqltype="cf_sql_integer">
+            SELECT * FROM bookmymovie.movie_table 
+            WHERE id = <cfqueryparam value="#id#" cfsqltype="cf_sql_integer">
         </cfquery>
         <cfreturn getItem />
-   </cffunction> 
-       <cffunction  name="getMovieDetails" access="remote"  output="false">
+    </cffunction> 
+
+    <cffunction  name="getMovieDetails" access="remote"  output="false">
         <cfargument name="id" type="numeric" required="true" />
         <cfquery name="getItem" datasource="newtech" returntype="array">
         SELECT * FROM bookmymovie.movie_table 
@@ -219,34 +217,32 @@
         <cfreturn getItem />
    </cffunction> 
 
-
    <cffunction name="deleteMovie" access="remote" output="true">
-    <cfargument  name="id" type="string">     
-    <cfset local.d_id=toString(toBinary(arguments.id))>
-    <cftry>      
-        <cfquery name="delete_movie"  result="theatre_movie">
-            DELETE FROM bookmymovie.movie_table
-            WHERE id=<cfqueryparam value="#local.d_id#" cfsqltype="CF_SQL_INTEGER">
-        </cfquery>   
-        <cfcatch type = "Database"> 
-                <!--- The message to display. ---> 
-                <h3>You've Thrown a Database <b>Error</b></h3> 
-                <cfoutput> 
-                <!--- The diagnostic message from ColdFusion. ---> 
-                <p>#cfcatch.message#</p> 
-                <p>Caught an exception, type = #CFCATCH.TYPE#</p> 
-                <p>The contents of the tag stack are:</p> 
-                <cfdump var="#cfcatch.tagcontext#"> 
-                </cfoutput> 
-                <cfabort>
-        </cfcatch> 
-    </cftry>         
-    <cfset local.msg=hash('1','sha')>    
-     <cflocation url="../cfm/admin/list_movies.cfm?message=#local.msg#" addtoken="no">
+        <cfargument  name="id" type="string">     
+        <cfset local.d_id=toString(toBinary(arguments.id))>
+        <cftry>      
+            <cfquery name="delete_movie"  result="theatre_movie">
+                DELETE FROM bookmymovie.movie_table
+                WHERE id=<cfqueryparam value="#local.d_id#" cfsqltype="CF_SQL_INTEGER">
+            </cfquery>   
+            <cfcatch type = "Database"> 
+                    <!--- The message to display. ---> 
+                    <h3>You've Thrown a Database <b>Error</b></h3> 
+                    <cfoutput> 
+                    <!--- The diagnostic message from ColdFusion. ---> 
+                    <p>#cfcatch.message#</p> 
+                    <p>Caught an exception, type = #CFCATCH.TYPE#</p> 
+                    <p>The contents of the tag stack are:</p> 
+                    <cfdump var="#cfcatch.tagcontext#"> 
+                    </cfoutput> 
+                    <cfabort>
+            </cfcatch> 
+        </cftry>         
+        <cfset local.msg=hash('1','sha')>    
+        <cflocation url="../cfm/admin/list_movies.cfm?message=#local.msg#" addtoken="no">
 </cffunction>
 
  <cffunction  name="addCast" access="remote"> 
-
     <cfargument  name="character_name" type="string">
     <cfargument  name="actor_name" type="string">
     <cfargument  name="actor_photo" type="string">
@@ -322,63 +318,59 @@
         <cfelse>
             <cfset local.msg=hash('5','sha')>
            <cflocation url="../cfm/admin/manage_crew.cfm?movie_id=#local.mov_id#&message=#local.msg#" addtoken="no"> 
-         </cfif> 
-             
+         </cfif>             
 </cffunction> 
 
-    <cffunction name="castDetails" access="public" output="true">  
-       <cfargument  name="movId" type="string">  
-          <cfquery name="cast_details" datasource="newtech">
-                SELECT * FROM bookmymovie.movie_cast_table
-                WHERE 
-                movie_id= <cfqueryparam CFSQLType="CF_SQL_INTEGER" value="#arguments.movId#">
-            </cfquery>
-        <cfreturn cast_details>
-    </cffunction> 
+<cffunction name="castDetails" access="public" output="true">  
+    <cfargument  name="movId" type="string">  
+        <cfquery name="cast_details" datasource="newtech">
+            SELECT * FROM bookmymovie.movie_cast_table
+            WHERE 
+            movie_id= <cfqueryparam CFSQLType="CF_SQL_INTEGER" value="#arguments.movId#">
+        </cfquery>
+    <cfreturn cast_details>
+</cffunction> 
 
-    <cffunction name="deleteCast" access="remote" output="true">
-        <cfargument  name="id" type="string">    
-        <cfargument  name="mov_id" type="string">  
-        <cfset local.d_id=toString(toBinary(arguments.id))>
-         <cfset local.mov_id=toString(toBinary(arguments.mov_id))>
-        <cftry>      
-            <cfquery name="delete_cast"  result="res_cast">
-                DELETE FROM bookmymovie.movie_cast_table
-                WHERE cast_id=<cfqueryparam value="#local.d_id#" cfsqltype="CF_SQL_INTEGER">
-            </cfquery>   
-            <cfcatch type = "Database"> 
-                    <!--- The message to display. ---> 
-                    <h3>You've Thrown a Database <b>Error</b></h3> 
-                    <cfoutput> 
-                    <!--- The diagnostic message from ColdFusion. ---> 
-                    <p>#cfcatch.message#</p> 
-                    <p>Caught an exception, type = #CFCATCH.TYPE#</p> 
-                    <p>The contents of the tag stack are:</p> 
-                    <cfdump var="#cfcatch.tagcontext#"> 
-                    </cfoutput> 
-                    <cfabort>
-            </cfcatch> 
-        </cftry>         
-        <cfset local.msg=hash('3','sha')>    
-        <cflocation url="../cfm/admin/manage_crew.cfm?movie_id=#arguments.mov_id#&status=#local.msg#" addtoken="no"> 
+<cffunction name="deleteCast" access="remote" output="true">
+    <cfargument  name="id" type="string">    
+    <cfargument  name="mov_id" type="string">  
+    <cfset local.d_id=toString(toBinary(arguments.id))>
+        <cfset local.mov_id=toString(toBinary(arguments.mov_id))>
+    <cftry>      
+        <cfquery name="delete_cast"  result="res_cast">
+            DELETE FROM bookmymovie.movie_cast_table
+            WHERE cast_id=<cfqueryparam value="#local.d_id#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>   
+        <cfcatch type = "Database"> 
+                <!--- The message to display. ---> 
+                <h3>You've Thrown a Database <b>Error</b></h3> 
+                <cfoutput> 
+                <!--- The diagnostic message from ColdFusion. ---> 
+                <p>#cfcatch.message#</p> 
+                <p>Caught an exception, type = #CFCATCH.TYPE#</p> 
+                <p>The contents of the tag stack are:</p> 
+                <cfdump var="#cfcatch.tagcontext#"> 
+                </cfoutput> 
+                <cfabort>
+        </cfcatch> 
+    </cftry>         
+    <cfset local.msg=hash('3','sha')>    
+    <cflocation url="../cfm/admin/manage_crew.cfm?movie_id=#arguments.mov_id#&status=#local.msg#" addtoken="no"> 
 </cffunction>  
 
  <cffunction  name="addCrew" access="remote"> 
-        <cfargument  name="role_name" type="string">
-        <cfargument  name="person_name" type="string">
-        <cfargument  name="crew_photo" type="string">
-        <cfargument  name="mov_id" type="string">
-    
-        <cfset local.mov_id=toBase64(arguments.mov_id)>              
-            
+    <cfargument  name="role_name" type="string">
+    <cfargument  name="person_name" type="string">
+    <cfargument  name="crew_photo" type="string">
+    <cfargument  name="mov_id" type="string">
+    <cfset local.mov_id=toBase64(arguments.mov_id)>        
         <cfif arguments.role_name eq "" || 
                 arguments.person_name eq "" ||       
                 arguments.crew_photo eq "" 
                 >
             <cfset local.msg=hash('2','sha')>
             <cflocation url="../cfm/admin/manage_crew.cfm?mov_id=#local.mov_id#&message=#local.msg#" addtoken="no"> 
-        </cfif>        
-   
+        </cfif>  
     
         <cfif len(trim(arguments.crew_photo))>
             <cffile action="upload" 

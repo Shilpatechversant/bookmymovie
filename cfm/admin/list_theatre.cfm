@@ -107,8 +107,6 @@
             </div>
                 <!-- /.container-fluid -->
          </div>
-            <!-- End of Main Content -->   
-        
-           
+            <!-- End of Main Content -->            
 <cfinclude  template = "../footer.cfm"  runOnce = "true">  
   

@@ -10,16 +10,18 @@
             <cfset local.msg=hash('3','sha')>
             <cflocation url="../index.cfm?message=#local.msg#" addtoken ="no">
         </cfif>
+        
         <cfquery datasource="newtech" result="outputdata" name="loginResult">
             SELECT * FROM bookmymovie.user
             WHERE username= <cfqueryparam CFSQLType="cf_sql_varchar" value="#arguments.username#"> 
             AND password= <cfqueryparam CFSQLType="cf_sql_varchar" value="#hash(arguments.passWord,'SHA')#"> 
             AND role="superadmin" 
         </cfquery>
+
         <cfif outputdata.RECORDCOUNT GT 0>
             <cfset Session.userId=loginResult.id>
             <cfset Session.username=loginResult.username>
-             <cfset Session.role=loginResult.role>
+            <cfset Session.role=loginResult.role>
             <cfset Session.loggedin=true />
             <cfif Session.loggedin eq true>
                 <cflocation url="../cfm/admin/dashboard.cfm" addtoken ="no">

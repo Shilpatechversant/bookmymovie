@@ -141,9 +141,7 @@ function validateScreenForm() {
             }         
       });       
       }
-
-
-
+      
       function printTable() {
     
         var printContents = document.getElementById('tableData').innerHTML;    
