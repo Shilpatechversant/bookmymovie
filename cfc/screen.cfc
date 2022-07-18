@@ -126,18 +126,18 @@
         <cfreturn getItem />
    </cffunction>
 
-      <cffunction name="screenTimeDetails" access="remote" output="true" returnFormat = "json">
-        <cfargument  name="theatre_id" type="integer">
-        <cfargument  name="screen_id" type="integer">
-        <cfquery name="time_details"  result="res" returntype="array">
-            SELECT st.id, st.screen_id,s.screen_name, st.theatre_id,st.show_time,st.show_name
-            FROM bookmymovie.screen_time_table st
-            INNER JOIN bookmymovie.screen_table s ON s.id = st.screen_id
-        WHERE 
-        st.theatre_id= <cfqueryparam CFSQLType="CF_SQL_INTEGER" value="#arguments.theatre_id#"> AND
-        st.screen_id=<cfqueryparam CFSQLType="CF_SQL_INTEGER" value="#arguments.screen_id#">
-        </cfquery>
-        <cfreturn time_details>
+    <cffunction name="screenTimeDetails" access="remote" output="true" returnFormat = "json">
+            <cfargument  name="theatre_id" type="integer">
+            <cfargument  name="screen_id" type="integer">
+            <cfquery name="time_details"  result="res" returntype="array">
+                SELECT st.id, st.screen_id,s.screen_name, st.theatre_id,st.show_time,st.show_name
+                FROM bookmymovie.screen_time_table st
+                INNER JOIN bookmymovie.screen_table s ON s.id = st.screen_id
+            WHERE 
+            st.theatre_id= <cfqueryparam CFSQLType="CF_SQL_INTEGER" value="#arguments.theatre_id#"> AND
+            st.screen_id=<cfqueryparam CFSQLType="CF_SQL_INTEGER" value="#arguments.screen_id#">
+            </cfquery>
+            <cfreturn time_details>
     </cffunction>
 
 </cfcomponent>        
