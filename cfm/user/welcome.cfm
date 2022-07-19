@@ -1,4 +1,6 @@
 <cfinclude  template = "header.cfm"  runOnce = "true">  
+<cfset res=application.obj1.movieDetails()>    
+<cfset res1=application.obj1.upcomingMovieDetails()>                                                                
     <div class="wrapper">
         <!-- Banner -->
         <div class="banner-top">
@@ -574,6 +576,7 @@
 
                     <!-- Search bar -->
         <div class="search-wrapper">
+        <br>
             <div class="container container--add">
                 <form id='search-form' method='get' class="search">
                     <input type="text" class="search__field" placeholder="Search">
@@ -588,100 +591,54 @@
                 </form>
             </div>
         </div>
-      
 
-            
-            <div class="clearfix"></div>
-
-            <h2 id='target' class="page-heading heading--outcontainer">Now in the cinema</h2>
-
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-sm-8 col-md-9">
-                        <!-- Movie variant with time -->
-                             
+        <div class="clearfix"></div>
+            <h2 id='target' class="page-heading heading--outcontainer">Now in the cinema</h2>          
+            <cfoutput query="res">                   
+                <div class="col-sm-4 similar-wrap col--remove">
+                    <div class="post post--preview post--preview--wide">
+                        <!-- Movie variant with time -->                             
                             <div class="movie movie--test movie--test--dark movie--test--left">
                                 <div class="movie__images">
                                     <a href="movie-page-left.html" class="movie-beta__link">
-                                        <img alt='' src="../../resources/user/images/movie/movie-time8.jpg">
+                                        <img alt='' src="../../assets/poster/#movie_poster#">
                                     </a>
                                 </div>
-
                                 <div class="movie__info">
-                                    <a href='movie-page-left.html' class="movie__title">1111 </a>
-
-                                    <p class="movie__time">111</p>
-
-                                    <p class="movie__option"><a href="#">1111</a> | <a href="#">111</a> | <a href="#">1111</a></p>
-                                    
-                                    <div class="movie__rate">
-                                        <div class="score"></div>
-                                        <span class="movie__rating">4.1</span>
-                                    </div>               
+                                    <a href='movie-page-left.html' class="movie__title">#movie_name# </a>
+                                    <p class="movie__option"><a href="">#movie_language#</a></p>  
+                                    <p class="movie__time">#movie_duration#</p>                                                                       
                                 </div>
                             </div>
-                         <!-- Movie variant with time -->
-        
-           
-
-
-                   
+                        </div>                      
+                         <!-- Movie variant with time -->   
                     </div>
-
-                </div>
-            </div>
-
+            </cfoutput>            
+             <!-- row--> 
             <div class="col-sm-12">
                 <h2 class="page-heading">Upcoming cinema</h2>
-
+             <cfoutput query="res1">  
                 <div class="col-sm-4 similar-wrap col--remove">
                     <div class="post post--preview post--preview--wide">
-                        <div class="post__image">
-                            <img alt='' src="../../resources/user/images/client-photo/post-thor.jpg">
-                            <div class="social social--position social--hide">
-                                <span class="social__name">Share:</span>
-                                <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                                <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                                <a href='#' class="social__variant social--third fa fa-vk"></a>
+                        <!-- Movie variant with time -->                             
+                            <div class="movie movie--test movie--test--dark movie--test--left">
+                                <div class="movie__images">
+                                    <a href="movie-page-left.html" class="movie-beta__link">
+                                        <img alt='' src="../../assets/poster/#movie_poster#">
+                                    </a>
+                                </div>
+                                <div class="movie__info">
+                                    <a href='movie-page-left.html' class="movie__title">#movie_name# </a>
+                                    <p class="movie__option"><a href="">#movie_language#</a></p>  
+                                    <p class="movie__time">#movie_duration#</p>                                                                       
+                                </div>
                             </div>
-                        </div>
-                        <p class="post__date">22 October 2013 </p>
-                        <a href="single-page-left.html" class="post__title">"Thor: The Dark World" - World Premiere</a>
-                        <a href="single-page-left.html" class="btn read-more post--btn">read more</a>
+                        </div>                      
+                         <!-- Movie variant with time -->   
                     </div>
                 </div>
-                <div class="col-sm-4 similar-wrap col--remove">
-                    <div class="post post--preview post--preview--wide">
-                        <div class="post__image">
-                            <img alt='' src="../../resources/user/images/client-photo/post-annual.jpg">
-                            <div class="social social--position social--hide">
-                                <span class="social__name">Share:</span>
-                                <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                                <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                                <a href='#' class="social__variant social--third fa fa-vk"></a>
-                            </div>
-                        </div>
-                        <p class="post__date">22 October 2013 </p>
-                        <a href="single-page-left.html" class="post__title">30th Annual Night Of Stars Presented By The Fashion Group International</a>
-                        <a href="single-page-left.html" class="btn read-more post--btn">read more</a>
-                    </div>
-                </div>
-                <div class="col-sm-4 similar-wrap col--remove">
-                    <div class="post post--preview post--preview--wide">
-                        <div class="post__image">
-                            <img alt='' src="../../resources/user/images/client-photo/post-awards.jpg">
-                            <div class="social social--position social--hide">
-                                <span class="social__name">Share:</span>
-                                <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                                <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                                <a href='#' class="social__variant social--third fa fa-vk"></a>
-                            </div>
-                        </div>
-                        <p class="post__date">22 October 2013 </p>
-                        <a href="single-page-left.html" class="post__title">Hollywood Film Awards 2013</a>
-                        <a href="single-page-left.html" class="btn read-more post--btn">read more</a>
-                    </div>
-                </div>
+        </cfoutput>  
+          
             </div>
                 
         </section>

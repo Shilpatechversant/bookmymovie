@@ -446,5 +446,26 @@
         <cfset local.msg=hash('3','sha')>    
         <cflocation url="../cfm/admin/manage_crew.cfm?movie_id=#arguments.mov_id#&status=#local.msg#" addtoken="no"> 
 </cffunction> 
+
+<cffunction  name="getActiveMovieDetails" access="remote"  output="false">
+    <cfargument name="id" type="numeric" required="true" />
+     
+    <cfquery name="getItem" datasource="newtech" returntype="array">
+    SELECT * FROM bookmymovie.movie_table 
+    WHERE id = <cfqueryparam value="#id#" cfsqltype="cf_sql_integer">
+    </cfquery>
+    <cfreturn getItem />
+</cffunction> 
+
+<cffunction  name="upcomingMovieDetails" access="remote"  output="false">
+    <cfset today  = DateFormat(Now(),"yyy-mm-dd")>     
+    <cfquery name="getItem" datasource="newtech" returntype="array">
+        SELECT * FROM bookmymovie.movie_table 
+        WHERE release_date >  <cfqueryparam value="#today#" cfsqltype="cf_sql_date">
+    </cfquery>
+    <cfreturn getItem />
+</cffunction> 
+
+
              
  </cfcomponent>       

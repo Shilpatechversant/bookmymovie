@@ -219,7 +219,7 @@
                                     <label class="form-label required control-label pt-3" >Trailer URL: </label>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="time" min='01:30:01' max='02:30:02'  name="duration" id="duration" class="form-control"   value="" required>
+                                    <input type="time"  name="duration" id="duration" class="form-control"   value="" required>
                                 </div>
                                 <div class="col-lg-6">
                                     <input type="text" name="trailer_url" class="form-control" id="trailer_url" placeholder="Trailer Url" value="" required onchange="checkTrailerUrl()">
