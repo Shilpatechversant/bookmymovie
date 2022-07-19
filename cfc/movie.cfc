@@ -461,11 +461,8 @@
     <cfset today  = DateFormat(Now(),"yyy-mm-dd")>     
     <cfquery name="getItem" datasource="newtech" returntype="array">
         SELECT * FROM bookmymovie.movie_table 
-        WHERE release_date >  <cfqueryparam value="#today#" cfsqltype="cf_sql_date">
+        WHERE CAST(release_date AS Datetime) >=   <cfqueryparam value="#today#" cfsqltype="cf_sql_date">
     </cfquery>
     <cfreturn getItem />
-</cffunction> 
-
-
-             
+</cffunction>              
  </cfcomponent>       
