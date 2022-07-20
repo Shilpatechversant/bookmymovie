@@ -5,7 +5,7 @@
     <cfargument  name="th_screen" type="integer">
     <cfargument  name="th_shows" type="integer">
     <cfargument  name="plan_end_date" type="string">
-    <cfargument  name="show_priority" type="string">        
+    <cfargument  name="show_priority" type="string">          
     <cfargument  name="total_seats" type="string"> 
 
         <cfif arguments.movie eq "" || 
@@ -13,7 +13,7 @@
             arguments.th_screen eq "" ||
             arguments.th_shows eq "" ||
             arguments.plan_end_date eq "" ||
-            arguments.show_priority eq "" ||
+            arguments.show_priority eq "" ||          
             arguments.total_seats eq ""
             >
         <cfset local.msg=hash('2','sha')>
@@ -30,7 +30,7 @@
                 screen_id=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.th_screen#">,
                 screen_time_id=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.th_shows#">, 
                 end_date=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.plan_end_date#">,    
-                priority=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.show_priority#">,  
+                priority=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.show_priority#">,             
                 total_seats=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.total_seats#">                   
                 WHERE id = <cfqueryparam cfsqltype="CF_SQL_INTEGER" value="#arguments.upid#"> 
             </cfquery>
@@ -46,7 +46,7 @@
                                     screen_id,
                                     screen_time_id,
                                     end_date,                        
-                                    priority,                      
+                                    priority,                                               
                                     total_seats
                                     ) 
                                 VALUES(                            
@@ -55,9 +55,9 @@
                                         <cfqueryparam value="#arguments.th_screen#" cfsqltype="CF_SQL_INTEGER">,
                                         <cfqueryparam value="#arguments.th_shows#" cfsqltype="CF_SQL_INTEGER">,
                                         <cfqueryparam value="#arguments.plan_end_date#" cfsqltype="CF_SQL_VARCHAR">,
-                                        <cfqueryparam value="#arguments.show_priority#" cfsqltype="CF_SQL_VARCHAR">,                            
+                                        <cfqueryparam value="#arguments.show_priority#" cfsqltype="CF_SQL_VARCHAR">,                                                                 
                                         <cfqueryparam value="#arguments.total_seats#" cfsqltype="CF_SQL_VARCHAR">               
-                                                                                                
+
                                         )
                             </cfquery>
                             <cfif show_res.RecordCount EQ 1>
@@ -78,7 +78,7 @@
 <cffunction name="showDetails" access="public" >        
         <cfquery name="show_details" result="show_data" >
             SELECT sh.id,m.movie_poster,m.movie_name,th.theatre_name,m.release_date,m.movie_duration,sh.total_seats,
-            s.screen_name,st.show_time,st.show_name,sh.end_date,sh.priority
+            s.screen_name,st.show_time,st.show_name,sh.end_date,sh.priority,sh.show_status
             FROM bookmymovie.manage_shows sh
             INNER JOIN bookmymovie.movie_table m ON sh.movie_id =m.id
             INNER JOIN bookmymovie.theatre th ON sh.theatre_id=th.id 
@@ -92,7 +92,7 @@
         <cfargument  name="showId" type="integer">    
         <cfquery name="show_details" result="show_data" returntype="array" >
             SELECT sh.id,m.movie_poster,m.movie_name,th.theatre_name,m.release_date,m.movie_duration,sh.total_seats,
-            s.screen_name,st.show_time,st.show_name,sh.end_date,
+            s.screen_name,st.show_time,st.show_name,sh.end_date,sh.show_status,
             sh.priority,m.id as m_id,th.id as t_id,s.id as s_id,st.id as st_id
             FROM bookmymovie.manage_shows sh
             INNER JOIN bookmymovie.movie_table m ON sh.movie_id =m.id
@@ -128,4 +128,19 @@
       <cfset local.status=hash('12','sha')>
       <cflocation  url="../cfm/admin/list_shows.cfm?status=#local.status#" AddToken="no"> 
   </cffunction> 
+
+  <cffunction name="activeShowDetails" access="public" >   
+   <cfset Today = #dateFormat(Now(),"yyyy-mm-dd")#>     
+        <cfquery name="show_details" result="show_data" >
+            SELECT sh.id,m.movie_poster,m.movie_name,m.movie_language,th.theatre_name,m.release_date,m.movie_duration,sh.total_seats,
+            s.screen_name,st.show_time,st.show_name,sh.end_date,sh.priority,sh.show_status
+            FROM bookmymovie.manage_shows sh
+            INNER JOIN bookmymovie.movie_table m ON sh.movie_id =m.id
+            INNER JOIN bookmymovie.theatre th ON sh.theatre_id=th.id 
+            INNER JOIN bookmymovie.screen_table s ON sh.screen_id=s.id
+            INNER JOIN bookmymovie.screen_time_table st ON sh.screen_time_id =st.id
+            WHERE sh.end_date > <cfqueryparam value="#Today#" cfsqltype="cf_sql_date">
+        </cfquery>
+        <cfreturn show_details> 
+    </cffunction>
 </cfcomponent>        

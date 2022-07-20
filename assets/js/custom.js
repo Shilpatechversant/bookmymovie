@@ -435,10 +435,14 @@ function validateScreenForm() {
         },
         success: function (data){             
             if(data && data.length){  
-                
+
+                var date = new Date(data[0].release_date),
+                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                day = ("0" + date.getDate()).slice(-2);
+                var res_date=[date.getFullYear(), mnth, day].join("-");                
                                     
                 $('#movie_name').val(data[0].movie_name);
-                $('#release_date').val(data[0].release_date);
+                $('#release_date').val(res_date);
                 $('#movie_format').val(data[0].movie_format);                         
                 $('#genre').val(data[0].genre);
                 $('#language').val(data[0].movie_language); 
@@ -446,9 +450,7 @@ function validateScreenForm() {
                 $('#trailer_url').val(data[0].movie_trailer); 
                 $('#description').val(data[0].movie_des);    
                 $("#output").attr("src", "../../assets/poster/"+data[0].movie_poster);
-                $("#output2").attr("src", "../../assets/wallpaper/"+data[0].movie_wallpaper);
-
-           
+                $("#output2").attr("src", "../../assets/wallpaper/"+data[0].movie_wallpaper);          
                            
                 $('#id').val(data[0].id);  
                 $('#old_image').val(data[0].movie_poster);  
@@ -578,16 +580,21 @@ const editShowData = (id) => {
             showId:id
         },
         success: function (data){             
-            if(data && data.length){                 
+            if(data && data.length){    
+                
+                var date = new Date(data[0].end_date),
+                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                day = ("0" + date.getDate()).slice(-2);
+                var end_date=[date.getFullYear(), mnth, day].join("-");
                                                     
                 //console.log(data);                       
                 $("#movie option[value='"+data[0].m_id+"']").attr("selected", "selected");
                 $("#Stheatre option[value='"+data[0].t_id+"']").attr("selected", "selected");                
                 editScreenList(data[0].s_id);                
                 editTimeList(data[0].st_id,data[0].s_id);                                                              
-                $('#plan_end_date').val(data[0].end_date);   
+                $('#plan_end_date').val(end_date);   
                 $('#total_seats').val(data[0].total_seats);  
-                $("#show_priority option[value='"+data[0].priority+"']").attr("selected", "selected");           
+                $("#show_priority option[value='"+data[0].priority+"']").attr("selected", "selected");
                 $('#upid').val(id);                                                                              
                 $('#AddShowTimeModal').modal('show');
             }

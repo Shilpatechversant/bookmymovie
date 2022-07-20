@@ -65,7 +65,7 @@
                             UPDATE bookmymovie.movie_table
                             SET 
                             movie_name=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.movie_name#">,
-                            release_date=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.release_date#">,
+                            release_date=<cfqueryparam cfsqltype="cf_sql_date" value="#arguments.release_date#">,
                             movie_format=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.movie_format#">,                         
                             movie_language = <cfqueryparam CFSQLType="cf_sql_varchar" value="#arguments.language#">,
                             movie_duration=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.duration#">,
@@ -148,7 +148,7 @@
                             VALUES 
                             (                                
                                 <cfqueryparam value="#arguments.movie_name#" cfsqltype="cf_sql_varchar">,
-                                <cfqueryparam value="#arguments.release_date#" cfsqltype="cf_sql_varchar">,
+                                <cfqueryparam value="#arguments.release_date#" cfsqltype="cf_sql_date">,
                                 <cfqueryparam value="#arguments.movie_format#" cfsqltype="cf_sql_varchar">,
                                 <cfqueryparam value="#arguments.language#" cfsqltype="cf_sql_varchar">,
                                 <cfqueryparam value="#arguments.duration#" cfsqltype="cf_sql_varchar">,
@@ -448,8 +448,7 @@
 </cffunction> 
 
 <cffunction  name="getActiveMovieDetails" access="remote"  output="false">
-    <cfargument name="id" type="numeric" required="true" />
-     
+    <cfargument name="id" type="numeric" required="true" />     
     <cfquery name="getItem" datasource="newtech" returntype="array">
     SELECT * FROM bookmymovie.movie_table 
     WHERE id = <cfqueryparam value="#id#" cfsqltype="cf_sql_integer">
@@ -457,11 +456,12 @@
     <cfreturn getItem />
 </cffunction> 
 
-<cffunction  name="upcomingMovieDetails" access="remote"  output="false">
-    <cfset today  = DateFormat(Now(),"yyy-mm-dd")>     
-    <cfquery name="getItem" datasource="newtech" returntype="array">
-        SELECT * FROM bookmymovie.movie_table 
-        WHERE CAST(release_date AS Datetime) >=   <cfqueryparam value="#today#" cfsqltype="cf_sql_date">
+<cffunction  name="upcomingMovieDetails" access="public"  output="true">
+    <cfset Today = #dateFormat(Now(),"yyyy-mm-dd")#>
+    <cfquery name="getItem" datasource="newtech"  result="res">
+        SELECT id,release_date,movie_name,movie_format,movie_language,movie_poster,
+        movie_duration FROM bookmymovie.movie_table 
+        WHERE release_date >= <cfqueryparam value="#Today#" cfsqltype="cf_sql_date">
     </cfquery>
     <cfreturn getItem />
 </cffunction>              

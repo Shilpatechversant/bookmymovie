@@ -69,7 +69,8 @@
                                                 <th>Start Date</th>
                                                 <th>Start Time</th>
                                                 <th>Duration</th>     
-                                                <th>End Time </th>                            
+                                                <th>End Time </th> 
+                                                <th>Show End Date </th>                           
                                                 <th>Show Status</th>
                                                 <th>Show Priority</th>
                                                 <th>Total Seats</th>
@@ -88,7 +89,8 @@
                                                 <th>Start Date</th>
                                                 <th>Start Time</th>
                                                 <th>Duration</th>     
-                                                <th>End Time </th>                            
+                                                <th>End Time </th>  
+                                                <th>Show End Date </th>                           
                                                 <th>Show Status</th>
                                                 <th>Show Priority</th>
                                                 <th>Total Seats</th>
@@ -114,8 +116,9 @@
                                                     <cfset sec=s_d[3]>
                                                     <cfset dtn=hours+min+sec>                            
                                                     <cfset new_time = timeFormat(DateAdd("s",dtn,show_time),'hh:mm:ss tt')>
-                                                     <td>#new_time#</td>
-                                                    <td>Pending</td>
+                                                    <td>#new_time#</td>
+                                                    <td>#end_date#</td>
+                                                    <td>#show_status#</td>
                                                     <td>#priority#</td>
                                                     <td>#total_seats#</td>
                                                     <td> <button type="button" class="btn btn-sm btn-outline-danger" onClick="editShowData(#id#)">Edit</button></td>
@@ -209,7 +212,8 @@
                                 <div class="col-lg-6">
                                   <label class="form-label required control-label pt-3" >Total Seats:</label>
                                       <input type="text"  name="total_seats" id="total_seats" class="form-control">
-                                </div>                                                                                                           
+                                </div>   
+                                                                                                                                                    
                             </div>
                         <input type="hidden" name="upid" value="" id="upid" value="0">                          
                    

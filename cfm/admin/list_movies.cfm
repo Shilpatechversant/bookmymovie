@@ -106,7 +106,8 @@
                                         <tbody>                                
                                               <cfset res=application.obj1.movieDetails()>                                                                 
                                             <cfoutput query="res">
-                                                <cfset local.movie_id=toBase64(#id#)>                               
+                                                <cfset local.movie_id=toBase64(#id#)> 
+                                                                     
                                                 <tr>
                                                     <td><img src="../../assets/poster/#movie_poster#" width="100px" height="100px" class="li-section" /></td>
                                                     <td><img src="../../assets/wallpaper/#movie_wallpaper#" width="100px" height="100px" class="li-section" /></td>
@@ -164,7 +165,7 @@
                                      <span class="movie_alert text-danger pt-3 "></span>
                                 </div>
                                 <div class="col-lg-4 ">
-                                    <input type="date" name="release_date" class="form-control" id="release_date"  value="" required >
+                                    <input type="date" name="release_date" placeholder="yyyy-mm-dd" value=""   min="1997-01-01" max="2030-12-31" class="form-control" id="release_date" required >
                                 </div>
                                 <div class="col-lg-4 ">
                                     <select name="movie_format" id="movie_format" class="form-control" required>

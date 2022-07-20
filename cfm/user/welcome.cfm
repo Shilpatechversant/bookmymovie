@@ -1,82 +1,7 @@
 <cfinclude  template = "header.cfm"  runOnce = "true">  
 <cfset res=application.obj1.movieDetails()>    
-<cfset res1=application.obj1.upcomingMovieDetails()>                                                                
-    <div class="wrapper">
-        <!-- Banner -->
-        <div class="banner-top">
-            <img alt='top banner' src="../../resources/user/images/banners/bra.jpg">
-        </div>
-
-        <!-- Header section -->
-        <header class="header-wrapper header-wrapper--home">
-            <div class="container">
-                <!-- Logo link-->
-                <a href='index.html' class="logo">
-                    <img alt='logo' src="../../resources/user/images/logo.png">
-                </a>
-                
-                <!-- Main website navigation-->
-                <nav id="navigation-box">
-                    <!-- Toggle for mobile menu mode -->
-                    <a href="#" id="navigation-toggle">
-                        <span class="menu-icon">
-                            <span class="icon-toggle" role="button" aria-label="Toggle Navigation">
-                              <span class="lines"></span>
-                            </span>
-                        </span>
-                    </a>
-                    
-                    <!-- Link navigation -->
-                    <ul id="navigation">
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="#">Home</a>
-                   
-                        </li>
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="page-elements.html">Shows</a>                   
-                        </li>
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="page-elements.html">About Us</a>                  
-                        </li>
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="gallery-four.html">Contact us</a>                      
-                        </li>
-         
-                        
-                               </ul>
-                        </li>
-                    </ul>
-                </nav>
-                
-                <!-- Additional header buttons / Auth and direct link to booking-->
-                <div class="control-panel">
-                    <div class="auth auth--home">
-                      <div class="auth__show">
-                        <span class="auth__image">
-                          <img alt="" src="../../resources/user/images/client-photo/auth.png">
-                        </span>
-                      </div>
-                      <a href="#" class="btn btn--sign btn--singin">
-                          me
-                      </a>
-                        <ul class="auth__function">
-                            <li><a href="#" class="auth__function-item">Watchlist</a></li>
-                            <li><a href="#" class="auth__function-item">Booked tickets</a></li>
-                            <li><a href="#" class="auth__function-item">Discussion</a></li>
-                            <li><a href="#" class="auth__function-item">Settings</a></li>
-                        </ul>
-
-                    </div>
-                    <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>
-                </div>
-
-            </div>
-        </header>
-
+<cfset movies_upcoming=application.obj1.upcomingMovieDetails()>  
+<cfset show_res=application.show.activeShowDetails()>                                                 
         <!-- Slider -->
         <div class="bannercontainer rev_slider_wrapper">
  
@@ -460,9 +385,6 @@
  
         </div><!-- END SLIDER CONTAINER WRAPPER -->
         <!--end slider -->
-        
-
-                                                                
                  
         <!-- Main content -->
         <section class="container">
@@ -593,55 +515,61 @@
         </div>
 
         <div class="clearfix"></div>
-            <h2 id='target' class="page-heading heading--outcontainer">Now in the cinema</h2>          
-            <cfoutput query="res">                   
-                <div class="col-sm-4 similar-wrap col--remove">
-                    <div class="post post--preview post--preview--wide">
-                        <!-- Movie variant with time -->                             
-                            <div class="movie movie--test movie--test--dark movie--test--left">
-                                <div class="movie__images">
-                                    <a href="movie-page-left.html" class="movie-beta__link">
-                                        <img alt='' src="../../assets/poster/#movie_poster#">
-                                    </a>
-                                </div>
-                                <div class="movie__info">
-                                    <a href='movie-page-left.html' class="movie__title">#movie_name# </a>
-                                    <p class="movie__option"><a href="">#movie_language#</a></p>  
-                                    <p class="movie__time">#movie_duration#</p>                                                                       
-                                </div>
+            <h2 id='target' class="page-heading heading--outcontainer">Now in the cinema</h2> 
+                <div class="cinema-wrap">     
+                    <div class="col-sm-12">
+                        <div class="row">                    
+                                <cfoutput query="show_res">  
+                                    <cfset m_id=toBase64(#id#)>      
+                                    <div class="col-xs-6 col-sm-3 cinema-item"> 
+                                        <div class="cinema">
+                                            <a href='single_movie.cfm?movie_id=#m_id#' class="cinema__images">
+                                                <img alt='' src="../../assets/poster/#movie_poster#" width="250px" height="150px">
+                                                <span class="cinema-rating">Book</span>
+                                            </a>
+                                            <a href="single_movie.cfm?movie_id=#m_id#" class="cinema-title">#movie_name#
+                                              <p class="cinema-title">#movie_language#</p>                                          
+                                            </a>                                           
+                                        </div>
+                                    </div>     
+                                </cfoutput> 
                             </div>
-                        </div>                      
-                         <!-- Movie variant with time -->   
-                    </div>
-            </cfoutput>            
-             <!-- row--> 
-            <div class="col-sm-12">
-                <h2 class="page-heading">Upcoming cinema</h2>
-             <cfoutput query="res1">  
-                <div class="col-sm-4 similar-wrap col--remove">
-                    <div class="post post--preview post--preview--wide">
-                        <!-- Movie variant with time -->                             
-                            <div class="movie movie--test movie--test--dark movie--test--left">
-                                <div class="movie__images">
-                                    <a href="movie-page-left.html" class="movie-beta__link">
-                                        <img alt='' src="../../assets/poster/#movie_poster#">
-                                    </a>
-                                </div>
-                                <div class="movie__info">
-                                    <a href='movie-page-left.html' class="movie__title">#movie_name# </a>
-                                    <p class="movie__option"><a href="">#movie_language#</a></p>  
-                                    <p class="movie__time">#movie_duration#</p>                                                                       
-                                </div>
-                            </div>
-                        </div>                      
-                         <!-- Movie variant with time -->   
-                    </div>
+                        </div>
+                    </div>  
                 </div>
-        </cfoutput>  
-          
+        <div class="pagination paginatioon--full">
+            <a href='#' class="pagination__prev">prev</a>
+            <a href='#' class="pagination__next">next</a>
+        </div>
+       <div class="clearfix"></div>
+
+        <h2 id='target' class="page-heading heading--outcontainer">Upcoming cinema</h2> 
+            <div class="cinema-wrap">     
+                <div class="col-sm-12">
+                    <div class="row">                    
+                            <cfoutput query="movies_upcoming">      
+                                <div class="col-xs-6 col-sm-3 cinema-item"> 
+                                    <div class="cinema">
+                                        <a href='single-cinema.html' class="cinema__images">
+                                            <img alt='' src="../../assets/poster/#movie_poster#" width="150px" height="150px">
+                                            <span class="cinema-rating">#release_date#</span> 
+                                        </a>
+                                           <a href="single-cinema.html" class="cinema-title">#movie_name#
+                                              <p class="cinema-title">#movie_language#</p>                                          
+                                            </a>                                 
+                                    </div>
+                                </div>     
+                            </cfoutput> 
+                        </div>
+                    </div>
+                </div>  
             </div>
-                
-        </section>
+             <!-- row-->                      
+     </section>
+     <div class="pagination paginatioon--full">
+            <a href='#' class="pagination__prev">prev</a>
+            <a href='#' class="pagination__next">next</a>
+    </div>
         
         <div class="clearfix"></div>
 
@@ -669,7 +597,7 @@
             <div class="col-xs-12 col-md-6">
                 <div class="footer-info">
                     <div class="clearfix"></div>
-                    <p class="copy">&copy;Book MyMovie, 2013. All rights reserved.</p>
+                    <p class="copy">&copy;Book MyMovie, 2022. All rights reserved.</p>
                 </div>
             </div>
        </footer>

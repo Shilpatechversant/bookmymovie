@@ -42,6 +42,7 @@
 <body>
     <div class="wrapper">
         <!-- Banner -->
+        <!-- Banner -->
         <div class="banner-top">
             <img alt='top banner' src="../../resources/user/images/banners/bra.jpg">
         </div>
