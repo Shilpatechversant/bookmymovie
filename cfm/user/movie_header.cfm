@@ -110,7 +110,7 @@
                         </ul>
 
                     </div>
-                    <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>
+                    <a href="all_movie.cfm" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>
                 </div>
 
             </div>

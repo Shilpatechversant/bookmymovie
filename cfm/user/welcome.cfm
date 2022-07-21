@@ -1,7 +1,8 @@
 <cfinclude  template = "header.cfm"  runOnce = "true">  
 <cfset res=application.obj1.movieDetails()>    
 <cfset movies_upcoming=application.obj1.upcomingMovieDetails()>  
-<cfset show_res=application.show.activeShowDetails()>                                                 
+<cfset show_res=application.show.activeShowDetails()>    
+<cfset all_res=application.show.allMovieDetails()>                                              
         <!-- Slider -->
         <div class="bannercontainer rev_slider_wrapper">
  
@@ -520,7 +521,7 @@
                     <div class="col-sm-12">
                         <div class="row">                    
                                 <cfoutput query="show_res">  
-                                    <cfset m_id=toBase64(#id#)>      
+                                    <cfset m_id=toBase64(#mid#)>      
                                     <div class="col-xs-6 col-sm-3 cinema-item"> 
                                         <div class="cinema">
                                             <a href='single_movie.cfm?movie_id=#m_id#' class="cinema__images">
@@ -564,7 +565,33 @@
                     </div>
                 </div>  
             </div>
-             <!-- row-->                      
+             <!-- row--> 
+        <div class="pagination paginatioon--full">         
+            <a href='#' class="pagination__next">next</a>
+        </div>
+       <div class="clearfix"></div>   
+            <h2 id='target' class="page-heading heading--outcontainer">All Movies</h2> 
+            <div class="cinema-wrap">     
+                <div class="col-sm-12">
+                    <div class="row">                    
+                            <cfoutput query="all_res">      
+                                <div class="col-xs-6 col-sm-3 cinema-item"> 
+                                    <div class="cinema">
+                                        <a href='single-cinema.html' class="cinema__images">
+                                            <img alt='' src="../../assets/poster/#movie_poster#" width="150px" height="150px">
+                                            <span class="cinema-rating">#release_date#</span> 
+                                        </a>
+                                           <a href="single-cinema.html" class="cinema-title">#movie_name#
+                                              <p class="cinema-title">#movie_language#</p>                                          
+                                            </a>                                 
+                                    </div>
+                                </div>     
+                            </cfoutput> 
+                        </div>
+                    </div>
+                </div>  
+            </div> 
+
      </section>
      <div class="pagination paginatioon--full">
             <a href='#' class="pagination__prev">prev</a>

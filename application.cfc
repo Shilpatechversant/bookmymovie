@@ -16,7 +16,8 @@ component {
     }
       
     function onRequestStart(requestname){ 
-   
+             // clear all objects from the cache
+            cacheRemoveAll();
         if(!structKeyExists(Session, "userId") ){
             if(findNoCase("/movieticket/cfm/admin/dashboard.cfm",requestname) > 0 ||         
             findNoCase("/movieticket/cfm/admin/delete.cfm",requestname) > 0 ||

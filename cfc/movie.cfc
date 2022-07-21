@@ -464,5 +464,45 @@
         WHERE release_date >= <cfqueryparam value="#Today#" cfsqltype="cf_sql_date">
     </cfquery>
     <cfreturn getItem />
-</cffunction>              
+</cffunction> 
+
+<cffunction  name="movieAllDetails" access="public"  output="true">   
+  <cfargument name="id" type="numeric" required="true" /> 
+ 
+    <cfquery name="getItem" datasource="newtech"  result="res">
+        SELECT DISTINCT m.movie_name,m.movie_poster,
+                m.movie_language,m.release_date,
+                m.movie_duration,m.movie_trailer,
+                m.movie_format,movie_wallpaper,
+                m.movie_des,m.genre,ct.character_name,m.id,
+                ct.actor_name,ct.actor_photo,
+                cr.role_name,cr.person_name,cr.crew_photo
+                FROM bookmymovie.movie_table m
+                INNER JOIN bookmymovie.movie_cast_table ct ON m.id =ct.movie_id 
+                INNER JOIN bookmymovie.movie_crew_table cr ON m.id =cr.movie_id 
+        WHERE 
+         m.id = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer">
+         GROUP BY m.movie_name
+    </cfquery>
+    <cfreturn getItem />
+</cffunction>  
+
+<cffunction  name="getCastDetails" access="remote"  output="false">
+    <cfargument name="id" type="numeric" required="true" />     
+    <cfquery name="getCast" datasource="newtech" >
+    SELECT * FROM bookmymovie.movie_cast_table 
+    WHERE movie_id = <cfqueryparam value="#id#" cfsqltype="cf_sql_integer">
+    </cfquery>
+    <cfreturn getCast/>
+</cffunction> 
+
+<cffunction  name="getCrewDetails" access="remote"  output="false">
+    <cfargument name="id" type="numeric" required="true" />     
+    <cfquery name="getItem" datasource="newtech" >
+    SELECT * FROM bookmymovie.movie_crew_table 
+    WHERE movie_id = <cfqueryparam value="#id#" cfsqltype="cf_sql_integer">
+    </cfquery>
+    <cfreturn getItem />
+</cffunction> 
+
  </cfcomponent>       

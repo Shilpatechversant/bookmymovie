@@ -125,8 +125,4 @@
         <cfset local.msg=hash('21','sha')> 
         <cflocation url="../cfm/admin/manage_screen.cfm?theatre_id=#arguments.tid#&message=#local.msg#" addtoken="no">  
   </cffunction> 
-
-
-
-
 </cfcomponent>        

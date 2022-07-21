@@ -10,7 +10,7 @@
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 
         <!-- Mobile menu -->
-        <script src="js/jquery.mobile.menu.js"></script>
+        <script src="../../resources/user/js/jquery.mobile.menu.js"></script>
          <!-- Select -->
         <script src="../../resources/user/js/external/jquery.selectbox-0.2.min.js"></script>
 
@@ -40,6 +40,14 @@
                 init_MoviePage();
                  init_MoviePageFull();
             });
+
+                $(function() {
+                    $( "#datepicker" ).datepicker({ 
+                        changeYear: true,
+                        minDate: '-3M',
+                        maxDate: '+3D',
+                    });
+                });
 		</script>
 
 </body>

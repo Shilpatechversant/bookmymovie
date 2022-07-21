@@ -1,143 +1,87 @@
-<cfinclude  template = "header.cfm"  runOnce = "true">  
+<cfinclude  template = "movie_header.cfm"  runOnce = "true">  
 <cfparam  name="movie_id" default="v">  
-<cfset mid=toString(toBinary(movie_id))>    
+<cfset mid=toString(toBinary(movie_id))>   
+<cfset movieData=application.obj1.movieAllDetails(mid)> 
+<cfset castData=application.obj1.getCastDetails(mid)> 
+<cfset crewData=application.obj1.getCrewDetails(mid)> 
         <!-- Main content -->
+    <cfoutput query="movieData">
         <section class="container">
             <div class="col-sm-12">
                 <div class="movie">
-                    <h2 class="page-heading">The Hobbit: An Unexpected Journey</h2>
-                    
+                    <h2 class="page-heading">#movie_name#</h2>                    
                     <div class="movie__info">
                         <div class="col-sm-4 col-md-3 movie-mobile">
                             <div class="movie__images">
                                 <span class="movie__rating">5.0</span>
-                                <img alt='' src="images/movie/single-movie.jpg">
+                                <img alt='' src="../../assets/poster/#movie_poster#">
                             </div>
-                            <div class="movie__rate">Your vote: <div id='score' class="score"></div></div>
-                        </div>
-
-                        <div class="col-sm-8 col-md-9">
-                            <p class="movie__time">169 min</p>
-
-                            <p class="movie__option"><strong>Country: </strong><a href="#">New Zeland</a>, <a href="#">USA</a></p>
-                            <p class="movie__option"><strong>Year: </strong><a href="#">2012</a></p>
-                            <p class="movie__option"><strong>Category: </strong><a href="#">Adventure</a>, <a href="#">Fantazy</a></p>
-                            <p class="movie__option"><strong>Release date: </strong>December 12, 2012</p>
-                            <p class="movie__option"><strong>Director: </strong><a href="#">Peter Jackson</a></p>
-                            <p class="movie__option"><strong>Actors: </strong><a href="#">Martin Freeman</a>, <a href="#">Ian McKellen</a>, <a href="#">Richard Armitage</a>, <a href="#">Ken Stott</a>, <a href="#">Graham McTavish</a>, <a href="#">Cate Blanchett</a>, <a href="#">Hugo Weaving</a>, <a href="#">Ian Holm</a>, <a href="#">Elijah Wood</a> <a href="#">...</a></p>
-                            <p class="movie__option"><strong>Age restriction: </strong><a href="#">13</a></p>
-                            <p class="movie__option"><strong>Box office: </strong><a href="#">$1 017 003 568</a></p>
-
-                            <a href="#" class="comment-link">Comments:  15</a>
-
-                            <div class="movie__btns movie__btns--full">
-                                <a href="#" class="btn btn-md btn--warning">book a ticket for this movie</a>
-                                <a href="#" class="watchlist">Add to watchlist</a>
-                            </div>
-
-                            <div class="share">
-                                <span class="share__marker">Share: </span>
-                                <div class="addthis_toolbox addthis_default_style ">
-                                    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-                                    <a class="addthis_button_tweet"></a>
-                                    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="clearfix"></div>
-                    
-                    <h2 class="page-heading">The plot</h2>
-
-                    <p class="movie__describe">Bilbo Baggins is swept into a quest to reclaim the lost Dwarf Kingdom of Erebor from the fearsome dragon Smaug. Approached out of the blue by the wizard Gandalf the Grey, Bilbo finds himself joining a company of thirteen dwarves led by the legendary warrior, Thorin Oakenshield. Their journey will take them into the Wild; through treacherous lands swarming with Goblins and Orcs, deadly Wargs and Giant Spiders, Shapeshifters and Sorcerers. Although their goal lies to the East and the wastelands of the Lonely Mountain first they must escape the goblin tunnels, where Bilbo meets the creature that will change his life forever ... Gollum. Here, alone with Gollum, on the shores of an underground lake, the unassuming Bilbo Baggins not only discovers depths of guile and courage that surprise even him, he also gains possession of Gollum's "precious" ring that holds unexpected and useful qualities ... A simple, gold ring that is tied to the fate of all Middle-earth in ways Bilbo cannot begin to ... </p>
-
-                    <h2 class="page-heading">photos &amp; videos</h2>
-                    
-                    <div class="movie__media">
-                        <div class="movie__media-switch">
-                            <a href="#" class="watchlist list--photo" data-filter='media-photo'>234 photos</a>
-                            <a href="#" class="watchlist list--video" data-filter='media-video'>10 videos</a>
-                        </div>
-
-                        <div class="swiper-container">
-                          <div class="swiper-wrapper">
-                              <!--First Slide-->
-                              <div class="swiper-slide media-video">
-                                <a href='https://www.youtube.com/watch?v=Y5AehBA3IsE' class="movie__media-item ">
-                                     <img alt='' src="images/movie/movie-video1.jpg">
-                                </a>
-                              </div>
-                              
-                              <!--Second Slide-->
-                              <div class="swiper-slide media-video">
-                                <a href='https://www.youtube.com/watch?v=Kb3ykVYvT4U' class="movie__media-item">
-                                    <img alt='' src="images/movie/movie-video2.jpg">
-                                </a>
-                              </div>
-                              
-                              <!--Third Slide-->
-                              <div class="swiper-slide media-photo"> 
-                                    <a href='images/movie/movie-img1-lg.jpg' class="movie__media-item">
-                                        <img alt='' src="images/movie/movie-img1.jpg">
-                                     </a>
-                              </div>
-
-                              <!--Four Slide-->
-                              <div class="swiper-slide media-photo"> 
-                                    <a href='images/movie/movie-img2-lg.jpg' class="movie__media-item">
-                                        <img alt='' src="images/movie/movie-img2.jpg">
-                                     </a>
-                              </div>
-
-                              <!--Slide-->
-                              <div class="swiper-slide media-photo"> 
-                                    <a href='images/gallery/large/item-7.jpg' class="movie__media-item">
-                                        <img alt='' src="images/movie/movie-img3.jpg">
-                                     </a>
-                              </div>
-
-                              <!--Slide-->
-                              <div class="swiper-slide media-photo"> 
-                                    <a href='images/gallery/large/item-11.jpg' class="movie__media-item">
-                                        <img alt='' src="images/movie/movie-img4.jpg">
-                                     </a>
-                              </div>
-
-                              <!--First Slide-->
-                              <div class="swiper-slide media-video">
-                                <a href='https://www.youtube.com/watch?v=Y5AehBA3IsE' class="movie__media-item ">
-                                     <img alt='' src="images/movie/movie-video1.jpg">
-                                </a>
-                              </div>
-                              
-                              <!--Second Slide-->
-                              <div class="swiper-slide media-video">
-                                <a href='https://www.youtube.com/watch?v=Kb3ykVYvT4U' class="movie__media-item">
-                                    <img alt='' src="images/movie/movie-video2.jpg">
-                                </a>
-                              </div>
-
-                              <!--Slide-->
-                              <div class="swiper-slide media-photo"> 
-                                    <a href='images/gallery/large/item-15.jpg' class="movie__media-item">
-                                        <img alt='' src="images/movie/movie-img5.jpg">
-                                     </a>
-                              </div>
-
-                              <!--Slide-->
-                              <div class="swiper-slide media-photo"> 
-                                    <a href='images/gallery/large/item-16.jpg' class="movie__media-item">
-                                        <img alt='' src="images/movie/movie-img6.jpg">
-                                     </a>
-                              </div>
-                        
                           </div>
                         </div>
 
+                        <div class="col-sm-8 col-md-9">
+                            <p class="movie__time">#movie_duration# min</p>
+                            <p class="movie__option"><strong>Movie Name: </strong><a href="cvb">#movie_name#</a></p>
+                            <p class="movie__option"><strong>Movie Language: </strong>#movie_language#</p>
+                            <p class="movie__option"><strong>Category: </strong><a href=""></a>, <a href="">#genre#</a></p>
+                            <p class="movie__option"><strong>Release date: </strong>#release_date#</p>
+                            <p class="movie__option"><strong>Movie Format: </strong><a href="">#movie_format#</a></p>
+                            <div class="movie__btns movie__btns--full">
+                                <a href="" class="btn btn-md btn--warning">book a ticket for this movie</a>
+                            </div>                       
+                        </div>
                     </div>
+           
+                    <div class="clearfix"></div>
+                    <h2 class="page-heading">Movie Description</h2>
+                    <p class="movie__describe">#movie_des#</p>
 
+                    <h2 class="page-heading">photos &amp; videos</h2>                    
+                    <div class="movie__media">
+                        <img alt='' src="../../assets/wallpaper/#movie_wallpaper#">                               
+                    </div>
+                   
                 </div>
+             </cfoutput> 
+       <div class="clearfix"></div>
+            <h2 class="page-heading">Cast Details</h2>
+                <div class="col-sm-12">
+                    <div class="row">                    
+                            <cfoutput query="castData">      
+                                <div class="col-xs-6 col-sm-3 cinema-item"> 
+                                    <div class="cinema">
+                                        <a href='single-cinema.html' class="cinema__images">
+                                            <img alt='' src="../../assets/movies/actors/#actor_photo#" width="150px" height="150px">
+                                           Role : #character_name#  
+                                        </a>
+                                           <a href="single-cinema.html" class="cinema-title">
+                                              <p class="cinema-title">#actor_name#</p>                                                                                  
+                                            </a>
+                                    </div>
+                                </div>     
+                            </cfoutput> 
+                        </div>
+                    </div>
+    
+    <div class="clearfix"></div>
+              <h2 class="page-heading">Crew Details</h2>
+                <div class="col-sm-12">
+                    <div class="row">                    
+                            <cfoutput query="crewData">      
+                                <div class="col-xs-6 col-sm-3 cinema-item"> 
+                                    <div class="cinema">
+                                        <a href='single-cinema.html' class="cinema__images">
+                                            <img alt='' src="../../assets/movies/crew/#crew_photo#" width="150px" height="150px">
+                                             #role_name#  
+                                        </a>
+                                           <a href="single-cinema.html" class="cinema-title">
+                                              <p class="cinema-title">#person_name#</p>                                                                                  
+                                            </a>
+                                    </div>
+                                </div>     
+                            </cfoutput> 
+                        </div>
+                    </div>
 
                 <h2 class="page-heading">showtime &amp; tickets</h2>
                 <div class="choose-container">
@@ -156,10 +100,9 @@
 
                     <div class="datepicker">
                       <span class="datepicker__marker"><i class="fa fa-calendar"></i>Date</span>
-                      <input type="text" id="datepicker" value='03/10/2014' class="datepicker__input">
+                      <input type="text" id="datepicker"  class="datepicker__input">
                     </div>
 
-                    <a href="#" id="map-switch" class="watchlist watchlist--map watchlist--map-full"><span class="show-map">Show cinemas on map</span><span  class="show-time">Show cinema time table</span></a>
                     
                     <div class="clearfix"></div>
 
@@ -230,151 +173,21 @@
                                 <li class="time-select__item" data-time='02:20'>02:20</li>
                             </ul>
                         </div>
-                    </div>
-                    
-                    <!-- hiden maps with multiple locator-->
-                    <div  class="map">
-                        <div id='cimenas-map'></div> 
-                    </div>
-
-                    <h2 class="page-heading">comments (15)</h2>
-
-                    <div class="comment-wrapper">
-                        <form id="comment-form" class="comment-form" method='post'>
-                            <textarea class="comment-form__text" placeholder='Add you comment here'></textarea>
-                            <label class="comment-form__info">250 characters left</label>
-                            <button type='submit' class="btn btn-md btn--danger comment-form__btn">add comment</button>
-                        </form>
-
-                        <div class="comment-sets">
-
-                        <div class="comment">
-                            <div class="comment__images">
-                                <img alt='' src="images/comment/avatar.jpg">
-                            </div>
-
-                            <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>Roberta Inetti</a>
-                            <p class="comment__date">today | 03:04</p>
-                            <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                            <a href='#' class="comment__reply">Reply</a>
-                        </div>
-
-                        <div class="comment">
-                            <div class="comment__images">
-                                <img alt='' src="images/comment/avatar-olia.jpg">
-                            </div>
-
-                            <a href='#' class="comment__author"><span class="social-used fa fa-vk"></span>Olia Gozha</a>
-                            <p class="comment__date">22.10.2013 | 14:40</p>
-                            <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                            <a href='#' class="comment__reply">Reply</a>
-                        </div>
-
-                        <div class="comment comment--answer">
-                            <div class="comment__images">
-                                <img alt='' src="images/comment/avatar-dmitriy.jpg">
-                            </div>
-
-                            <a href='#' class="comment__author"><span class="social-used fa fa-vk"></span>Dmitriy Pustovalov</a>
-                            <p class="comment__date">today | 10:19</p>
-                            <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                            <a href='#' class="comment__reply">Reply</a>
-                        </div>
-
-                        <div class="comment comment--last">
-                            <div class="comment__images">
-                                <img alt='' src="images/comment/avatar-sia.jpg">
-                            </div>
-
-                            <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>Sia Andrews</a>
-                            <p class="comment__date"> 22.10.2013 | 12:31 </p>
-                            <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                            <a href='#' class="comment__reply">Reply</a>
-                        </div>
-
-                        <div id='hide-comments' class="hide-comments">
-                            <div class="comment">
-                                <div class="comment__images">
-                                    <img alt='' src="images/comment/avatar.jpg">
-                                </div>
-
-                                <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>Roberta Inetti</a>
-                                <p class="comment__date">today | 03:04</p>
-                                <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                                <a href='#' class="comment__reply">Reply</a>
-                            </div>
-
-                            <div class="comment">
-                                <div class="comment__images">
-                                    <img alt='' src="images/comment/avatar-olia.jpg">
-                                </div>
-
-                                <a href='#' class="comment__author"><span class="social-used fa fa-vk"></span>Olia Gozha</a>
-                                <p class="comment__date">22.10.2013 | 14:40</p>
-                                <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                                <a href='#' class="comment__reply">Reply</a>
-                            </div>
-                        </div>
-
-                        <div class="comment-more">
-                            <a href="#" class="watchlist">Show more comments</a>
-                        </div>
-
-                    </div>
-                    </div>
+                    </div>  
                 </div>
             </div>
+        </div>
 
-        </section>
+    </section>
+    <footer class="footer-wrapper">
+        <section class="container">
+            <div class="clearfix">
+                <p class="copy">&copy;Book MyMovie, 2022. All rights reserved.</p>
+            </div>
+        </section>             
+    </footer>
         
-        <div class="clearfix"></div>
-
-        <footer class="footer-wrapper">
-            <section class="container">
-                <div class="col-xs-4 col-md-2 footer-nav">
-                    <ul class="nav-link">
-                        <li><a href="#" class="nav-link__item">Cities</a></li>
-                        <li><a href="movie-list-left.html" class="nav-link__item">Movies</a></li>
-                        <li><a href="trailer.html" class="nav-link__item">Trailers</a></li>
-                        <li><a href="rates-left.html" class="nav-link__item">Rates</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-4 col-md-2 footer-nav">
-                    <ul class="nav-link">
-                        <li><a href="coming-soon.html" class="nav-link__item">Coming soon</a></li>
-                        <li><a href="cinema-list.html" class="nav-link__item">Cinemas</a></li>
-                        <li><a href="offers.html" class="nav-link__item">Best offers</a></li>
-                        <li><a href="news-left.html" class="nav-link__item">News</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-4 col-md-2 footer-nav">
-                    <ul class="nav-link">
-                        <li><a href="#" class="nav-link__item">Terms of use</a></li>
-                        <li><a href="gallery-four.html" class="nav-link__item">Gallery</a></li>
-                        <li><a href="contact.html" class="nav-link__item">Contacts</a></li>
-                        <li><a href="page-elements.html" class="nav-link__item">Shortcodes</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                    <div class="footer-info">
-                        <p class="heading-special--small">A.Movie<br><span class="title-edition">in the social media</span></p>
-
-                        <div class="social">
-                            <a href='#' class="social__variant fa fa-facebook"></a>
-                            <a href='#' class="social__variant fa fa-twitter"></a>
-                            <a href='#' class="social__variant fa fa-vk"></a>
-                            <a href='#' class="social__variant fa fa-instagram"></a>
-                            <a href='#' class="social__variant fa fa-tumblr"></a>
-                            <a href='#' class="social__variant fa fa-pinterest"></a>
-                        </div>
-                        
-                        <div class="clearfix"></div>
-                      <p class="copy">&copy;Book MyMovie, 2022. All rights reserved.</p>
-                    </div>
-                </div>
-            </section>
-        </footer>
+ 
     </div>
-
    <cfinclude  template = "movie_footer.cfm"  runOnce = "true">  
 
