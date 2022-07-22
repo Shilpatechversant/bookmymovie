@@ -485,6 +485,21 @@
          GROUP BY m.movie_name
     </cfquery>
     <cfreturn getItem />
+</cffunction> 
+
+<cffunction  name="getMovieById" access="public"  output="true">   
+  <cfargument name="id" type="numeric" required="true" /> 
+    <cfquery name="getItem" datasource="newtech"  result="res">
+        SELECT  m.movie_name,m.movie_poster,
+                m.movie_language,m.release_date,
+                m.movie_duration,m.movie_trailer,
+                m.movie_format,movie_wallpaper,
+                m.movie_des,m.genre,m.id
+                FROM bookmymovie.movie_table m    
+        WHERE 
+         m.id = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer">         
+    </cfquery>
+    <cfreturn getItem />
 </cffunction>  
 
 <cffunction  name="getCastDetails" access="remote"  output="false">

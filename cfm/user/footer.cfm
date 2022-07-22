@@ -40,6 +40,8 @@
 
         <!-- Custom -->
         <script src="../../resources/user/js/custom.js"></script>
+
+ 
 		
 	      <script type="text/javascript">
               $(document).ready(function() {

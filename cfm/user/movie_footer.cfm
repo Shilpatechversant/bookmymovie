@@ -21,7 +21,7 @@
         <!-- Magnific-popup -->
         <script src="../../resources/user/js/external/jquery.magnific-popup.min.js"></script> 
 
-
+        <script src="../../resources/js/select/js/select2.min.js"></script>
 
         <!-- Share buttons -->
         <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
@@ -34,11 +34,15 @@
 
         <!-- Custom -->
         <script src="../../resources/user/js/custom.js"></script>
+ 
 		
 		<script type="text/javascript">
+        
             $(document).ready(function() {
+                    $('.js-example-basic-single').select2();
                 init_MoviePage();
                  init_MoviePageFull();
+                     $('.js-example-basic-single').select2();
             });
 
                 $(function() {
@@ -48,6 +52,8 @@
                         maxDate: '+3D',
                     });
                 });
+
+       
 		</script>
 
 </body>

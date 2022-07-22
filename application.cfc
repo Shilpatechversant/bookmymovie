@@ -18,6 +18,10 @@ component {
     function onRequestStart(requestname){ 
              // clear all objects from the cache
             cacheRemoveAll();
+
+        if(findNoCase("/movieticket/welcome.cfm",requestname) > 0){
+            location("/movieticket/cfm/user/welcome.cfm",false);
+        }  
         if(!structKeyExists(Session, "userId") ){
             if(findNoCase("/movieticket/cfm/admin/dashboard.cfm",requestname) > 0 ||         
             findNoCase("/movieticket/cfm/admin/delete.cfm",requestname) > 0 ||

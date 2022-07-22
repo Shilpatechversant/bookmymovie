@@ -118,7 +118,13 @@
                                                     <cfset new_time = timeFormat(DateAdd("s",dtn,show_time),'hh:mm:ss tt')>
                                                     <td>#new_time#</td>
                                                     <td>#end_date#</td>
-                                                    <td>#show_status#</td>
+                                                    <cfif dateCompare(end_date, now()) EQ -1>
+                                                        <td class="bg-danger text-white">Inactive</td>
+                                                    <cfelseif dateCompare(release_date, now()) EQ 1>
+                                                        <td class="bg-warning"> Pending</td>
+                                                    <cfelseif dateCompare(end_date, now()) EQ 1>
+                                                        <td class="bg-success text-white ">Active</td>
+                                                    </cfif>                                                   
                                                     <td>#priority#</td>
                                                     <td>#total_seats#</td>
                                                     <td> <button type="button" class="btn btn-sm btn-outline-danger" onClick="editShowData(#id#)">Edit</button></td>

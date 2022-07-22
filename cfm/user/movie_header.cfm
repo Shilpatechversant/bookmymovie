@@ -36,7 +36,7 @@
         <link href="../../resources/user/css/style.css?v=1" rel="stylesheet" />
         <!-- Modernizr --> 
         <script src="../../resources/user/js/external/modernizr.custom.js"></script>  
-    
+        <link href="../../resources/js/select/css/select2.min.css" rel="stylesheet" />     
 </head>
 
 <body>
@@ -70,12 +70,12 @@
                     <ul id="navigation">
                         <li>
                             <span class="sub-nav-toggle plus"></span>
-                            <a href="#">Home</a>
+                            <a href="welcome.cfm">Home</a>
                    
                         </li>
                         <li>
                             <span class="sub-nav-toggle plus"></span>
-                            <a href="page-elements.html">Shows</a>                   
+                            <a href="show_list.cfm">Shows</a>                   
                         </li>
                         <li>
                             <span class="sub-nav-toggle plus"></span>
@@ -85,9 +85,8 @@
                             <span class="sub-nav-toggle plus"></span>
                             <a href="gallery-four.html">Contact us</a>                      
                         </li>      
-                        
-                            
-                        </li>
+
+                     
                     </ul>
                 </nav>
                 
