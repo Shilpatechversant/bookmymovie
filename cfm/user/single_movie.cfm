@@ -1,6 +1,18 @@
 <cfinclude  template = "movie_header.cfm"  runOnce = "true">  
 <cfparam  name="movie_id" default="v">  
-<cfset mid=toString(toBinary(movie_id))>   
+     <cfset params = structKeyList(url)/>          
+        <cfif params neq ''>
+            <cfloop index="ix" list="#params#">
+           
+            </cfloop>
+            <cfif ix eq 'tic_id'>           
+                <cfset local.checkdata=toString(toBinary(tic_id))>                   
+            </cfif>
+        </cfif>
+<cfparam  name="tic_id" default="v"> 
+<cfset mid=toString(toBinary(movie_id))> 
+  
+
 <cfset movieData=application.obj1.movieAllDetails(mid)> 
 <cfset castData=application.obj1.getCastDetails(mid)> 
 <cfset crewData=application.obj1.getCrewDetails(mid)> 
