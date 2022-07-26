@@ -1,4 +1,43 @@
-	<!-- JavaScript-->
+	
+      <!-- Modal -->
+        <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">               
+                    <div class="modal-header center">
+                        <h4><center>Login </center></h4>                                
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                      <image src="../../assets/images/theatre1.jpg" class="theatre-div float-right"> 
+                        <form method="post" action="../../cfc/login.cfc?method=insertUser" name="contactform" id="tform" enctype="multipart/form-data" onsubmit="return validateContactForm();">
+                            <div class="row">                               
+                             
+                                <div class="col-md-4">
+                                    <label for="email">Email*</label>
+                                    <input name="user_email" type="email" id="email1" class="form-control" onchange="validateUserEmail();" required/>
+                                     <p class="email_alert text-danger"></p>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="password">Password*</label>
+                                    <input name="password" type="text" id="phone1" class="form-control" required/>
+                                       <p class="phone_alert text-danger"></p>
+                                </div>                                                    
+                            </div>                 
+               
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="s_btn">Save changes</button>
+                    </div>
+                    </form>  
+                </div>
+            </div>
+        </div>    
+        <!-- Modal -->  
+    
+    
+    <!-- JavaScript-->
         <!-- jQuery 3.1.1--> 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/external/jquery-3.1.1.min.js"><\/script>')</script>

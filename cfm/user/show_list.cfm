@@ -5,12 +5,10 @@
         <cfset params = structKeyList(url)/>          
         <cfif params neq ''>
             <cfloop index="ix" list="#params#">
-           
             </cfloop>
             <cfif ix eq 'cdate'>           
                 <cfset local.checkdata=toString(toBinary(cdate))>
                 <cfset searchResult=application.show.getShowByDate(#local.checkdata#)>    
-                      
             </cfif>
         </cfif>
        <cfset movieData=application.show.activeShowDetails()> 
@@ -61,12 +59,10 @@
                                             <p class="movie__option"><strong>Category: </strong><a href="">#genre#</a></p>
                                             <p class="movie__option"><strong>Release date: </strong>#release_date#</p>                        
                                             <div class="movie__btns">
-                                                <a href="single_movie.cfm?movie_id=#m_id#&tic_date=#local.passdate#" class="btn btn-md btn--warning">
+                                                <a href="movie_ticket_planing.cfm?movie_id=#m_id#&tic_date=#local.passdate#" class="btn btn-md btn--warning">
                                                 book a ticket <span class="hidden-sm">for this movie</span></a>
-                                            </div>
-                                    
-                                    </div> 
-                                     
+                                            </div>                                    
+                                    </div>                                
                                                      
                                 </div>
                                 <div class="clearfix"></div>
@@ -98,7 +94,8 @@
                                 <p class="movie__option"><strong>Category: </strong><a href="">#genre#</a></p>
                                 <p class="movie__option"><strong>Release date: </strong>#release_date#</p>                        
                                 <div class="movie__btns">
-                                <a href="" class="btn btn-md btn--warning">book a ticket <span class="hidden-sm">for this movie</span></a>
+                                  <a href="movie_ticket_planing.cfm?movie_id=#m_id#&tic_date=#local.encrdate#" class="btn btn-md btn--warning">
+                                                book a ticket <span class="hidden-sm">for this movie</span></a>
                                  <a href="" class="movie__show-btn">Showtime</a>
                         </div>                    
                     </div>
