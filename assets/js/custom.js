@@ -658,6 +658,58 @@ function editTimeList(screen_time_id,sc_id){
     $('#th_shows').html('<option value="">Select Show</option>'); 
 }
 
+function check_login()
+{
+    alert("heere reached");
+}
+
+function validateClientForm()
+{
+    let user_email = document.forms["loginForm"]["user_email"].value; 
+    let user_password = document.forms["loginForm"]["user_password"].value;  
+
+    if (user_email == "")
+     { 
+        alert("User Email must be filled out");
+        event.preventDefault();
+        return false;
+    }
+    if (user_password == "") 
+    {  
+        alert("Password must be filled out");
+        event.preventDefault();
+        return false;
+    }
+    return true;           
+}
+function validateClientEmail()
+{  
+
+var email_id= document.getElementById("cemail").value;    
+$.ajax({   
+      url: "../../cfc/login.cfc",
+      type: 'get',
+      dataType:"json",
+      data:{
+      method:"getClientEmailData",
+      email:email_id              
+      },
+      success: function(data)
+      {
+            console.log(data);            
+            if(data.RECORDCOUNT==1)
+            {
+            $('.email_alert').text('Email Already Exists!!');
+            $('#reg_btn').prop('disabled', true);
+            }
+            else{
+            $('.email_alert').text(" ");
+            $('#reg_btn').prop('disabled', false);
+            }                         
+      }         
+});       
+}
+
 
 
   

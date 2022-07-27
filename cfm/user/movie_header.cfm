@@ -84,7 +84,19 @@
                         <li>
                             <span class="sub-nav-toggle plus"></span>
                             <a href="gallery-four.html">Contact us</a>                      
-                        </li>      
+                        </li>                   
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="register.cfm">Register</a>                      
+                        </li>   
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="gallery-four.html">Login</a>                      
+                        </li> 
+                        <li>
+                            <span class="sub-nav-toggle plus"></span>
+                            <a href="gallery-four.html">Logout</a>                      
+                        </li>    
 
                      
                     </ul>
