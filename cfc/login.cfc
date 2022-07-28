@@ -117,14 +117,14 @@
             <cflocation url="../user/register.cfm?message=#local.msg#" addtoken ="no">
         <cfelse>           
             <cfquery datasource="newtech" result="result">
-                INSERT INTO bookmymovie.client_table (user_email,user_password) VALUES (                     
+                INSERT INTO bookmymovie.client_table (user_email,password,registered_on) VALUES (                     
                     <cfqueryparam value="#arguments.user_email#" cfsqltype="cf_sql_varchar">,                
                     <cfqueryparam value="#hash(arguments.user_passWord,'SHA')#" cfsqltype="cf_sql_varchar">,
-                   "1")
+                    <cfqueryparam value="#datetimeformat(now(),"yyyy-mm-dd HH:n:s")#" cfsqltype="CF_SQL_TIMESTAMP">)
             </cfquery>
             <cfif result.generatedkey>
                <cfset local.msg=hash('1','sha')>
-                <cflocation url="../index.cfm?message=#local.msg#" addtoken ="no">
+                <cflocation url="../user/login.cfm?message=#local.msg#" addtoken ="no">
             <cfelse>
                 <cfset local.msg=hash('2','sha')>
                 <cflocation url="../register.cfm?message=#local.msg#" addtoken ="no">
@@ -139,6 +139,22 @@
             WHERE user_email=<cfqueryparam value="#arguments.email#" cfsqltype="CF_SQL_VARCHAR">
         </cfquery>  
         <cfreturn email_res> 
+    </cffunction>
+
+     <cffunction  name="allUsers" access="public">
+        <cfquery name="user_list" result="user_res">
+            SELECT * from bookmymovie.client_table 
+        </cfquery>
+        <cfreturn user_list>
+    </cffunction>
+
+    <cffunction  name="deleteUser" access="remote">
+        <cfargument  name="id" type="integer">
+        <cfquery name="user_list" result="user_res">
+            DELETE from bookmymovie.client_table  WHERE id=<cfqueryparam value="#arguments.id#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>
+        <cfset local.status=hash('1','sha')>
+        <cflocation url="../admin/list_users.cfm?status=#local.status#" addtoken="no">
     </cffunction>
 
 </cfcomponent>

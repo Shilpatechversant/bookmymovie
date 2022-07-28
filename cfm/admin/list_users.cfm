@@ -1,6 +1,7 @@
 <cfinclude  template = "../header.cfm"  runOnce = "true"> 
 <cfparam  name="message" default="v"> 
 <cfparam  name="status" default="v"> 
+<cfset user_res=application.user.allUsers()>
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
@@ -15,26 +16,30 @@
                                 <div class="table-responsive" id="tableList" width="100%">
                                     <table class="table table-bordered" id="example"  cellspacing="0">
                                         <thead>
-                                            <tr>
-                                                <th>Username</th>
+                                            <tr>                                              
                                                 <th>Email</th>
-                                                <th>Name</th>
-                                                <th>Release Date</th>
-                                                <th>Registered On</th>
+                                                 <th>Registered On</th>
                                                 <th>Delete</th>                       
                                             </tr>
                                         </thead>
                                         <tfoot>
-                                            <tr>
-                                                <th>Username</th>
+                                            <tr>                                              
                                                 <th>Email</th>
-                                                <th>Name</th>
-                                                <th>Release Date</th>
-                                                <th>Registered On</th>
-                                                <th>Delete</th>                                            
+                                                 <th>Registered On</th>
+                                                <th>Delete</th>                       
                                             </tr>
                                         </tfoot>
-                                        <tbody>                                
+                                        <tbody>   
+                                            <cfoutput query='user_res'>    
+                                        <tr>                                 
+                                            <td>#user_email#</td>
+                                            <td>#registered_on#</td>
+                        
+                            <td><a href="../../cfc/login.cfc?method=deleteUser&id=#id#" class="btn btn-outline-primary">Delete</a></td>
+                        </tr>
+                    </cfoutput>   --->                 
+                    </cfoutput>  
+
                                     
                                         </tbody>
                                     </table>
