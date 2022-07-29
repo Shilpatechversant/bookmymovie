@@ -710,6 +710,46 @@ $.ajax({
 });       
 }
 
+$('.seat').on('click',function(){
+    var modal=$("#login_value").val();
+    var show_id=$(this).data('id');
+
+    if(modal==2)
+    {
+        $.ajax({   
+            url: "../../cfc/shows.cfc",
+            type: 'get',
+            dataType:"json",
+            data:{
+            method:"getShowDetails",
+              showId:show_id           
+            },
+            success:function(data) {  
+                console.log(data);
+                $(".seat_label").text("(" +data[0].total_seats+ " Left)");
+                $("#total_seats").val(data[0].total_seats);
+                $("#show_id").val(data[0].id);
+
+            }  
+        });       
+    }
+});
+function seatCheck(){
+    var t_seats=$("#total_seats").val();
+    var seats=$("#seats").val();
+    if(parseInt(t_seats)<parseInt(seats))
+    {
+        $(".seat_alert").text("Should be less than total seats available!!");
+        //$("#seat_btn").prop("disabled","true");
+        $("#seat_btn").prop("disabled",true);
+    }
+    else{
+        $(".seat_alert").text("");
+        $("#seat_btn").prop("disabled",false);
+    }
+
+}
+
 
 
   

@@ -48,7 +48,8 @@
                                     <p class="time-select__place">#theatre_name# - #screen_name#</p>
                                 </div>
                                 <ul class="col-sm-8 items-wrap">
-                                     #structKeyExists(Session,"userId")?'<li><a href="user_login.cfm" class="time-select__item">#show_time#</a></li>' :'<li> <button class="time-select__item" data-toggle="modal" data-tid="#show_time#" data-target="##LoginModal">#show_time#</button>  </li>'#     
+                                     #structKeyExists(Session,"userId")?'<li> <button type="button" class="time-select__item seat" data-bs-toggle="modal" data-id="#id#" data-bs-target=".loginModal"  >#start_time#</button>
+                                     </li>' :'<li> <button class="time-select__item" data-toggle="modal" data-tid="#show_time#" data-target="##LoginModal">#show_time#</button>  </li>'#     
                                 </ul>
                             </div>
                         </div>
@@ -85,7 +86,7 @@
                               <form class="user" 
                                 method="post" 
                                 name="loginForm" 
-                                action="cfc/login.cfc?method=checkUser"
+                                action="../../cfc/login.cfc?method=checkUser"
                                >
                             <p class="login__title">sign in <br><span class="login-edition">welcome to BookMyMovie</span></p>
                                               
@@ -106,6 +107,48 @@
             </div>
         </div>    
         <!-- Modal -->  
+       
+
+       <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-white">Seat Form</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class='text-center'>
+                   
+                    <h4>Welcome Plan Your Seating</h4>
+                </div>
+                <div class="container pt-5">
+                <form role="form" method="POST" action="../../cfc/shows.cfc?method=seatSelect">
+                    
+                    <div class="form-group">
+                        <input type="hidden" name="login_value" value="2" id="login_value">
+                        <label class="control-label">Enter Numer of seats required -- <span class="seat_label text-success"></span>
+                        <input type="hidden" name="show_id" value="" id="show_id">
+                        <cfoutput><input type="hidden" name="cdate" value="#pdate#" id="cdate"></cfoutput>
+                        <input type="hidden" name="total_seats" value="" id="total_seats">
+                             
+                        </label>
+                        <div>
+                            <input type="text" class="form-control input-lg" id="seats" name="seats" value="" onchange="seatCheck();">
+                            <span class="text-danger seat_alert"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <input type="submit" class="btn btn-showing " name="submit" value="Seats Plan" id="seat_btn" disabled>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+            
+        </div><!-- /.modal-content -->
+    </div>
+
+        
      </div>   
     
    <cfinclude  template = "movie_footer.cfm"  runOnce = "true">  
