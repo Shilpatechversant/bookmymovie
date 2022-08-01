@@ -710,7 +710,8 @@ $.ajax({
 });       
 }
 
-$('.seat').on('click',function(){
+$('#show_seat').on('click',function(){
+    alert("here reached");
     var modal=$("#login_value").val();
     var show_id=$(this).data('id');
 
@@ -749,6 +750,35 @@ function seatCheck(){
     }
 
 }
+
+
+
+
+const getSsseatBookView = (id) => {  
+ 
+    $.ajax({
+        url: "../../cfc/theatre.cfc",
+        type: "post", 
+        dataType: "json",
+        data: {
+            method: "getContact",
+            id
+        },
+        success: function (data){             
+            if(data && data.length){                
+                $('#f1').val(data[0].theatre_name);
+                $('#email1').val(data[0].theatre_email); 
+                $('#phone1').val(data[0].theatre_phone);              
+                $('#ad1').val(data[0].theatre_address);
+                $('#st1').val(data[0].theatre_street);   
+                $('#pn1').val(data[0].theatre_pincode);                  
+                $('#id').val(data[0].id);  
+                $('#old_image').val(data[0].image);                                                                            
+                $('#AddTheatreModal').modal('show');
+            }
+        }
+    });
+  }
 
 
 

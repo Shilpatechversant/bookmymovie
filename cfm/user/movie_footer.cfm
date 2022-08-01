@@ -34,9 +34,8 @@
         <script src="../../resources/user/js/external/form-element.js"></script>
         <!-- Form validation -->
         <script src="../../resources/user/js/form.js"></script>
+        <script src="../../resources/user/js/custom.js"></script>  
 
-        <!-- Custom -->
-        <script src="../../resources/user/js/custom.js"></script>
  
 		
 		<script type="text/javascript">
@@ -54,13 +53,43 @@
                         minDate: '-3M',
                         maxDate: '+3D',
                     });
-                });
+                });  
 
-       
-		</script>
+        function getSeatBookView(id)
+        {   
+         
+            $("#gshow_id").val(id);
+            $('#SloginModal').modal('show');      
+         
+        } 
+
+        function getSeatCountView(show_id,mov_id,cdate)
+        {   
+         
+         $.ajax({
+            url: "../../cfc/reservation.cfc",
+            type: "post", 
+            dataType: "json",
+            data: {
+                method: "getBookings",
+                showId:show_id              
+            },
+            success: function (data){             
+                if(data && data.length){                
+                    $('#ch_show_id').val(show_id);                                                                                         
+                   $('#GseatModal').modal('show');     
+              }
+            }
+        });
+            
+         
+        }       
+		</script>   
+
+     
 
 
-        
+ 
 
 </body>
 </html>

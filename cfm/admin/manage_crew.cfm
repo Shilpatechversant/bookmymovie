@@ -245,7 +245,7 @@
                         </div>                               
                         <input type="hidden" name="movie_id"  id="movie_id" value="<cfoutput>#movId#</cfoutput>" />
                         <input type="hidden" name="mov_id"  id="mov_id" value="<cfoutput>#movId#</cfoutput>" />
-                          <input type="hidden" name="id" value="" id="id">                    
+                        <input type="hidden" name="id" value="" id="id">                    
                     </div>  
                 </div>
             <div class="modal-footer">

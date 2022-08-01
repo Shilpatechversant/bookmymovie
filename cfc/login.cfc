@@ -67,33 +67,28 @@
     <cffunction name="checkUser" access="remote"  output="false">
         <cfargument name="user_email" type="string" required="true">
         <cfargument name="user_password" type="string" required="true">
-        <cfif arguments.username eq "">
-            <cfset local.msg=hash('2','sha')>
-            <cflocation url="../index.cfm?message=#local.msg#" addtoken ="no">
-        </cfif>
-        <cfif arguments.password eq "">
-            <cfset local.msg=hash('3','sha')>
-            <cflocation url="../index.cfm?message=#local.msg#" addtoken ="no">
-        </cfif>
-        
+        <cfargument  name="show_id" type="integer">
+        <cfargument  name="movie_id" type="integer">
+        <cfargument  name="cdate" type="date">
+ 
         <cfquery datasource="newtech" result="outputdata" name="loginResult">
             SELECT * FROM bookmymovie.client_table
-            WHERE user_email= <cfqueryparam CFSQLType="cf_sql_varchar" value="#arguments.username#"> 
-            AND user_password= <cfqueryparam CFSQLType="cf_sql_varchar" value="#hash(arguments.passWord,'SHA')#"> 
-            
+            WHERE user_email= <cfqueryparam CFSQLType="cf_sql_varchar" value="#arguments.user_email#"> 
+            AND password= <cfqueryparam CFSQLType="cf_sql_varchar" value="#hash(arguments.user_passWord,'SHA')#"> 
         </cfquery>
 
         <cfif outputdata.RECORDCOUNT GT 0>
             <cfset Session.userId=loginResult.id>
-            <cfset Session.username=loginResult.username>
+            <cfset Session.username=loginResult.user_email>
             <cfset Session.role=loginResult.role>
             <cfset Session.loggedin=true />
-            <cfif Session.loggedin eq true>
-                <cflocation url="../cfm/user/dashboard.cfm" addtoken ="no">
+            <cfif Session.loggedin eq true>  
+                 <cfset local.msg=hash('5','sha')>      
+               <cflocation  url="../cfm/user/movie_ticket_planing.cfm?movie_id=#toBase64(arguments.movie_id)#&tic_date=#toBase64(arguments.cdate)#&message=#local.msg#" addtoken="no">
             </cfif>
         <cfelse>
             <cfset local.msg=hash('4','sha')>
-            <cflocation url="../index.cfm?message=#local.msg#">
+            <cflocation  url="../cfm/user/movie_ticket_planing.cfm?movie_id=#toBase64(arguments.movie_id)#&tic_date=#toBase64(arguments.cdate)#&message=#local.msg#" addtoken="no">
         </cfif>
     </cffunction>
 
@@ -117,10 +112,10 @@
             <cflocation url="../user/register.cfm?message=#local.msg#" addtoken ="no">
         <cfelse>           
             <cfquery datasource="newtech" result="result">
-                INSERT INTO bookmymovie.client_table (user_email,password,registered_on) VALUES (                     
+                INSERT INTO bookmymovie.client_table (user_email,password,registered_on,role) VALUES (                     
                     <cfqueryparam value="#arguments.user_email#" cfsqltype="cf_sql_varchar">,                
                     <cfqueryparam value="#hash(arguments.user_passWord,'SHA')#" cfsqltype="cf_sql_varchar">,
-                    <cfqueryparam value="#datetimeformat(now(),"yyyy-mm-dd HH:n:s")#" cfsqltype="CF_SQL_TIMESTAMP">)
+                    <cfqueryparam value="#datetimeformat(now(),"yyyy-mm-dd HH:n:s")#" cfsqltype="CF_SQL_TIMESTAMP">,'client')
             </cfquery>
             <cfif result.generatedkey>
                <cfset local.msg=hash('1','sha')>

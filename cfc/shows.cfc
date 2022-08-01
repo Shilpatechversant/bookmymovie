@@ -211,11 +211,28 @@
             INNER JOIN bookmymovie.screen_time_table st ON sh.screen_time_id =st.id
             WHERE sh.movie_id = <cfqueryparam value="#arguments.mid#" cfsqltype="cf_sql_integer"> 
             AND m.release_date < <cfqueryparam value="#local.cday#" cfsqltype="cf_sql_date"> 
-            AND  sh.end_date > <cfqueryparam value="#local.cday#" cfsqltype="cf_sql_date">          
-         
+            AND  sh.end_date > <cfqueryparam value="#local.cday#" cfsqltype="cf_sql_date">    
         </cfquery>  
-    <cfreturn show_details> 
+    <cfreturn show_details>     
 </cffunction> 
+
+ <cffunction name="seatSelect" access="remote">
+        <cfargument name="total_seats" type="integer">
+        <cfargument name="show_id" type="integer">
+        <cfargument name="seats" type="integer">
+
+        <cfargument name="cdate" type="date">
+        <cfif arguments.total_seats GT arguments.seats>
+            <cfset local.seat_num=toBase64(arguments.seats)>
+            <cfset local.show_id=toBase64(arguments.show_id)>
+            <cfset local.date=toBase64(arguments.cdate)>
+            <cflocation  url="../seat_select.cfm?seat_num=#local.seat_num#&show_id=#local.show_id#&date=#local.date#" addtoken="no">
+        <cfelse>
+            <cfset local.status=hash('1','sha')>
+            <cflocation  url="../cfm/user/list_shows.cfm?status=#local.status#" AddToken="no"> 
+
+        </cfif>
+    </cffunction>
 
 </cfcomponent>        
 

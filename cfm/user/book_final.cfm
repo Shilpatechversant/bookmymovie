@@ -41,7 +41,6 @@
         </section>
         
         <div class="clearfix"></div>
-
     </div>
             
             <section class="container">
