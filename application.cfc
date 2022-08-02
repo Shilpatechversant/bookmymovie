@@ -13,6 +13,7 @@ component {
         application.obj1=createObject('component','cfc.movie');
         application.show=createObject('component','cfc.shows');
         application.user=createObject('component','cfc.login');
+        application.bookings=createObject('component','cfc.reservation');
         this.return=true;
     }
       

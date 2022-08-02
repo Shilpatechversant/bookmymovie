@@ -24,3 +24,18 @@
 {
     display: none;
 }
+
+.seat{
+    cursor: pointer;
+}
+.seat-taken{
+    cursor: default;
+}
+.seat>span>img{
+    width: 69px;
+    height: 69px;
+}
+.seat>input{
+    display: none;
+
+}

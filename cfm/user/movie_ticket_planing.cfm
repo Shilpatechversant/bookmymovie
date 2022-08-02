@@ -147,13 +147,19 @@
                             <div class="form-group">                        
                                 <label class="control-label">Enter Numer of seats required --
                                     <span class="seat_label text-success"></span>
-                                    <input type="hidden" name="show_id" value="" id="ch_show_id">
+                                      <form class="user" 
+                                            method="post" 
+                                            name="checkForm" 
+                                            action="../../cfc/reservation.cfc?method=ShowBookview"
+                                                >
+                                    <input type="hidden" name="ch_show_id" value="" id="ch_show_id">
                                     <cfoutput><input type="hidden" name="cdate" value="#local.checkdata#" id="cdate"></cfoutput>
                                     <input type="hidden" name="total_seats" value="" id="total_seats">
                                 </label>
                                 <div>
                                     <input type="text" class="form-control input-lg" id="seats" name="seats" value="" onchange="seatCheck();">
                                     <span class="text-danger seat_alert"></span>
+                                     <input type="submit" class="btn btn-success " name="submit" value="Seats Plan" id="seat_btn" disabled>
                                 </div>
                             </div>
                         </div>

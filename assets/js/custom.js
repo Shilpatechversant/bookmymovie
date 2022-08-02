@@ -735,21 +735,7 @@ $('#show_seat').on('click',function(){
         });       
     }
 });
-function seatCheck(){
-    var t_seats=$("#total_seats").val();
-    var seats=$("#seats").val();
-    if(parseInt(t_seats)<parseInt(seats))
-    {
-        $(".seat_alert").text("Should be less than total seats available!!");
-        //$("#seat_btn").prop("disabled","true");
-        $("#seat_btn").prop("disabled",true);
-    }
-    else{
-        $(".seat_alert").text("");
-        $("#seat_btn").prop("disabled",false);
-    }
 
-}
 
 
 

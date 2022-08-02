@@ -83,7 +83,7 @@
             <cfset Session.role=loginResult.role>
             <cfset Session.loggedin=true />
             <cfif Session.loggedin eq true>  
-                 <cfset local.msg=hash('5','sha')>      
+                 <cfset local.msg=hash('5','sha')>   
                <cflocation  url="../cfm/user/movie_ticket_planing.cfm?movie_id=#toBase64(arguments.movie_id)#&tic_date=#toBase64(arguments.cdate)#&message=#local.msg#" addtoken="no">
             </cfif>
         <cfelse>

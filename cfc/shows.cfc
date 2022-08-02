@@ -216,6 +216,31 @@
     <cfreturn show_details>     
 </cffunction> 
 
+   <cffunction name="getShowDetailsById" access="public" > 
+        <cfargument  name="show_id" type="integer">          
+        <cfquery name="show_details" result="show_data">
+            SELECT 
+                m.movie_name,sh.id as sid,m.movie_poster,
+                m.movie_language,m.release_date,
+                m.movie_duration,sh.total_seats,sh.theatre_id,            
+                sh.end_date,sh.priority,sh.show_status,
+                sh.id,m.movie_poster,m.movie_name,
+                m.genre,m.release_date,
+                th.theatre_name,
+                s.screen_name,st.show_time,
+                st.show_name,m.id as mid,
+                th.id as t_id,s.id as s_id,
+                st.id as st_id
+            FROM bookmymovie.manage_shows sh
+            INNER JOIN bookmymovie.movie_table m ON sh.movie_id =m.id
+            INNER JOIN bookmymovie.theatre th ON sh.theatre_id=th.id 
+            INNER JOIN bookmymovie.screen_table s ON sh.screen_id=s.id
+            INNER JOIN bookmymovie.screen_time_table st ON sh.screen_time_id =st.id
+            WHERE sh.id = <cfqueryparam value="#arguments.show_id#" cfsqltype="cf_sql_integer">            
+        </cfquery>  
+    <cfreturn show_details>     
+</cffunction> 
+
  <cffunction name="seatSelect" access="remote">
         <cfargument name="total_seats" type="integer">
         <cfargument name="show_id" type="integer">

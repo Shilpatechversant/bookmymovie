@@ -75,15 +75,34 @@
                 showId:show_id              
             },
             success: function (data){             
-                if(data && data.length){                
-                    $('#ch_show_id').val(show_id);                                                                                         
+                if(data && data.length){ 
+                   var avail_seats=parseInt(data[0]['total_seats']) - parseInt(data[0].num_seats);
+                   $(".seat_label").text("(" +avail_seats+ " Left)");
+                    $('#ch_show_id').val(show_id);     
+                    $('#total_seats').val(avail_seats);                                                                                        
                    $('#GseatModal').modal('show');     
               }
             }
         });
             
          
-        }       
+        }  
+        function seatCheck()
+        {
+            var t_seats=$("#total_seats").val();
+            var seats=$("#seats").val();
+            if(parseInt(t_seats)<parseInt(seats))
+            {
+                $(".seat_alert").text("Should be less than total seats available!!");
+                //$("#seat_btn").prop("disabled","true");
+                $("#seat_btn").prop("disabled",true);
+            }
+            else{
+                $(".seat_alert").text("");
+                $("#seat_btn").prop("disabled",false);
+            }
+
+        }     
 		</script>   
 
      
