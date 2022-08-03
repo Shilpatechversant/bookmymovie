@@ -34,17 +34,30 @@
         <cfargument  name="cdate" type="date"> 
 
         <cfquery name="book_details" result="book_data">
-            SELECT COUNT(res.id) as num_seats, res.id as rs_id,res.seat_num as seats        
-            FROM bookmymovie.reservation_table res
-            INNER JOIN bookmymovie.manage_shows m ON res.show_id =m.id       
+            SELECT res.seat_num as seats        
+            FROM bookmymovie.reservation_table res                 
             WHERE res.show_id=<cfqueryparam value="#arguments.ch_show_id#" cfsqltype="CF_SQL_INTEGER">
             AND res.show_date = <cfqueryparam value="#arguments.cdate#" cfsqltype="cf_sql_date"> 
-        </cfquery> 
-    
-     
+        </cfquery>       
+        <cfset MyNewArray = ArrayNew(1,false)>           
         <cfloop query="book_details">
-            <cfset listAppend(seats_taken,#seats#)>
-        </cfloop>            
+            <cfset ArrayAppend(MyNewArray, #seats#)>
+        </cfloop>          
+        <cfset seats_taken = #ArrayToList(MyNewArray)#>    
         <cfreturn seats_taken>
+    </cffunction>
+
+    <cffunction name="setBooking" access="remote">
+        <cfargument  name="seats" type="string">
+        <cfargument  name="tprice" type="string">
+        <cfargument  name="time_sl" type="integer">
+        <cfargument  name="show_id" type="integer">
+        <cfargument  name="date" type="date">
+        <cfset sh_id=toBase64(arguments.show_id)>
+        <cfset tp=toBase64(arguments.tprice)>
+        <cfset ts=toBase64(arguments.time_sl)>
+        <cfset pdate=toBase64(arguments.date)>
+        <cfset seat_num=toBase64(arguments.seats)>
+        <cflocation  url="../cfm/user/payment.cfm?show_id=#sh_id#&tprice=#tp#&ts=#ts#&date=#pdate#&seat_num=#seat_num#" addtoken="no">
     </cffunction>
 </cfcomponent>

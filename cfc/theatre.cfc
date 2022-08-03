@@ -189,4 +189,16 @@
         <cfreturn theatres> 
     </cffunction>
 
+    
+    <cffunction name="getScreenTime" access="remote" returnFormat = "json">
+        <cfargument name="time_id" type="integer"  >
+        <cfquery name="time_details" result="time_res" returntype="array">
+            SELECT st.screen_id,st.show_time,st.show_name,
+                  st.id,st.theatre_id,s.screen_name FROM bookmymovie.screen_time_table st 
+            INNER JOIN bookmymovie.screen_table s ON st.screen_id=s.id
+            WHERE st.id=<cfqueryparam value="#arguments.time_id#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>  
+        <cfreturn time_details> 
+    </cffunction>
+
  </cfcomponent>       

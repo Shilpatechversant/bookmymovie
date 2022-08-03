@@ -580,9 +580,9 @@ function init_BookingTwo () {
                             $(this).addClass('sits-state--your');
 
                             $('.checked-place').prepend('<span class="choosen-place '+place+'">'+ place +'</span>');
-
-                            switch(ticketPrice)
-                                {
+                            sum+=Number(ticketPrice);
+                           switch(ticketPrice)
+                                { /*
                                 case '10':
                                   sum += 10;
                                   cheap += 1;
@@ -594,7 +594,7 @@ function init_BookingTwo () {
                                 case '30':
                                   sum += 30;
                                   expansive += 1;
-                                  break;
+                                  break;*/
                             }
 
                             $('.checked-result').text('$'+sum);
@@ -605,8 +605,9 @@ function init_BookingTwo () {
                         $(this).removeClass('sits-state--your');
                         
                         $('.'+place+'').remove();
+                        sum-=ticketPrice;
 
-                        switch(ticketPrice)
+                      /*  switch(ticketPrice)
                                 {
                                 case '10':
                                   sum -= 10;
@@ -620,7 +621,7 @@ function init_BookingTwo () {
                                   sum -= 30;
                                   expansive -= 1;
                                   break;
-                            }
+                            }*/
 
                         $('.checked-result').text('$'+sum)
                     }

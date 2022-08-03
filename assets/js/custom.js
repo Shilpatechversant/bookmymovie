@@ -767,6 +767,103 @@ const getSsseatBookView = (id) => {
   }
 
 
+  $('.confirm').on('click',function(){
+       
+    var seat_arr=[];
+    var seats="";
+    var total_price=$(".checked-result").text();
+   
+   $('.choosen-place').each( function () {
+    Sits =  $(this).text();
+    seat_arr.push(Sits);
+    seats=seat_arr.toString();
+});
+var tseats=$("#tseat").val();
+   if(seat_arr.length==tseats)
+    {
+        $("#confirm_alert").text("Thank You for choosing seats "+seat_arr);
+        $("#seat_labels").val(seats);
+        $("#t_price").text("Total Price : "+total_price);
+        $("#tprice").val(total_price);
+        $(".time_data").css("display", "block");
+        $("#proceed_btn").prop("disabled",false);
+    }
+   else if(seat_arr.length>=tseats)
+    {
+        $("#confirm_alert").text("Selected Seats should be less than required seats");
+        $("#t_price").text("");
+        $("#tprice").val("");
+        $('.time_data').css("display", "none");
+        $("#proceed_btn").prop("disabled",true);
+    }
+    
+    else if(seat_arr.length==0)
+    {
+        $("#confirm_alert").text("Please Choose Seats to proceed");
+        $("#t_price").text("");
+        $("#tprice").val("");
+        $('.time_data').css("display", "none");
+        $("#proceed_btn").prop("disabled",true);
+      // $("#proceed_btn").attr("disabled","disabled");
+    }
+   // });      
+     //alert(chooseSits.split(" "));       
+                //var place= $('.choosen-place').text();
+                    
+    
+});
+
+
+function payNow()
+{
+    alert("sdgs");
+  var email=document.getElementById('email_p').value;
+   var name=document.getElementById('name_p').value;
+  var amount=document.getElementById('amount').value;
+  var t_price=amount*100;
+  
+var options = {
+    "key": "rzp_test_obk5MpINtqMmLN", // Enter the Key ID generated from the Dashboard
+    "amount": t_price, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "BookMyTicket",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    //"order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature)
+    },
+    "prefill": {
+        "name": name,
+        "email": email,
+        "contact": "9999999999"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+//document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+   // e.preventDefault();
+//}
+}
+
+
 
   
 

@@ -218,16 +218,16 @@
 
    <cffunction name="getShowDetailsById" access="public" > 
         <cfargument  name="show_id" type="integer">          
-        <cfquery name="show_details" result="show_data">
+        <cfquery name="show_details" result="show_data" returntype="array">
             SELECT 
-                m.movie_name,sh.id as sid,m.movie_poster,
+                m.movie_name,sh.id as sid,m.movie_poster,m.movie_format,
                 m.movie_language,m.release_date,
                 m.movie_duration,sh.total_seats,sh.theatre_id,            
                 sh.end_date,sh.priority,sh.show_status,
                 sh.id,m.movie_poster,m.movie_name,
                 m.genre,m.release_date,
                 th.theatre_name,
-                s.screen_name,st.show_time,
+                s.screen_name,s.gold_rate,s.silver_rate,st.show_time,
                 st.show_name,m.id as mid,
                 th.id as t_id,s.id as s_id,
                 st.id as st_id
