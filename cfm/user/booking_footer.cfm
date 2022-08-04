@@ -31,17 +31,20 @@
        
                 var seat_arr=[];
                 var seats="";
-                var total_price=$(".checked-result").text();
-            
+                var total_price=$("#checked-result").text();
+           
+                alert(total_price);
             $('.choosen-place').each( function () {
                 Sits =  $(this).text();
                 seat_arr.push(Sits);
                 seats=seat_arr.toString();
+              
             });
             var tseats=$("#tseat").val();
-            alert(seats);
+               
             if(seat_arr.length==tseats)
                 {
+                       alert("===");
                     $("#confirm_alert").text("Thank You for choosing seats "+seat_arr);
                     $("#seat_labels").val(seats);
                     $("#t_price").text("Total Price : "+total_price);
@@ -49,8 +52,9 @@
                     $(".time_data").css("display", "block");
                     $("#proceed_btn").prop("disabled",false);
                 }
-            else if(seat_arr.length>=tseats)
-                {
+            else if(seat_arr.length<=tseats)
+                {    
+                      alert("less than");
                     $("#confirm_alert").text("Selected Seats should be less than required seats");
                     $("#t_price").text("");
                     $("#tprice").val("");
@@ -59,7 +63,8 @@
                 }
                 
                 else if(seat_arr.length==0)
-                {
+                {    
+                    alert("0000");
                     $("#confirm_alert").text("Please Choose Seats to proceed");
                     $("#t_price").text("");
                     $("#tprice").val("");

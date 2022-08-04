@@ -191,7 +191,7 @@
 
     
     <cffunction name="getScreenTime" access="remote" returnFormat = "json">
-        <cfargument name="time_id" type="integer"  >
+        <cfargument name="time_id" type="integer">
         <cfquery name="time_details" result="time_res" returntype="array">
             SELECT st.screen_id,st.show_time,st.show_name,
                   st.id,st.theatre_id,s.screen_name FROM bookmymovie.screen_time_table st 

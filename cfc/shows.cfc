@@ -255,7 +255,6 @@
         <cfelse>
             <cfset local.status=hash('1','sha')>
             <cflocation  url="../cfm/user/list_shows.cfm?status=#local.status#" AddToken="no"> 
-
         </cfif>
     </cffunction>
 

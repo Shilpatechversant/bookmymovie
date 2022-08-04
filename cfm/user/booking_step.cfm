@@ -80,8 +80,8 @@
                             <div class="checked-place">
                                 
                             </div>
-                            <div class="checked-result">
-                                $0
+                            <div class="checked-result" id="checked-result">
+                                
                             </div>
                         </aside>
                 </div>
