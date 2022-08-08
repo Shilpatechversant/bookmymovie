@@ -23,13 +23,14 @@
                                     </div>
                                 </div>                                   
                                     <cfoutput>
-                                    <input type="hidden" name="seats" id="seat_labels" value="">
-                                    <input type="hidden" name="tprice"  id="tprice" value="">
-                                    <input type="hidden" name="date"  id="date" value="#local.cdate#">
-                                        <cfloop array="#showResult#" index="i">                                        
-                                            <input type="hidden" name="time_sl"  id="time_sl" value="#i.st_id#">
-                                            <input type="hidden" name="show_id"  id="show_id" value="#i.id#">
-                                        </cfloop>
+                                        <input type="hidden" name="seats" id="seat_labels" value="">
+                                        <input type="hidden" name="tprice"  id="tprice" value="">
+                                        <input type="hidden" name="date"  id="date" value="#local.cdate#">
+                                            <cfloop array="#showResult#" index="i">                                        
+                                                <input type="hidden" name="time_sl"  id="time_sl" value="#i.st_id#">
+                                                <input type="hidden" name="show_id"  id="show_id" value="#i.id#">
+                                                <input type="hidden" name="theatre_id"  id="ltheatre_id" value="#local.theatre_id#">
+                                            </cfloop>
                                     </cfoutput>
                             </div>                                 
                       

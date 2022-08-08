@@ -125,4 +125,43 @@
         <cfset local.msg=hash('21','sha')> 
         <cflocation url="../cfm/admin/manage_screen.cfm?theatre_id=#arguments.tid#&message=#local.msg#" addtoken="no">  
   </cffunction> 
+
+    <cffunction name="confirmPayment" access="remote">
+        <cfargument  name="reserve_id" type="integer">
+        <cfargument  name="pay_id" type="string">
+        <cfif Len(Trim(arguments.pay_id)) GT 0>
+            <cfquery name="update_reserve" result="up_reserve">
+                UPDATE movie_ticket.reservation 
+                SET paid=<cfqueryparam value="1" cfsqltype="CF_SQL_INTEGER">
+                WHERE id=<cfqueryparam value="#arguments.reserve_id#" cfsqltype="CF_SQL_INTEGER">
+            </cfquery>
+            <cfset local.id=arguments.reserve_id>
+            <cfset reserve_data=getReservation(local.id)>
+            <cfoutput query='reserve_res'>
+                <cfset local.ticket_id="BKID" & m_id & th_id & s_id & st_id & sh_id & id>
+            </cfoutput>
+            <cfquery name="insert_ticket" result="ins_ticket">
+                INSERT into movie_ticket.book_ticket(
+                        ticket_id,
+                        payment_id,
+                        book_date,
+                        book_time,
+                        reserve_id,
+                        user_id                        
+                    )
+                    VALUES(
+                        <cfqueryparam value="#local.ticket_id#" cfsqltype="CF_SQL_VARCHAR">,
+                        <cfqueryparam value="#arguments.pay_id#" cfsqltype="CF_SQL_VARCHAR">,
+                        <cfqueryparam value="#dateformat(now(),"yyyy-mm-dd")#" cfsqltype="CF_SQL_DATE">,
+                        <cfqueryparam value="#timeFormat(now(), "hh:mm:ss")#" cfsqltype="CF_SQL_TIME">,
+                        <cfqueryparam value="#arguments.reserve_id#" cfsqltype="CF_SQL_INTEGER">,
+                        <cfqueryparam value="#session.userLog.user_id#" cfsqltype="CF_SQL_INTEGER">
+                      
+                    )
+            </cfquery>
+        </cfif> 
+        <cfif ins_ticket.RecordCount  NEQ 0>     
+            <cflocation  url="../ticket_download.cfm?reserve_id=#toBase64(arguments.reserve_id)#" addtoken="no">
+        </cfif>
+    </cffunction>
 </cfcomponent>        

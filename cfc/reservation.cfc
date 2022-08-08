@@ -14,7 +14,7 @@
         <cfargument  name="ch_show_id" type="integer"> 
         <cfargument  name="cdate" type="date"> 
         <cfargument  name="seats" type="string"> 
-        <cfargument name="total_seats" type="integer">
+        <cfargument name="total_seats" type="string">
 
         <cfif arguments.total_seats GT arguments.seats>
             <cfset local.seat_num=toBase64(arguments.seats)>
@@ -52,12 +52,84 @@
         <cfargument  name="tprice" type="string">
         <cfargument  name="time_sl" type="integer">
         <cfargument  name="show_id" type="integer">
+        <cfargument  name="theatre_id" type="integer">
         <cfargument  name="date" type="date">
+        <cfargument  name="show_date" type="date">
+
+        <cfset local.today= DateFormat(Now(),"yyyy-mm-dd")>
+
         <cfset sh_id=toBase64(arguments.show_id)>
         <cfset tp=toBase64(arguments.tprice)>
         <cfset ts=toBase64(arguments.time_sl)>
         <cfset pdate=toBase64(arguments.date)>
         <cfset seat_num=toBase64(arguments.seats)>
-        <cflocation  url="../cfm/user/payment.cfm?show_id=#sh_id#&tprice=#tp#&ts=#ts#&date=#pdate#&seat_num=#seat_num#" addtoken="no">
+
+        <cfset local.seat_split =arguments.seats.Split(",")>
+        <cfset local.seat_num=ArrayLen(seat_split)>
+        <cfquery name="select_seat" result="select_res">
+            SELECT * FROM bookmymovie.reservation_table WHERE 
+            seats=<cfqueryparam value="#arguments.seats#" cfsqltype="CF_SQL_VARCHAR">
+        </cfquery>
+        <cfif select_res.RecordCount EQ 0>
+       
+            <cfquery name="reserve" result="reserve_res">
+                    INSERT into bookmymovie.reservation_table(
+                        theatre_id,
+                        show_id,
+                        booked_on,
+                        customer_id,
+                        show_date,
+                        seats,
+                        seat_num,                       
+                        time_slot,                    
+                        price,
+                        paid,
+                        payment_status
+                    )
+                    VALUES
+                       (
+                            <cfqueryparam value="#arguments.theatre_id#" cfsqltype="CF_SQL_VARCHAR">,
+                            <cfqueryparam value="#arguments.show_id#" cfsqltype="CF_SQL_INTEGER">,
+                            <cfqueryparam value="#local.today#" cfsqltype="CF_SQL_DATE">,
+                            <cfqueryparam value="#Session.userId#" cfsqltype="CF_SQL_INTEGER">,
+                            <cfqueryparam value="#arguments.date#" cfsqltype="CF_SQL_DATE">,
+                            <cfqueryparam value="#arguments.seats#" cfsqltype="CF_SQL_VARCHAR">,
+                            <cfqueryparam value="#local.seat_num#" cfsqltype="CF_SQL_VARCHAR">,                        
+                            <cfqueryparam value="#arguments.time_sl#" cfsqltype="CF_SQL_VARCHAR">,                       
+                            <cfqueryparam value="#arguments.tprice#" cfsqltype="CF_SQL_VARCHAR">,
+                            <cfqueryparam value="0" cfsqltype="CF_SQL_VARCHAR">,
+                            <cfqueryparam value="pending" cfsqltype="CF_SQL_VARCHAR">
+                        )
+            </cfquery>
+            <cfif reserve_res.RecordCount EQ 1>
+                <cfset reserve_id=reserve_res.GENERATED_KEY>
+                <cflocation  url="../cfm/user/payment.cfm?reserve_id=#toBase64(reserve_id)#" addtoken="no">       
+            </cfif>
+        </cfif>
+
+
+
     </cffunction>
+
+    <cffunction name="getReservation" access="remote">
+        <cfargument name="id" type="integer">
+        <cfquery name="reserve_res" result="reserve">
+            SELECT r.seats,r.seat_num,r.booked_on,r.show_date, r.price ,r.show_id,r.id,
+            m.movie_name,m.movie_language,m.genre,m.movie_format,
+            th.theatre_name,th.theatre_address,
+            s.screen_name,
+            sh.theatre_id,sh.total_seats,
+            st.show_time,st.show_name,
+            m.id as m_id , sh.id as sh_id, s.id as s_id , st.id as st_id ,th.id as th_id
+            FROM bookmymovie.reservation_table r INNER JOIN manage_shows sh ON r.show_id=sh.id
+            INNER JOIN bookmymovie.screen_time_table st ON st.id=r.time_slot
+            INNER JOIN bookmymovie.theatre th ON th.id=sh.theatre_id
+            INNER JOIN bookmymovie.movie_table m ON m.id=sh.movie_id
+            INNER JOIN bookmymovie.screen_table s ON s.id=sh.screen_id
+            WHERE r.id=<cfqueryparam value="#arguments.id#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>        
+        <cfreturn reserve_res>
+    </cffunction>
+
+
 </cfcomponent>

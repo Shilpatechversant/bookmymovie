@@ -179,7 +179,7 @@
 <cfinclude  template = "booking_footer.cfm"  runOnce = "true">  
 
 <script>
-const maxSeat = 5;
+    const maxSeat = 5;
     const seats = [];
     const seatStatus = (theatreId, seat) => {
         if(document.getElementById(`${theatreId}_${seat}`).checked){
