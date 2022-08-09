@@ -23,7 +23,12 @@
 		
 		<script type="text/javascript">
             $(document).ready(function() {
+       
                 init_BookingTwo();
+
+               
+
+           
             });
 
             $('.confirm').on('click',function(){
@@ -69,14 +74,40 @@
                     $("#t_price").text("");
                     $("#tprice").val("");
                     $('.time_data').css("display", "none");
-                    $("#proceed_btn").prop("disabled",true);
-        
+                    $("#proceed_btn").prop("disabled",true);        
                 } 
                   $('#confirmModal').modal('show');                    
                                 
     
         });
+
+                var showVal=$("#shid").val();
+                var sdate=$("#sdate").val();
+                alert("adssfc");
+                    $.ajax({  
+                        alert("sdsfdgf"); 
+                        url: "../../cfc/reservation.cfc",
+                        type: 'get',
+                        dataType:"json",
+                        data:{
+                        method:"getTheatreSeats",
+                        showid:showVal,
+                        cdate: sdate       
+                        },
+                        success: function(data)
+                        {
+                            //console.log(data.length);      
+                            for(let i=0;i<data.length;i++)      
+                            {
+                            // alert(data[i].seat_name);
+                            var place=document.querySelector('[data-place="'+data[i].seat_name+'"]');
+                                $(place).addClass("sits-state--not");
+                            }
+                                            
+                        }         
+                    });           
 		</script>
+
 
 
 </body>

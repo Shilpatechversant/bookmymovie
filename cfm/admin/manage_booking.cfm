@@ -1,6 +1,7 @@
 <cfinclude  template = "../header.cfm"  runOnce = "true"> 
 <cfparam  name="message" default="v"> 
 <cfparam  name="status" default="v"> 
+ <cfset bookData=application.bookings.bookingDetails()>
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
@@ -14,8 +15,7 @@
                                 <div class="table-responsive" id="tableList" width="100%">
                                     <table class="table table-bordered" id="example"  cellspacing="0">
                                         <thead>
-                                            <tr>
-                                                <th>Username</th>
+                                            <tr>                                               
                                                 <th>Email</th>
                                                 <th>Movie</th>
                                                 <th>Booking Date</th>
@@ -27,8 +27,7 @@
                                             </tr>
                                         </thead>
                                         <tfoot>
-                                              <tr>
-                                                <th>Username</th>
+                                              <tr>                                             
                                                 <th>Email</th>
                                                 <th>Movie</th>
                                                 <th>Booking Date</th>
@@ -39,8 +38,24 @@
                                                 <th>Status</th>                     
                                             </tr>
                                         </tfoot>
-                                        <tbody>                                
-                                    
+                                        <tbody>
+                                            <cfoutput query='bookData'>  
+                                                <tr>
+                                                    <td>#user_email#</td>
+                                                    <td>#movie_name#</td>
+                                                    <td>#booked_on#</td>
+                                                    <td>#show_name#,#show_time#</td>
+                                                    <td>#seats# && #price#</td> 
+                                                    <td>#ticket_id#</td>   
+                                                    <td>#theatre_name#</td> 
+                                                    <td><cfif paid eq '1'>
+                                                          paid
+                                                          <cfelse>
+                                                          Pending
+                                                        </cfif>
+                                                    </td>                                                 
+                                                </tr>
+                                            </cfoutput>                                   
                                         </tbody>
                                     </table>
                             </div>

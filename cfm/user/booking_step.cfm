@@ -13,19 +13,19 @@
      <cfset local.theatre_id=#i.theatre_id#>  
 </cfloop>
 <cfset seat_taken =application.bookings.getBookedSeats(local.sh_id,local.cdate)>
-
 <cfset row=Int(Sqr(local.total_seats))>
 <cfset columns=Int(ceiling(local.total_seats/(row)))>
 
 
   <div class="wrapper place-wrapper">
-
         <!-- Main content -->
 
 <!-- Main content -->
         <div class="place-form-area">
         <section class="container">
         <cfoutput >
+        <input type="hidden" name="sdate"  id="sdate" value="#local.cdate#">   
+        <input type="hidden" name="shid"  id="shid" value="#local.sh_id#">  
         <cfloop array="#showResult#" index="i">
             <div class="order-container">
                 <div class="order pt-3">                
@@ -86,10 +86,8 @@
                         </aside>
                 </div>
                 <div class="sits-area hidden-xs">
-                    <div class="sits-anchor">screen</div>
-                    
-                    <div class="sits">
-                    
+                    <div class="sits-anchor">screen</div>                    
+                    <div class="sits">                    
                         <cfoutput>
                             <cfloop from="1" to="#columns#" index="k" step="1">
                             <span class="sits__indecator">
@@ -162,8 +160,7 @@
                 
             <div class="col-sm-12 visible-xs"> 
                 <div class="sits-area--mobile">
-                    <div class="sits-area--mobile-wrap">
-                  
+                    <div class="sits-area--mobile-wrap">               
                                  
                 </div>
             </div>                
@@ -175,32 +172,8 @@
     </div>
 
  <div class="clearfix"></div>     
+ 
 <cfinclude  template = "confirm_seats.cfm"  runOnce = "true">  
 <cfinclude  template = "booking_footer.cfm"  runOnce = "true">  
 
-<script>
-    const maxSeat = 5;
-    const seats = [];
-    const seatStatus = (theatreId, seat) => {
-        if(document.getElementById(`${theatreId}_${seat}`).checked){
-            if(seats.length>=maxSeat){
-                alert("Max Limit Exceeded");
-                return;
-            }
-            seats.push(seat);
-            document.getElementById(`span_${theatreId}_${seat}`).innerHTML='<img src="../../assets/user/img/chair-selected.png" alt="chair">';
-        }else{
-            const index = seats.indexOf(seat);
-            if (index > -1) {
-                seats.splice(index, 1);
-            }
-            document.getElementById(`span_${theatreId}_${seat}`).innerHTML='<img src="../../assets/user/img/chair.png" alt="chair">';
-        }
-        const ticketPrice =parseFloat(document.getElementById("price").value*seats.length).toFixed(2)
-        document.getElementById("ticket-total-price").innerHTML = ticketPrice;
-        document.getElementById("fare").setAttribute('value',ticketPrice);
-        const seatsString = seats.toString();
-        document.getElementById("seats").setAttribute('value', seatsString );
-    }
-</script>
 

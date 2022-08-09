@@ -4,11 +4,8 @@
 <!--- <cfparam  name="ts" default="0"> --->
 <!--- <cfparam  name="tprice" default="0"> --->
 <cfparam  name="reserve_id" default="0">
-<cfset id=toString(toBinary(reserve_id))>
-<cfoutput>
-#id#
-</cfoutput>
-<cfset reserve_res=application.bookings.getReservation(id)>
+<cfset local.reserve_id=toString(toBinary(reserve_id))>
+<cfset reserve_res=application.bookings.getReservation(local.reserve_id)>
 
 <!---  <cfset pdate=toString(toBinary(date))> ---> --->
 <!--- <cfset showId=toString(toBinary(show_id))> --->
@@ -22,6 +19,8 @@
 <!--- <cfset time_res=application.obj.getScreenTime(time_id)> --->
        
         <!-- Main content -->
+        
+  <cfoutput> <input type="hidden" name="reserve_id" value="#local.reserve_id#" id="reserve_id"></cfoutput>
     <cfoutput query="reserve_res">
         <section class="container">
             <div class="order-container">
@@ -50,10 +49,10 @@
                             <h4><span>Price :</span>Rs.#price#</h4>
                             <h5>Grand Total :Rs. #price#</h5>       
                 </div>
-	
+	        
                     <h2 class="page-heading">price</h2>
                     <ul class="book-result">
-                        <li class="book-result__item">Tickets: <span class="book-result__count booking-ticket">#seats_num#</span></li>
+                        <li class="book-result__item">Tickets: <span class="book-result__count booking-ticket">#seat_num#</span></li>
                         <li class="book-result__item">Total: <span class="book-result__count booking-cost">$ #price#</span></li>
                     </ul>     
                  
@@ -63,6 +62,7 @@
                         <div class="contact-info__field contact-info__field-mail">
                             <input type='email' id="uemail" name='user-mail' placeholder='Your email' value="#Session.username#" class="form__mail">
                             <input type="hidden" name="u_id" id="u_id" value="#Session.userId#">
+                        
                         </div>
                      <input type="text" name="total_amount" id="amount" class="form-control"  placeholder="Total Amount" value="#price#" disabled />
                     </form>
@@ -105,6 +105,8 @@
         var email=document.getElementById('uemail').value;  
         var user_id =document.getElementById('u_id').value;  
         var amount=document.getElementById('amount').value;
+        var reserve_id=document.getElementById('reserve_id').value;
+  
         var t_price=amount*100;      
         
         var options = {
@@ -118,16 +120,13 @@
     "handler": function (response){
         alert(response.razorpay_payment_id);
         alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);
+        alert(response.razorpay_signature);    
         pay_id=response.razorpay_payment_id;
-        location.href="http://127.0.0.1:8500/movie_ticket/components/controller.cfc?method=confirmPayment&reserve_id="+reserve_id+"&pay_id="+response.razorpay_payment_id;
-        //alert("http://127.0.0.1:8500/movie_ticket/components/controller.cfc?method=confirmPayment&reserve_id="+reserve_id+"&pay_id="+response.razorpay_payment_id);
-    },
-    
+        location.href="http://127.0.0.1:8500/movieticket/cfc/reservation.cfc?method=confirmPayment&reserve_id="+reserve_id+"&pay_id="+response.razorpay_payment_id;
+    },    
     "prefill": {
         "name": name,
-        "email": email,
-        "contact":phone
+        "email": email       
     },
     "notes": {
         "address": "Razorpay Corporate Office"
@@ -145,11 +144,8 @@
             console.log("Complete the Payment")
           }
         }
-      },
-      
-   //"redirect":true,
-    //"callback_url":"http://127.0.0.1:8500/movie_ticket/components/controller.cfc?method=confirmPayment&reserve_id="+reserve_id
-
+      },      
+ 
 };
 var rzp1 = new Razorpay(options);
 rzp1.on('payment.failed', function (response){
@@ -165,8 +161,5 @@ rzp1.on('payment.failed', function (response){
     rzp1.open();
    // e.preventDefault();
 //}
-}
-
-
-
-   </script>
+}  
+ </script>
