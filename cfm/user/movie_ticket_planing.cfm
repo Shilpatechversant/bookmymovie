@@ -15,6 +15,7 @@
 <cfset movieData=application.obj1.movieAllDetails(local.mid)> 
 <cfset showResult=application.show.getShowDetailsByMovie(local.mid,local.checkdata)>   
         <!-- Main content -->
+        
     <cfoutput query="movieData">
         <section class="container">
             <div class="col-sm-12">
@@ -98,19 +99,18 @@
                         <div class="modal-body">                  
                             <!-- Main content -->
                             <form class="user" 
-                            method="post" 
-                            name="loginForm" 
-                            action="../../cfc/login.cfc?method=checkUser"
-                                >
+                                method="post" 
+                                name="loginForm" 
+                                action="../../cfc/login.cfc?method=checkUser">
                                 <h2>Log In to BookMyMovie</h2>
-                                <div class="field-wrap">
+                            <div class="contact-form-wrapper">
+                                <div class="container">
                                     <label>User email -  </label>
-                                    <input type='email' placeholder='Email' name='user_email' id="cemail" class="form-input"  
-                                    required>
+                                    <input type='email' placeholder='Email' name='user_email' id="cemail" class="form__name" required>
                                     <p class="email_alert text-danger"></p>
                                     <label>User Password  - </label>
-                                    <input type='password' placeholder='Password' name='user_password' class="form-input" >
-                                        <cfoutput >
+                                    <input type='password' placeholder='Password' name='user_password' class="form__name" >
+                                        <cfoutput>
                                             <input type="hidden" name="movie_id" value="#local.mid#">
                                              <input type="hidden" name="gshow_id" value="">                                          
                                             <input type="hidden" name="cdate" value="#local.checkdata#">
@@ -173,10 +173,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-   <cfinclude  template = "movie_footer.cfm"  runOnce = "true">  
+<cfinclude  template = "movie_footer.cfm"  runOnce = "true">  
 
 

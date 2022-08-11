@@ -23,14 +23,11 @@
         <!-- Mobile menu -->
         <link href="css/gozha-nav.css" rel="stylesheet" />
         <!-- Select -->
-        <link href="css/external/jquery.selectbox.css" rel="stylesheet" />
-    
+        <link href="css/external/jquery.selectbox.css" rel="stylesheet" />    
         <!-- Custom -->
         <link href="css/style.css?v=1" rel="stylesheet" />
-
         <!-- Modernizr --> 
-        <script src="js/external/modernizr.custom.js"></script>
-    
+        <script src="js/external/modernizr.custom.js"></script>  
     
 </head>
  

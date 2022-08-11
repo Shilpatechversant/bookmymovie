@@ -81,11 +81,11 @@
                         </li>
                         <li>
                             <span class="sub-nav-toggle plus"></span>
-                            <a href="page-elements.html">About Us</a>                  
+                            <a href="about_us.cfm">About Us</a>                  
                         </li>
                         <li>
                             <span class="sub-nav-toggle plus"></span>
-                            <a href="gallery-four.html">Contact us</a>                      
+                            <a href="contact_us.cfm">Contact us</a>                      
                         </li>                   
                         <li>
                             <span class="sub-nav-toggle plus"></span>

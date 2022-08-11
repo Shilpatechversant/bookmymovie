@@ -81,31 +81,7 @@
     
         });
 
-                var showVal=$("#shid").val();
-                var sdate=$("#sdate").val();
-                alert("adssfc");
-                    $.ajax({  
-                        alert("sdsfdgf"); 
-                        url: "../../cfc/reservation.cfc",
-                        type: 'get',
-                        dataType:"json",
-                        data:{
-                        method:"getTheatreSeats",
-                        showid:showVal,
-                        cdate: sdate       
-                        },
-                        success: function(data)
-                        {
-                            //console.log(data.length);      
-                            for(let i=0;i<data.length;i++)      
-                            {
-                            // alert(data[i].seat_name);
-                            var place=document.querySelector('[data-place="'+data[i].seat_name+'"]');
-                                $(place).addClass("sits-state--not");
-                            }
-                                            
-                        }         
-                    });           
+                      
 		</script>
 
 

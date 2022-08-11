@@ -21,8 +21,8 @@
                                         <cfoutput>#timeFormat(i.show_time)# (#i.show_name#)</cfoutput>
                                         </cfloop></h6>
                                     </div>
-                                </div>                                   
-                                    <cfoutput>
+                                </div>                                                                   
+                                    <cfoutput>                                      
                                         <input type="hidden" name="seats" id="seat_labels" value="">
                                         <input type="hidden" name="tprice"  id="tprice" value="">
                                         <input type="hidden" name="date"  id="date" value="#local.cdate#">

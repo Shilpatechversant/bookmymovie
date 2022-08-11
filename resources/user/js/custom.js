@@ -542,6 +542,30 @@ function init_BookingOne() {
 function init_BookingTwo () {
     "use strict";
 
+    var showVal=$("#show_id").val();
+    var sdate=$("#date").val();
+
+        $.ajax({            
+            url: "../../cfc/reservation.cfc",
+            type: 'get',
+            dataType:"json",
+            data:{
+            method:"getTheatreSeats",
+            showid:showVal,
+            cdate: sdate       
+            },
+            success: function(data)
+            {             
+                
+                for(let i=0;i<data.DATA.length;i++)      
+                {                           
+                   var place=document.querySelector('[data-place="'+data.DATA[i]+'"]');
+                    $(place).addClass("sits-state--not");
+                }
+                                
+            }         
+        });
+
 	//1. Buttons for choose order method
 	//order factor
     $('.order__control-btn').click(function (e) {
@@ -794,6 +818,10 @@ function init_BookingTwo () {
                     
 
             })
+
+
+
+       
         }
 
 

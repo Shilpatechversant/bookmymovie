@@ -1,5 +1,4 @@
 component {
-
     this.name = "MovieTicketApp";
     this.datasource = "newtech";
     this.sessionManagement  = true;
@@ -14,6 +13,7 @@ component {
         application.show=createObject('component','cfc.shows');
         application.user=createObject('component','cfc.login');
         application.bookings=createObject('component','cfc.reservation');
+        application.contact=createObject('component','cfc.contact');
         this.return=true;
     }
       

@@ -1,24 +1,9 @@
   <cfinclude  template = "movie_header.cfm"  runOnce = "true">  
-<!--- <cfparam  name="seat_num" default="0"> --->
-<!--- <!--- <cfparam  name="show_id" default="0"> ---> --->
-<!--- <cfparam  name="ts" default="0"> --->
-<!--- <cfparam  name="tprice" default="0"> --->
+
 <cfparam  name="reserve_id" default="0">
 <cfset local.reserve_id=toString(toBinary(reserve_id))>
 <cfset reserve_res=application.bookings.getReservation(local.reserve_id)>
 
-<!---  <cfset pdate=toString(toBinary(date))> ---> --->
-<!--- <cfset showId=toString(toBinary(show_id))> --->
-<!--- <!--- <cfset seat_s=toString(toBinary(seat_num))> ---> --->
-<!--- <cfset seat_split =seat_s.Split(",")> --->
-<!--- <cfset time_id=toString(toBinary(ts))> --->
-<!--- <cfset total_price=toString(toBinary(tprice))> --->
-
-
-<!--- <cfset show_res=application.show.getShowDetailsById(showId)> --->
-<!--- <cfset time_res=application.obj.getScreenTime(time_id)> --->
-       
-        <!-- Main content -->
         
   <cfoutput> <input type="hidden" name="reserve_id" value="#local.reserve_id#" id="reserve_id"></cfoutput>
     <cfoutput query="reserve_res">

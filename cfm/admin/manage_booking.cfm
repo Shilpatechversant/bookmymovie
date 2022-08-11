@@ -48,7 +48,7 @@
                                                     <td>#seats# && #price#</td> 
                                                     <td>#ticket_id#</td>   
                                                     <td>#theatre_name#</td> 
-                                                    <td><cfif paid eq '1'>
+                                                    <td><cfif #paid# eq '1'>
                                                           paid
                                                           <cfelse>
                                                           Pending

@@ -1,6 +1,7 @@
 <cfinclude  template = "../header.cfm"  runOnce = "true"> 
 <cfparam  name="message" default="v"> 
 <cfparam  name="status" default="v"> 
+ <cfset contactData=application.contact.getDetails()>
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
@@ -31,8 +32,16 @@
                                                 <th>Date</th>                     
                                             </tr>
                                         </tfoot>
-                                        <tbody>                                
-                                    
+                                        <tbody>
+                                            <cfoutput query='contactData'>
+                                                <tr>
+                                                    <td>#name#</td>
+                                                    <td>#email_id#</td>
+                                                    <td>#subject#</td>
+                                                    <td>#message#</td>
+                                                    <td>#send_date#</td>
+                                                </tr>
+                                            </cfoutput>                                   
                                         </tbody>
                                     </table>
                             </div>

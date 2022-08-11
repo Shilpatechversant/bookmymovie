@@ -51,18 +51,14 @@
         <cfargument  name="showid" type="integer"> 
         <cfargument  name="cdate" type="date"> 
 
-        <cfquery name="book_details" result="book_data">
-            SELECT res.seat_num as seats        
-            FROM bookmymovie.reservation_table res                 
+        <cfquery name="seat_taken" result="reserve">
+            SELECT s.seat_number
+            FROM bookmymovie.reservation_table res      
+            INNER JOIN bookmymovie.seat_table s ON s.reservation_id=res.id
             WHERE res.show_id=<cfqueryparam value="#arguments.showid#" cfsqltype="CF_SQL_INTEGER">
             AND res.show_date = <cfqueryparam value="#arguments.cdate#" cfsqltype="cf_sql_date"> 
-        </cfquery>       
-        <cfset MyNewArray = ArrayNew(1,false)>           
-        <cfloop query="book_details">
-            <cfset ArrayAppend(MyNewArray, #seats#)>
-        </cfloop>          
-        <cfset seats_taken = #ArrayToList(MyNewArray)#>    
-        <cfreturn seats_taken>
+        </cfquery>        
+        <cfreturn seat_taken>
     </cffunction>
    
 
@@ -152,7 +148,7 @@
         <cfquery name="book_res" result="res_book">
             SELECT t.ticket_id ,t.payment_id, 
                    t.book_date,t.book_time,r.seats,
-                   r.seat_num,r.booked_on, 
+                   r.seat_num,r.booked_on,r.paid, 
                    r.price ,r.show_id,r.id,
                    cl.user_email,
                 m.movie_name,m.movie_language,m.genre,
@@ -184,13 +180,15 @@
         <cftransaction>
             <cfquery name="update_reserve" result="up_reserve">
                 UPDATE bookmymovie.reservation_table
-                SET paid=<cfqueryparam value="1" cfsqltype="CF_SQL_INTEGER">
+                SET paid=<cfqueryparam value="1" cfsqltype="CF_SQL_INTEGER">             
                 WHERE id=<cfqueryparam value="#arguments.reserve_id#" cfsqltype="CF_SQL_INTEGER">
             </cfquery>
             <cfset local.id=arguments.reserve_id>
             <cfset reserve_data=getReservation(local.id)>
             <cfoutput query='reserve_res'>
                 <cfset local.ticket_id="BKID" & m_id & th_id & s_id & st_id & sh_id & id>
+                <cfset local.userseats=seats>
+                <cfset local.seat_split =local.userseats.Split(",")> 
             </cfoutput>
             <cfquery name="insert_ticket" result="ins_ticket">
                 INSERT into bookmymovie.book_table(
@@ -210,7 +208,20 @@
                         <cfqueryparam value="#session.userId#" cfsqltype="CF_SQL_INTEGER">
                       
                     )
+            </cfquery>     
+
+        <cfloop array=#local.seat_split# index="in">    
+            <cfquery name="insert_seat" result="ins_seat">
+                INSERT into bookmymovie.seat_table(
+                        seat_number,
+                        reservation_id                                             
+                    )
+                    VALUES(
+                        <cfqueryparam value="#in#" cfsqltype="CF_SQL_VARCHAR">,
+                        <cfqueryparam value="#arguments.reserve_id#" cfsqltype="CF_SQL_VARCHAR">                      
+                    )
             </cfquery>
+        </cfloop>
         </cftransaction>
         </cfif> 
         <cfif ins_ticket.RecordCount  NEQ 0>     
