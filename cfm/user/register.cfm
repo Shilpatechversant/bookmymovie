@@ -1,12 +1,11 @@
 
-       <cfinclude  template = "movie_header.cfm"  runOnce = "true">  
+       <cfinclude  template = "header.cfm"  runOnce = "true">  
           <!-- Main content -->
         <div class="clearfix"></div>
         <!-- Search bar -->        
         <section class="container">
             <div class="col-sm-12">
-                <div class="clearfix"></div>
-                
+                <div class="clearfix"></div>                
                        <!-- Main content -->
                 <form class="user" 
                        method="post" 
@@ -24,12 +23,19 @@
                         <input type='password' autocomplete="off" placeholder='Password' name='user_password' class="col-sm-12">
                           <hr>
                   <button type='submit'  class="btn btn-md btn--warning ">sign in</button>  
-                     </div>
-                  
+                     </div>                  
                 </form>
             </div>
             <div class="clearfix"></div>
-       </section>
+       </section>      
+            <footer class="footer-wrapper">
+                <section class="container">
+                    <div class="clearfix">
+                        <p class="copy">&copy;Book MyMovie, 2022. All rights reserved.</p>
+                    </div>
+                </section>             
+            </footer>
+        </div>
 
     <cfinclude  template = "movie_footer.cfm"  runOnce = "true">  
 

@@ -87,44 +87,26 @@
                             <span class="sub-nav-toggle plus"></span>
                             <a href="contact_us.cfm">Contact us</a>                      
                         </li>                   
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="register.cfm">Register</a>                      
-                        </li>   
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="gallery-four.html">Login</a>                      
-                        </li> 
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="gallery-four.html">Logout</a>                      
-                        </li>    
-
-                     
+                   
+                        <cfif StructKeyExists(session, "userId" )>
+                            <li>
+                                <span class="sub-nav-toggle plus"></span>
+                                <a href="../../cfc/login.cfc?method=webLogout">Logout</a>                      
+                            </li>  
+                            <ul>
+                            <li><a href="view_bookings.cfm" class="auth__function-item">Booked tickets</a> </li>
+                            </ul>                 
+                        <cfelse>
+                            <li>
+                                <span class="sub-nav-toggle plus"></span>
+                                <a href="register.cfm">Register</a>                      
+                            </li>   
+                            <li>
+                                <span class="sub-nav-toggle plus"></span>
+                                <a href="login.cfm">Login</a>                      
+                            </li>                      
+                        </cfif>            
                     </ul>
                 </nav>
-                
-                <!-- Additional header buttons / Auth and direct link to booking-->
-                <div class="control-panel">
-                    <div class="auth auth--home">
-                      <div class="auth__show">
-                        <span class="auth__image">
-                          <img alt="" src="../../resources/user/images/client-photo/auth.png">
-                        </span>
-                      </div>
-                      <a href="#" class="btn btn--sign btn--singin">
-                          me
-                      </a>
-                        <ul class="auth__function">
-                            <li><a href="#" class="auth__function-item">Watchlist</a></li>
-                            <li><a href="#" class="auth__function-item">Booked tickets</a></li>
-                            <li><a href="#" class="auth__function-item">Discussion</a></li>
-                            <li><a href="#" class="auth__function-item">Settings</a></li>
-                        </ul>
-
-                    </div>
-                    <a href="all_movie.cfm" class="btn btn-md btn--warning btn--book btn-control--home login-window">Book a ticket</a>
-                </div>
-
             </div>
         </header>

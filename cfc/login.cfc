@@ -63,6 +63,13 @@
         <cflocation  url="../index.cfm" addtoken="no">
      </cfif>    
     </cffunction>
+    
+    <cffunction name="webLogout" access="remote" output="false">
+      <cfif url.id eq "logout">
+        <cfset structClear(Session)>
+        <cflocation  url="../cfm/user/welcome.cfm" addtoken="no">
+     </cfif>    
+    </cffunction>
 
     <cffunction name="checkUser" access="remote"  output="false">
         <cfargument name="user_email" type="string" required="true">
@@ -89,6 +96,31 @@
         <cfelse>
             <cfset local.msg=hash('4','sha')>
             <cflocation  url="../cfm/user/movie_ticket_planing.cfm?movie_id=#toBase64(arguments.movie_id)#&tic_date=#toBase64(arguments.cdate)#&message=#local.msg#" addtoken="no">
+        </cfif>
+    </cffunction>
+
+    <cffunction name="checkWebUser" access="remote"  output="false">
+        <cfargument name="user_email" type="string" required="true">
+        <cfargument name="user_password" type="string" required="true">      
+ 
+        <cfquery datasource="newtech" result="outputdata" name="loginResult">
+            SELECT * FROM bookmymovie.client_table
+            WHERE user_email= <cfqueryparam CFSQLType="cf_sql_varchar" value="#arguments.user_email#"> 
+            AND password= <cfqueryparam CFSQLType="cf_sql_varchar" value="#hash(arguments.user_passWord,'SHA')#"> 
+        </cfquery>
+
+        <cfif outputdata.RECORDCOUNT GT 0>
+            <cfset Session.userId=loginResult.id>
+            <cfset Session.username=loginResult.user_email>
+            <cfset Session.role=loginResult.role>
+            <cfset Session.loggedin=true />
+            <cfif Session.loggedin eq true>  
+                 <cfset local.msg=hash('5','sha')>   
+               <cflocation  url="../cfm/user/login.cfm?message=#local.msg#" addtoken="no">
+            </cfif>
+        <cfelse>
+            <cfset local.msg=hash('4','sha')>
+            <cflocation  url="../cfm/user/login.cfm?message=#local.msg#" addtoken="no">
         </cfif>
     </cffunction>
 

@@ -4,9 +4,9 @@
 	<!-- Basic Page Needs -->
         <meta charset="utf-8">
         <title>AMovie - Booking step 2</title>
-        <meta name="description" content="A Template by Gozha.net">
+        <meta name="description" content="Book Movie Tickets">
         <meta name="keywords" content="HTML, CSS, JavaScript">
-        <meta name="author" content="Gozha.net">
+        <meta name="author" content="bookmymovie">
     
     <!-- Mobile Specific Metas-->
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,8 +27,7 @@
         <!-- Custom -->
         <link href="css/style.css?v=1" rel="stylesheet" />
         <!-- Modernizr --> 
-        <script src="js/external/modernizr.custom.js"></script>  
-    
+        <script src="js/external/modernizr.custom.js"></script>     
 </head>
  
 <body>

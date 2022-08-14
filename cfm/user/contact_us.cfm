@@ -1,4 +1,4 @@
-<cfinclude  template = "movie_header.cfm"  runOnce = "true"> 
+<cfinclude  template = "header.cfm"  runOnce = "true"> 
 <cfparam name="status" default="val">
     <cfif status EQ hash('1','sha')>
         <div class="alert alert-success alert-dismissible">
@@ -12,9 +12,9 @@
         Message Send Failed!!
         </div> 
     </cfif>
-  <div class="contact-form-wrapper">
-            <div class="container">
-                <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+    <div class="contact-form-wrapper">
+        <div class="container">
+            <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                     <form id='cform' class="form row" method='post'  action="../../cfc/contact.cfc?method=contactUs">
                         <p class="form__title">Drop us a line</p>
                         <div class="col-sm-12">
@@ -36,13 +36,12 @@
         </div>   
     </div>
 
-		<div class="container text-white">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					
-				</div>
-			</div>
-	
-		</div>
+    <div class="container text-white">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                
+            </div>
+        </div>	
+    </div>
 	</section>
 <cfinclude  template = "movie_footer.cfm"  runOnce = "true">  
