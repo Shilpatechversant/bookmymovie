@@ -15,27 +15,21 @@
 <cfset seat_taken =application.bookings.getBookedSeats(local.sh_id,local.cdate)>
 <cfset row=Int(Sqr(local.total_seats))>
 <cfset columns=Int(ceiling(local.total_seats/(row)))>
-
-
-  <div class="wrapper place-wrapper">
-        <!-- Main content -->
-
+<div class="wrapper place-wrapper">
 <!-- Main content -->
-        <div class="place-form-area">
+    <div class="place-form-area">
         <section class="container">
         <cfoutput >
-        <input type="hidden" name="sdate"  id="sdate" value="#local.cdate#">   
-        <input type="hidden" name="shid"  id="shid" value="#local.sh_id#">  
-        <cfloop array="#showResult#" index="i">
-            <div class="order-container">
-                <div class="order pt-3">                
-                    <img class="order__images" alt='' src="../../assets/poster/#i.movie_poster#">
-                    <p class="order__title text-center text-white">#i.movie_name# <br>
-                    <span class="order__descript">#i.theatre_name#| #i.movie_language# -#i.movie_format#</span></p>
-                     
+            <input type="hidden" name="sdate"  id="sdate" value="#local.cdate#">   
+            <input type="hidden" name="shid"  id="shid" value="#local.sh_id#">  
+            <cfloop array="#showResult#" index="i">
+                <div class="order-container">
+                    <div class="order pt-3">                
+                        <img class="order__images" alt='' src="../../assets/poster/#i.movie_poster#">
+                        <p class="order__title text-center text-white">#i.movie_name# <br>
+                        <span class="order__descript">#i.theatre_name#| #i.movie_language# -#i.movie_format#</span></p>
+                    </div>
                 </div>
-            </div>
-
             <div class="dt_div mt-5">
                 <div class="container p-4">
                     <a href="movie_ticket_planing.cfm?movie_id=#toBase64(i.mid)#&tic_date=#toBase64(local.cdate)#id=#local.sh_id#" class="btn btn-showing" >Back</a>
@@ -62,11 +56,9 @@
                         
                     </ul>
                 </div>
-
                 <cfset row=Int(Sqr(i.total_seats))>
                 <cfset columns=Int(ceiling(i.total_seats/(row)))>
-                
-                
+                         
                 <div class="choose-sits__info">
                     <ul>
                         <li class="sits-state sits-state--not">Not available</li>

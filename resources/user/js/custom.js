@@ -1089,6 +1089,7 @@ function init_MovieList () {
 	//5. Toggle function for additional content
 				//toggle timetable show
                 $('.movie__show-btn').click(function (ev) {
+                    alert("aDSD");
                     ev.preventDefault();
 
                     $(this).parents('.movie--preview').find('.time-select').slideToggle(500);

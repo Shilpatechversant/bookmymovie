@@ -1,13 +1,48 @@
  <cfcomponent name="reservation">  
-   <cffunction name="getBookings" access="remote" returnFormat = "json" >    
-        <cfargument  name="showId" type="integer">          
-        <cfquery name="show_details" result="show_data" returntype="array" >
-            SELECT COUNT(res.id) as num_seats, res.id as rs_id,res.seat_num,m.total_seats,m.id         
-            FROM bookmymovie.reservation_table res
-            INNER JOIN bookmymovie.manage_shows m ON res.show_id =m.id       
-            WHERE res.show_id=<cfqueryparam value="#arguments.showId#" cfsqltype="CF_SQL_INTEGER">
-        </cfquery>  
-        <cfreturn show_details> 
+    <cffunction name="getBookings" access="remote" returnFormat = "json" >    
+        <cfargument  name="showid" type="integer"> 
+        <cfargument  name="cdate" type="string"> 
+
+        <cfquery name="seat_taken" result="reserve">
+            SELECT s.seat_number,COUNT(s.seat_number) as seat_count
+            FROM bookmymovie.reservation_table res      
+            INNER JOIN bookmymovie.seat_table s ON s.reservation_id=res.id
+            WHERE res.show_id=<cfqueryparam value="#arguments.showid#" cfsqltype="CF_SQL_INTEGER">
+            AND res.show_date = <cfqueryparam value="#arguments.cdate#" cfsqltype="cf_sql_date">
+            AND res.paid = "1" 
+        </cfquery>
+        <cfquery name="getseats" result="total_theatre_seats" >
+            SELECT total_seats
+            FROM bookmymovie.manage_shows  
+            WHERE id=<cfqueryparam value="#arguments.showid#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>
+         <cfoutput query="getseats">
+            <cfset s_count= #total_seats#>     
+        </cfoutput>         
+
+        <cfif reserve.RecordCount EQ 0>            
+            <cfoutput query="getseats">               
+                 <cfreturn s_count> 
+            </cfoutput>                        
+        </cfif>
+        <cfif reserve.RecordCount NEQ 0>
+           <cfoutput query="seat_taken">
+                <cfset t_count= #seat_count#>       
+                <cfset avail_seat=s_count - t_count>
+                <cfreturn avail_seat> 
+            </cfoutput>                        
+        </cfif>
+        <cfreturn seat_taken>
+    </cffunction>
+     
+     <cffunction name="gettotalseats" access="remote"  output="false">
+         <cfargument  name="showid" type="integer"> 
+        <cfquery name="get_total_seats" result="total_theatre_seats" >
+            SELECT total_seats
+            FROM bookmymovie.manage_shows  
+            WHERE id=<cfqueryparam value="#arguments.showid#" cfsqltype="CF_SQL_INTEGER">
+        </cfquery>          
+        <cfreturn total_theatre_seats>
     </cffunction>
 
     <cffunction name="ShowBookview" access="remote"  output="false">
@@ -20,12 +55,10 @@
             <cfset local.seat_num=toBase64(arguments.seats)>
             <cfset local.show_id=toBase64(arguments.ch_show_id)>
             <cfset local.date=toBase64(arguments.cdate)>
-
             <cflocation  url="../cfm/user/booking_step.cfm?seat_num=#local.seat_num#&show_id=#local.show_id#&date=#local.date#" addtoken="no">
         <cfelse>
             <cfset local.status=hash('10','sha')>
             <cflocation  url="../cfm/user/error_form.cfm?message=#local.status#" AddToken="no"> 
-
         </cfif>
     </cffunction>
 
@@ -56,8 +89,10 @@
             FROM bookmymovie.reservation_table res      
             INNER JOIN bookmymovie.seat_table s ON s.reservation_id=res.id
             WHERE res.show_id=<cfqueryparam value="#arguments.showid#" cfsqltype="CF_SQL_INTEGER">
-            AND res.show_date = <cfqueryparam value="#arguments.cdate#" cfsqltype="cf_sql_date"> 
-        </cfquery>        
+            AND res.show_date = <cfqueryparam value="#arguments.cdate#" cfsqltype="cf_sql_date">
+            AND res.paid = "1" 
+        </cfquery> 
+
         <cfreturn seat_taken>
     </cffunction>
    
@@ -115,11 +150,7 @@
             <cfif reserve_res.RecordCount EQ 1>
                 <cfset reserve_id=reserve_res.GENERATED_KEY>
                 <cflocation  url="../cfm/user/payment.cfm?reserve_id=#toBase64(reserve_id)#" addtoken="no">       
-            </cfif>
-     
-
-
-
+            </cfif>  
     </cffunction>
 
     <cffunction name="getReservation" access="remote">
@@ -232,7 +263,7 @@
     <cffunction name="getallBookings" access="remote">        
         <cfquery name="book_res" result="res_book">
             SELECT t.ticket_id ,t.payment_id, 
-                   t.book_date,t.book_time,r.seats,
+                   t.book_date,t.book_time,r.seats,r.show_date, 
                    r.seat_num,r.booked_on, 
                    r.price ,r.show_id,r.id,
                 m.movie_name,m.movie_language,m.genre,
@@ -250,6 +281,32 @@
                 INNER JOIN bookmymovie.movie_table m ON m.id=sh.movie_id
                 INNER JOIN bookmymovie.screen_table s ON s.id=sh.screen_id
                 WHERE t.user_id=<cfqueryparam value="#session.userId#" cfsqltype="CF_SQL_INTEGER">
+                ORDER BY r.id DESC;
+        </cfquery>
+        <cfreturn book_res>
+    </cffunction>
+    <cffunction name="getticket" access="remote">  
+        <cfargument name="id" type="integer">      
+        <cfquery name="book_res" result="res_book">
+            SELECT t.ticket_id ,t.payment_id, 
+                   t.book_date,t.book_time,r.seats,
+                   r.seat_num,r.booked_on,r.show_date, 
+                   r.price ,r.show_id,r.id,
+                m.movie_name,m.movie_language,m.genre,
+                m.movie_format,
+                th.theatre_name,th.theatre_address,
+                s.screen_name,
+                sh.theatre_id,sh.total_seats,
+                st.show_time,st.show_name,
+                m.id as m_id , sh.id as sh_id, s.id as s_id , 
+                st.id as st_id ,th.id as th_id
+                FROM bookmymovie.book_table t INNER JOIN bookmymovie.reservation_table r ON t.reserve_id=r.id
+                INNER JOIN bookmymovie.manage_shows sh ON r.show_id=sh.id
+                INNER JOIN bookmymovie.screen_time_table st ON st.id=r.time_slot
+                INNER JOIN bookmymovie.theatre th ON th.id=sh.theatre_id
+                INNER JOIN bookmymovie.movie_table m ON m.id=sh.movie_id
+                INNER JOIN bookmymovie.screen_table s ON s.id=sh.screen_id
+                WHERE r.id=<cfqueryparam value="#arguments.id#" cfsqltype="CF_SQL_INTEGER">
         </cfquery>
         <cfreturn book_res>
     </cffunction>

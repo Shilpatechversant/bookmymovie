@@ -1,10 +1,7 @@
-  <cfinclude  template = "movie_header.cfm"  runOnce = "true">  
-
+<cfinclude  template = "movie_header.cfm"  runOnce = "true">  
 <cfparam  name="reserve_id" default="0">
 <cfset local.reserve_id=toString(toBinary(reserve_id))>
-<cfset reserve_res=application.bookings.getReservation(local.reserve_id)>
-
-        
+<cfset reserve_res=application.bookings.getReservation(local.reserve_id)>        
   <cfoutput> <input type="hidden" name="reserve_id" value="#local.reserve_id#" id="reserve_id"></cfoutput>
     <cfoutput query="reserve_res">
         <section class="container">
@@ -23,24 +20,17 @@
                     <div class="order-step third--step">3. Check out</div>
                 </div>
             <div class="col-sm-12">
-                <div class="checkout-wrapper">               
-                            <h3>Booking Summary</h3>
-                            <h6><span>Movie:</span>#movie_name#</h6>
-                            <p><span>Theatre:</span>#theatre_name#</p>
-                            <p><span>Date:</span> #dateformat(booked_on,"full")#</p>
-                            <p><span>Time:</span> #timeformat(show_time)# (#show_name#)</p>
-                            <p><span>Tickets:</span>#seat_num#</p>
-                            <p><span>Seats:</span>  #seats#</p>
-                            <h4><span>Price :</span>Rs.#price#</h4>
-                            <h5>Grand Total :Rs. #price#</h5>       
-                </div>
-	        
-                    <h2 class="page-heading">price</h2>
+
+	            <h2 class="page-heading">Booking Summary</h2>
                     <ul class="book-result">
                         <li class="book-result__item">Tickets: <span class="book-result__count booking-ticket">#seat_num#</span></li>
                         <li class="book-result__item">Total: <span class="book-result__count booking-cost">$ #price#</span></li>
+                        <li class="book-result__item">#theatre_name#,#movie_name#
+                          <p><span>Time:</span> #timeformat(show_time)# (#show_name#)</p>
+                          </li>
+                        <li class="book-result__item"> #seats#</li>
                     </ul>     
-                 
+                    <br>
                     <h2 class="page-heading">Contact information</h2>
                     <cfoutput>
                     <form id='contact-info' method='post' novalidate="" class="form contact-info">
@@ -52,10 +42,6 @@
                      <input type="text" name="total_amount" id="amount" class="form-control"  placeholder="Total Amount" value="#price#" disabled />
                     </form>
                     </cfoutput>
-
-                    <div class="form-group row">                 
-                         <input type="checkbox" name="remember"> I agree to the terms and conditions
-                    </div>
                 </div>
                 <div class="d-flex justify-content-center">
                      <!--- <input type="submit" class="btn btn-showing" name="submit" value="Payment">--->
@@ -91,9 +77,7 @@
         var user_id =document.getElementById('u_id').value;  
         var amount=document.getElementById('amount').value;
         var reserve_id=document.getElementById('reserve_id').value;
-  
         var t_price=amount*100;      
-        
         var options = {
     "key": "rzp_test_s9cSqIJIxI5xGT", // Enter the Key ID generated from the Dashboard
     "amount": t_price, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -102,10 +86,7 @@
     "description": "Test Transaction",
     "image": "https://example.com/your_logo",
     //"order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "handler": function (response){
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);    
+    "handler": function (response){         
         pay_id=response.razorpay_payment_id;
         location.href="http://127.0.0.1:8500/movieticket/cfc/reservation.cfc?method=confirmPayment&reserve_id="+reserve_id+"&pay_id="+response.razorpay_payment_id;
     },    

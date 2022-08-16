@@ -7,6 +7,8 @@
         <script>window.jQuery || document.write('<script src="js/external/jquery-3.1.1.min.js"><\/script>')</script>
         <!-- Migrate --> 
         <script src="../../resources/user/js/external/jquery-migrate-1.2.1.min.js"></script>
+        <!-- Bootstrap 3--> 
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
         <!-- jQuery UI -->
         <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <!-- Bootstrap 3--> 
@@ -65,21 +67,21 @@
 
         function getSeatCountView(show_id,mov_id,cdate)
         {   
-         
+         var sdate=$('#cdate').val(); 
          $.ajax({
             url: "../../cfc/reservation.cfc",
             type: "post", 
             dataType: "json",
             data: {
                 method: "getBookings",
-                showId:show_id              
+                showId:show_id,
+                cdate:sdate,            
             },
-            success: function (data){             
-                if(data && data.length){ 
-                   var avail_seats=parseInt(data[0]['total_seats']) - parseInt(data[0].num_seats);
-                   $(".seat_label").text("(" +avail_seats+ " Left)");
+            success: function (data){                                   
+                if(data){                 
+                   $(".seat_label").text("(" +data+ " Left)");
                     $('#ch_show_id').val(show_id);     
-                    $('#total_seats').val(avail_seats);                                                                                        
+                    $('#total_seats').val(data);                                                                                        
                    $('#GseatModal').modal('show');     
               }
             }
@@ -103,12 +105,8 @@
             }
 
         }     
-		</script>   
-
-     
-
-
- 
+		</script>  
+    
 
 </body>
 </html>

@@ -75,8 +75,11 @@
 
 <cffunction name="showDetails" access="public" >        
         <cfquery name="show_details" result="show_data" >
-            SELECT sh.id,m.movie_poster,m.movie_name,th.theatre_name,m.release_date,m.movie_duration,sh.total_seats,
-            s.screen_name,st.show_time,st.show_name,sh.end_date,sh.priority,sh.show_status
+            SELECT sh.id,m.movie_poster,m.movie_name,th.theatre_name,
+            m.release_date,m.movie_duration,
+            sh.total_seats,m.movie_format,
+            s.screen_name,st.show_time,st.show_name,
+            sh.end_date,sh.priority,sh.show_status
             FROM bookmymovie.manage_shows sh
             INNER JOIN bookmymovie.movie_table m ON sh.movie_id =m.id
             INNER JOIN bookmymovie.theatre th ON sh.theatre_id=th.id 
@@ -131,7 +134,7 @@
    <cfset local.Today = #dateFormat(Now(),"yyyy-mm-dd")#>     
         <cfquery name="show_details" result="show_data" >
                 SELECT DISTINCT m.movie_name,m.id as mid,sh.id,m.movie_poster,
-                                m.movie_language,m.release_date,m.genre,
+                                m.movie_language,m.release_date,m.genre,m.movie_format,
                                 m.movie_duration,sh.total_seats,            
                                 sh.end_date,sh.priority,sh.show_status
                 FROM bookmymovie.manage_shows sh
@@ -170,6 +173,7 @@
                     m.movie_duration,sh.total_seats,            
                     sh.end_date,sh.priority,sh.show_status,
                     sh.id,m.movie_poster,m.movie_name,m.genre,
+                    m.movie_format,
                     th.theatre_name,m.id as mid,                   
                     s.screen_name,st.show_time,
                     st.show_name,m.id as mid,th.id as t_id,s.id as s_id,st.id as st_id
@@ -211,7 +215,8 @@
             INNER JOIN bookmymovie.screen_time_table st ON sh.screen_time_id =st.id
             WHERE sh.movie_id = <cfqueryparam value="#arguments.mid#" cfsqltype="cf_sql_integer"> 
             AND m.release_date < <cfqueryparam value="#local.cday#" cfsqltype="cf_sql_date"> 
-            AND  sh.end_date > <cfqueryparam value="#local.cday#" cfsqltype="cf_sql_date">    
+            AND  sh.end_date > <cfqueryparam value="#local.cday#" cfsqltype="cf_sql_date">   
+            OR  sh.end_date = <cfqueryparam value="#local.cday#" cfsqltype="cf_sql_date">  
         </cfquery>  
     <cfreturn show_details>     
 </cffunction> 
@@ -225,7 +230,7 @@
             SELECT sh.id as sh_id,
                    s.screen_name,
                    st.show_time,
-                   st.show_name
+                   st.show_name 
             FROM bookmymovie.manage_shows sh        
             INNER JOIN bookmymovie.screen_table s ON sh.screen_id=s.id
             INNER JOIN bookmymovie.screen_time_table st ON sh.screen_time_id =st.id

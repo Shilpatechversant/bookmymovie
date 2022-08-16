@@ -14,8 +14,7 @@
         </cfif>
 <cfset movieData=application.obj1.movieAllDetails(local.mid)> 
 <cfset showResult=application.show.getShowDetailsByMovie(local.mid,local.checkdata)>   
-        <!-- Main content -->
-        
+        <!-- Main content -->        
     <cfoutput query="movieData">
         <section class="container">
             <div class="col-sm-12">
@@ -60,8 +59,9 @@
                         <div class="time-select">
                             <div class="time-select__group group--first">
                             	<cfset time_res=application.show.getTimeSlots(#theatre_id#,local.mid,local.checkdata)>
-                                <div class="col-sm-4">
-                                    #theatre_name# - #screen_name# 
+                          
+                                <div class="col-sm-12">
+                                    <h6>#theatre_name# - #screen_name# </h6>
                                     <cfloop query="time_res">
                                         <cfif  structKeyExists(Session,"userId")>                                            
                                                 <button onClick="getSeatCountView(#sh_id#,#local.mid#,#local.checkdata#)"  type="button" class="time-select__item">

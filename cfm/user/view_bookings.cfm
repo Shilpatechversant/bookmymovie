@@ -1,14 +1,14 @@
 <cfinclude  template = "movie_header.cfm"  runOnce = "true">
-<cfparam  name="reserve_id" default="0">
-<cfset id=toString(toBinary(reserve_id))>
-<cfset ticket_res=application.bookings.getticket(id)>
-<cfoutput query="ticket_res">
-    <section class="container">
-        <div class="col-sm-12">
-         <h3 class="page-heading">Thank you.Please download your ticket </h3>
+<cfset ticket_res=application.bookings.getallBookings()>
+<section class="container">
+     <h3 class="page-heading">All Tickets</h3>
+    <cfoutput query="ticket_res">
+        <div class="row col-sm-12">
+    
             <div class="order-container">
                 <div class="clearfix"></div>
-                <div class="ticket">               
+
+             <div class="ticket">               
                     <div class="ticket-position bg-white">
                         <div class="ticket__indecator indecator--pre"><div class="indecator-text pre--text">online ticket</div> </div>
                         <div class="ticket__inner">
@@ -40,11 +40,11 @@
 
                 <div class="ticket-control">
                     <a href="download_file.cfm?id=#id#" class="btn btn-danger">Download</a>
-                    <a href="index.cfm" class="btn btn-showing">Back to Home</a>
+                    
                 </div>
              <div class="clearfix"></div>
             </div>
         </div>
     </section>
-</cfoutput>
+        </cfoutput>
 <cfinclude  template = "movie_footer.cfm"  runOnce = "true">  

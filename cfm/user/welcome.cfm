@@ -2,32 +2,70 @@
 <cfset res=application.obj1.movieDetails()>    
 <cfset movies_upcoming=application.obj1.upcomingMovieDetails()>  
 <cfset show_res=application.show.activeShowDetails()>    
-<cfset all_res=application.show.allMovieDetails()>                                              
+<cfset all_res=application.show.allMovieDetails()>                                             
  <cfinclude  template = "slider.cfm"  runOnce = "true">                
     <!-- Main content -->
     <section class="container">
         <cfinclude  template = "movie_best.cfm"  runOnce = "true">      
+    </div> 
+    <div class="clearfix"></div>
+    <!-- Search bar -->
+    <div class="search-wrapper">        
+        <div class="container container--add">
+             <div class="clearfix"></div>
+            <form id='search-form' action="" method="post"><br>  
+                <select class="js-example-basic-single col-md-12 form-control" name="movie_search">
+                    <option value="default"><h3>Select movie<h3></option>
+                    <cfloop query="show_res">
+                        <option value=<cfoutput>#mid#</cfoutput>> 
+                            <cfoutput>#movie_name#</cfoutput>
+                        </option>
+                    </cfloop>                 
+                </select>      
+        </div>
     </div>
-        <!-- Search bar -->
-            <div class="clearfix"></div>
-            <!-- Search bar -->
-        <div class="search-wrapper">
-        <br>
-            <div class="container container--add">
-                <form id='search-form' method='get' class="search">
-                    <input type="text" class="search__field" placeholder="Search">
-                    <select name="sorting_item" id="search-sort" class="search__sort" tabindex="0">
-                        <option value="1" selected='selected'>By title</option>
-                        <option value="2">By year</option>
-                        <option value="3">By producer</option>
-                        <option value="4">By title</option>
-                        <option value="5">By year</option>
-                    </select>
-                    <button type='submit' class="btn btn-md btn--danger search__button">search a movie</button>
-                </form>
+    <div class="col-sm-offset-1 pull-left">
+        <button type="submit" name="submit" value="Submit" class="btn btn-md btn--danger search__button">SEARCH FOR A MOVIE</button>
+    </div> 
+            </form
+    <div class="clearfix"></div>
+    <cfif structKeyExists(form,'Submit')> 
+            <cfset local.kid=form.movie_search>
+            <cfset searchData=application.obj1.getMovieById(local.kid)>   
+        <div class="cinema-wrap">     
+            <div class="col-sm-10 col-sm-offset-1">
+                 <h2 class="page-heading">Search Result</h2>
+               <div class="row">  
+                <cfoutput query="searchData">  
+                    <cfset local.s_id=toBase64(#id#)>   
+                    <!-- Movie preview item -->
+                    <div class="movie movie--preview movie--full release">
+                        <div class="col-sm-6 col-md-2 col-lg-2">
+                                <div class="movie__images">
+                                    <img alt='' src="../../assets/poster/#searchData.movie_poster#">
+                                </div>
+                                <div class="movie__feature">                                 
+                                    <a href="#movie_trailer#" class="movie__feature-item movie__feature--video">**</a>
+                                    <a href="" class="movie__feature-item movie__feature--photo">**</a>
+                                </div>
+                        </div>
+                        <div class="col-sm-9 col-md-10 col-lg-10 movie__about">
+                                <a href='single_movie.cfm?movie_id=#local.s_id#' class="movie__title link--huge">#movie_name#</a>
+                                <p class="movie__time">#movie_duration# min</p>
+                                <p class="movie__option"><strong>Movie Language: </strong><a href="">#movie_language#</a></p>
+                                <p class="movie__option"><strong>Category: </strong><a href="">#genre#</a></p>
+                                <p class="movie__option"><strong>Release date: </strong>#release_date#</p>  
+                                <p class="movie__option"><strong>Genere</strong>#genre#</p>                        
+                                                   
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </cfoutput>
+                </div>
             </div>
         </div>
-        <div class="clearfix"></div>
+            <!-- search movie preview item --> 
+        </cfif>  
             <h2 id='target' class="page-heading heading--outcontainer">Now in the cinema</h2> 
                 <div class="cinema-wrap">     
                     <div class="col-sm-12">
@@ -50,12 +88,10 @@
                         </div>
                     </div>  
                 </div>
-        <div class="pagination paginatioon--full">
-            <a href='#' class="pagination__prev">prev</a>
+        <div class="pagination paginatioon--full">       
             <a href='#' class="pagination__next">next</a>
         </div>
        <div class="clearfix"></div>
-
         <h2 id='target' class="page-heading heading--outcontainer">Upcoming cinema</h2> 
             <div class="cinema-wrap">     
                 <div class="col-sm-12">
@@ -63,11 +99,11 @@
                             <cfoutput query="movies_upcoming">      
                                 <div class="col-xs-6 col-sm-3 cinema-item"> 
                                     <div class="cinema">
-                                        <a href='single-cinema.html' class="cinema__images">
+                                        <a href='single_movie.cfm?movie_id=#m_id#' class="cinema__images">
                                             <img alt='' src="../../assets/poster/#movie_poster#" width="150px" height="150px">
-                                            <span class="cinema-rating">#release_date#</span> 
+                                            <span class="cinema-rating">#dateformat(release_date)#</span> 
                                         </a>
-                                           <a href="single-cinema.html" class="cinema-title">#movie_name#
+                                           <a href="single_movie.cfm?movie_id=#m_id#" class="cinema-title">#movie_name#
                                               <p class="cinema-title">#movie_language#</p>                                          
                                             </a>                                 
                                     </div>
@@ -89,11 +125,11 @@
                             <cfoutput query="all_res">      
                                 <div class="col-xs-6 col-sm-3 cinema-item"> 
                                     <div class="cinema">
-                                        <a href='single-cinema.html' class="cinema__images">
+                                        <a href='single_movie.cfm?movie_id=#m_id#' class="cinema__images">
                                             <img alt='' src="../../assets/poster/#movie_poster#" width="150px" height="150px">
-                                            <span class="cinema-rating">#release_date#</span> 
+                                            <span class="cinema-rating">#dateformat(release_date)#</span> 
                                         </a>
-                                           <a href="single-cinema.html" class="cinema-title">#movie_name#
+                                           <a href="single_movie.cfm?movie_id=#m_id#" class="cinema-title">#movie_name#
                                               <p class="cinema-title">#movie_language#</p>                                          
                                             </a>                                 
                                     </div>
@@ -108,10 +144,8 @@
      <div class="pagination paginatioon--full">
             <a href='#' class="pagination__prev">prev</a>
             <a href='#' class="pagination__next">next</a>
-    </div>
-        
-        <div class="clearfix"></div>
-
+    </div>        
+    <div class="clearfix"></div>
         <footer class="footer-wrapper">    
             <div class="contact-form-wrapper">
                 <div class="container">
@@ -141,6 +175,4 @@
             </div>
        </footer>
     </div>
-
-
 <cfinclude  template = "footer.cfm"  runOnce = "true">  

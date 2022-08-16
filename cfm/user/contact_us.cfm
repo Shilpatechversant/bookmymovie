@@ -44,4 +44,4 @@
         </div>	
     </div>
 	</section>
-<cfinclude  template = "movie_footer.cfm"  runOnce = "true">  
+<cfinclude  template = "footer.cfm"  runOnce = "true">  

@@ -57,6 +57,32 @@
         <cflocation  url="../cfm/admin/update_password.cfm?status=#local.status#" addtoken="no">
     </cffunction>
 
+    <cffunction name="updateWebuserPassword" access="remote" output="true">
+        <cfargument  name="old_password" type="string">
+        <cfargument  name="new_password" type="string">
+        <cfargument  name="c_password" type="string">
+        <cfset local.pass=hash(arguments.new_password,'SHA')>
+        <cfif arguments.old_password!="" && arguments.new_password!="" && arguments.c_password!="">
+            <cfif arguments.new_password==arguments.c_password> 
+                <cfquery name="update_pass" result="pass_res">
+                    UPDATE bookmymovie.client_table SET 
+                    password=<cfqueryparam value="#local.pass#" cfsqltype="CF_SQL_VARCHAR">
+                    WHERE id="#Session.userId#"
+                </cfquery>
+                <cfif pass_res.RecordCount NEQ 0>
+                    <cfset local.status=hash('1','sha')>
+                     <cflocation  url="../cfm/user/update_password.cfm?status=#local.status#" addtoken="no">
+                </cfif>
+            <cfelse>
+                <cfset local.status=hash('3','sha')>
+                <cflocation  url="../cfm/user/update_password.cfm?status=#local.status#" addtoken="no">
+            </cfif>
+        <cfelse>
+            <cfset local.status=hash('2','sha')>
+        </cfif>
+        <cflocation  url="../cfm/user/update_password.cfm?status=#local.status#" addtoken="no">
+    </cffunction>
+
     <cffunction name="logout" access="remote" output="false">
       <cfif url.id eq "logout">
         <cfset structClear(Session)>
@@ -130,7 +156,7 @@
 
         <cfif arguments.user_email eq "" >
             <cfset local.msg=hash('4','sha')>
-            <cflocation url="../user/register.cfm?message=#local.msg#" addtoken ="no">
+            <cflocation url="../cfm/user/register.cfm?message=#local.msg#" addtoken ="no">
         </cfif>    
 
         <cfquery name="emailcheck" datasource="newtech">
@@ -139,22 +165,22 @@
             where user_email = <cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.user_email#" >
         </cfquery>
       
-        <cfif emailcheck.recordcount >
+        <cfif emailcheck.recordcount GT 0>
             <cfset local.msg=hash('8','sha')>
-            <cflocation url="../user/register.cfm?message=#local.msg#" addtoken ="no">
+            <cflocation url="../cfm/user/register.cfm?message=#local.msg#" addtoken ="no">
         <cfelse>           
-            <cfquery datasource="newtech" result="result">
+            <cfquery datasource="newtech" result="outputdata">
                 INSERT INTO bookmymovie.client_table (user_email,password,registered_on,role) VALUES (                     
                     <cfqueryparam value="#arguments.user_email#" cfsqltype="cf_sql_varchar">,                
                     <cfqueryparam value="#hash(arguments.user_passWord,'SHA')#" cfsqltype="cf_sql_varchar">,
                     <cfqueryparam value="#datetimeformat(now(),"yyyy-mm-dd HH:n:s")#" cfsqltype="CF_SQL_TIMESTAMP">,'client')
             </cfquery>
-            <cfif result.generatedkey>
-               <cfset local.msg=hash('1','sha')>
-                <cflocation url="../user/login.cfm?message=#local.msg#" addtoken ="no">
+            <cfif outputdata.RECORDCOUNT GT 0>
+                <cfset local.msg=hash('8','sha')>
+                <cflocation url="../cfm/user/login.cfm?message=#local.msg#" addtoken ="no">
             <cfelse>
                 <cfset local.msg=hash('2','sha')>
-                <cflocation url="../register.cfm?message=#local.msg#" addtoken ="no">
+                <cflocation url="../cfm/user/register.cfm?message=#local.msg#" addtoken ="no">
             </cfif>
         </cfif>
     </cffunction>

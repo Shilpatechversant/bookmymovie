@@ -6,7 +6,6 @@
                     <img class="order__images" alt='' src="images/tickets.png">
                     <p class="order__title">Thank you <br><span class="order__descript">you have successfully purchased tickets</span></p>
                 </div>
-
                 <div class="ticket">
                     <div class="ticket-position">
                         <div class="ticket__indecator indecator--pre"><div class="indecator-text pre--text">online ticket</div> </div>
@@ -25,7 +24,6 @@
                                 <span class="ticket__item ticket__item--primery ticket__film">Film<br><strong class="ticket__movie">The Fifth Estate (2013)</strong></span>
                                 <span class="ticket__item ticket__item--primery">Sits: <span class="ticket__place">11F, 12F, 13F</span></span>
                             </div>
-
 
                         </div>
                         <div class="ticket__indecator indecator--post"><div class="indecator-text post--text">online ticket</div></div>

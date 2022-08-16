@@ -1,19 +1,18 @@
   
-
-   <div class="modal confirmModal" style="display:none" id="confirmModal">
+   <div class="modal confirmModal col-md-offset-5" style="display:none" id="confirmModal">
             <form action="../../cfc/reservation.cfc?method=setBooking" method="post">
                 <div class="modal-dialog modal-xs">
                     <form method='post' action="" name="confirm_form" id="timeForm" enctype='multipart/form-data' >
                         <div class="modal-content">
                             <!-- Modal Header -->
                             <div class="modal-header">
-                                <h2 class="modal-title" id="time_title">Confirm Seats </h2>                                
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                <h2 class="modal-title" id="time_title">Confirm Seats </h2>
+                                     <h6 id="confirm_alert" ><h6>                               
                             </div>
                             <!-- Modal body -->
                             <div class="modal-body">
                                 <div class="text-center text-success">         
-                                    <h6 id="confirm_alert" ><h6>  
+                                
                                     <h6 id='t_price' ></h6>
                                     <div class="time_data">
                                         <h6 id="time_s" class="text-center text-success">

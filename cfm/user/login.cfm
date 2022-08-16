@@ -29,6 +29,11 @@
                         <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a> Login Successfull.!!
                     </div>
                 </cfif>
+                <cfif message EQ hash('8','sha')>
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a> Registartion Successfull.Please login!!
+                    </div>
+                </cfif>
             </div>
             <div class="clearfix"></div>
         </section>
@@ -40,4 +45,4 @@
             </section>
         </footer>
 </div>
-<cfinclude template="movie_footer.cfm" runOnce="true">
+<cfinclude template="footer.cfm" runOnce="true">

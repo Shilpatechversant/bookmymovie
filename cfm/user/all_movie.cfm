@@ -1,6 +1,6 @@
 
-       <cfinclude  template = "movie_header.cfm"  runOnce = "true">  
-       <cfset movieData=application.show.activeShowDetails()>       
+    <cfinclude  template = "movie_header.cfm"  runOnce = "true">  
+    <cfset movieData=application.show.activeShowDetails()>       
         <!-- Main content -->
         <div class="clearfix"></div>
         <!-- Search bar -->        
@@ -56,7 +56,6 @@
                         </cfoutput>
                     <!-- search movie preview item --> 
                 </cfif>  
-
                 <cfoutput query="movieData">  
                 <cfset m_id=toBase64(#mid#)>   
                     <!-- Movie preview item -->

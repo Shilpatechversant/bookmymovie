@@ -37,15 +37,14 @@
 
         <!-- Twitter feed -->
         <script src="../../resources/user/js/external/twitterfeed.js"></script>
-
+        <script src="../../resources/js/select/js/select2.min.js"></script>
         <!-- Custom -->
-        <script src="../../resources/user/js/custom.js"></script>
-
- 
+        <script src="../../resources/user/js/custom.js"></script> 
 		
 	      <script type="text/javascript">
               $(document).ready(function() {
                 init_Home();
+                $('.js-example-basic-single').select2();     
               });
 		    </script>
 

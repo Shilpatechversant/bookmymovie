@@ -86,26 +86,43 @@
                         <li>
                             <span class="sub-nav-toggle plus"></span>
                             <a href="contact_us.cfm">Contact us</a>                      
-                        </li>                   
-                   
-                        <cfif StructKeyExists(session, "userId" )>
-                            <li>
-                                <span class="sub-nav-toggle plus"></span>
-                                <a href="../../cfc/login.cfc?method=webLogout">Logout</a>                      
-                            </li>  
-                            <ul>
-                            <li><a href="view_bookings.cfm" class="auth__function-item">Booked tickets</a> </li>
-                            </ul>                 
-                        <cfelse>
-                            <li>
-                                <span class="sub-nav-toggle plus"></span>
-                                <a href="register.cfm">Register</a>                      
-                            </li>   
-                            <li>
-                                <span class="sub-nav-toggle plus"></span>
-                                <a href="login.cfm">Login</a>                      
-                            </li>                      
-                        </cfif>            
+                        </li>   
+                               <cfif StructKeyExists(session, "userId" )>
+                                <li>
+                                    <span class="sub-nav-toggle plus"></span>
+                                    <a href="../../cfc/login.cfc?method=webLogout&id=logout">Logout</a>
+                                </li>
+                            <cfelse>
+                                <li>
+                                    <span class="sub-nav-toggle plus"></span>
+                                    <a href="register.cfm">Register</a>
+                                </li>
+                                <li>
+                                    <span class="sub-nav-toggle plus"></span>
+                                    <a href="login.cfm">Login</a>
+                                </li>
+                            </cfif>           
+                            <cfif StructKeyExists(session, "userId" )>
+                                <!-- Additional header buttons / Auth and direct link to booking-->                          
+                                <div class="control-panel">
+                                    <div class="auth auth--home">
+                                        <div class="auth__show">
+                                            <span class="auth__image">
+                                                <img alt="" src="../../resources/user/images/client-photo/auth.png">
+                                            </span>
+                                        </div>
+                                        <a href="#" class="btn btn--sign btn--singin"> me </a>&nbsp;&nbsp;
+                                        <ul class="auth__function">
+                                            <li>
+                                                <a href="view_bookings.cfm" class="auth__function-item">View Bookings</a>
+                                            </li>
+                                            <li>
+                                                <a href="update_password.cfm" class="auth__function-item">Update Password</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </cfif>         
                     </ul>
                 </nav>
             </div>

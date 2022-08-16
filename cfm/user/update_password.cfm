@@ -1,10 +1,11 @@
 <cfinclude template="header.cfm" runOnce="true">
 <cfparam name="message" default="v">
 <cfparam name="status" default="v">
-    <div class="contact-form-wrapper">
-        <div class="container">
-               <div class="col-lg-12  col-lg-offset-2"> Update Password 
-               <div class="card-header p-3">
+<div>   
+    <div class="container">
+        <h1 class="page-heading">Update Password </h1> 
+            <div class="col-lg-12">              
+               <div class="card-header p-3">                    
                     <cfif status EQ hash('1','sha')>
                         <div class="alert alert-success alert-dismissible">
                             <a href="##" class="close" data-dismiss="alert" aria-label="close">&times;</a> Password Updated Successfully !!
@@ -20,8 +21,8 @@
                     </cfif>
                 </div>
                 <div class="card-body">
-                    <form name="passForm" id="passForm" action="../../cfc/login.cfc?method=updatePassword" method="post">
-                        <div class="row ">
+                    <form name="passForm" id="passForm" action="../../cfc/login.cfc?method=updateWebuserPassword" method="post">
+                        <div class="row ">                             
                             <div class="form-group">
                                 <input type="text" name="old_password" id="old_password" class="form-control" placeholder="Old Password">
                                 <p class="oldpassword_alert text-danger"></p>
@@ -42,4 +43,5 @@
                 </div>
             </div>
         </div>
-                <cfinclude template="footer.cfm" runOnce="true">
+</div>
+<cfinclude template="footer.cfm" runOnce="true">
